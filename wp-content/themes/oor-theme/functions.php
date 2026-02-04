@@ -281,76 +281,211 @@ add_action('init', function() {
     remove_action('wp_head', 'wp_generator');
 }, 1);
 
-// Принудительное отображение обязательных полей чекаута WooCommerce через JavaScript
+// Чекаут: всегда используем шаблон со шорткодом [woocommerce_checkout], а не блок — чтобы поля billing были в DOM
+add_filter('template_include', function($template) {
+    if (!function_exists('is_checkout') || !is_checkout()) {
+        return $template;
+    }
+    if (function_exists('is_wc_endpoint_url') && is_wc_endpoint_url()) {
+        return $template; // order-received, order-pay и т.д. — не подменяем
+    }
+    $our = get_stylesheet_directory() . '/page-checkout.php';
+    if (file_exists($our)) {
+        return $our;
+    }
+    return $template;
+}, 99);
+
+// Чекаут: при пустой корзине всё равно показываем форму (поля в DOM), редирект отключён
+add_filter('woocommerce_checkout_redirect_empty_cart', '__return_false', 1);
+
+/**
+ * Рендерит поле чекаута без вызова woocommerce_form_field (кроме country/state).
+ * Поля text/email/tel/textarea выводятся напрямую — так их не может «съесть» ни фильтр, ни баг WC.
+ *
+ * @param string $key   Ключ поля (billing_first_name и т.д.).
+ * @param array  $field Аргументы поля из get_checkout_fields().
+ * @param mixed  $value Значение поля.
+ */
+function oor_render_checkout_field( $key, $field, $value ) {
+	// Защита от нескалярных значений (массив/объект) — иначе esc_attr/esc_textarea могут сломать вывод.
+	if ( ! is_scalar( $value ) && $value !== null ) {
+		$value = '';
+	}
+	if ( $value === null ) {
+		$value = '';
+	}
+
+	$type = isset( $field['type'] ) ? $field['type'] : 'text';
+
+	// country/state — сложная логика (страны, регионы), оставляем WooCommerce.
+	if ( $type === 'country' || $type === 'state' ) {
+		woocommerce_form_field( $key, $field, $value );
+		return;
+	}
+
+	// Остальные поля — выводим HTML сами, без woocommerce_form_field.
+	$id          = isset( $field['id'] ) ? $field['id'] : $key;
+	$label       = isset( $field['label'] ) ? $field['label'] : '';
+	$required    = ! empty( $field['required'] );
+	$placeholder = isset( $field['placeholder'] ) ? $field['placeholder'] : '';
+	$field_class = isset( $field['class'] ) ? $field['class'] : array();
+	$container_cls = is_array( $field_class ) ? implode( ' ', $field_class ) : $field_class;
+	$field_input_class = isset( $field['input_class'] ) ? $field['input_class'] : array();
+	$input_cls   = is_array( $field_input_class ) ? implode( ' ', $field_input_class ) : $field_input_class;
+	$field_label_class = isset( $field['label_class'] ) ? $field['label_class'] : array();
+	$label_cls   = is_array( $field_label_class ) ? implode( ' ', $field_label_class ) : $field_label_class;
+	$sort        = isset( $field['priority'] ) ? $field['priority'] : '';
+	$autocomplete = isset( $field['autocomplete'] ) ? $field['autocomplete'] : '';
+
+	// Тип инпута: email, tel, textarea или text.
+	if ( ! in_array( $type, array( 'email', 'tel', 'textarea' ), true ) ) {
+		$type = 'text';
+	}
+
+	$req_mark   = $required ? '&nbsp;<span class="required" aria-hidden="true">*</span>' : '';
+	$req_attr   = $required ? ' aria-required="true" required' : '';
+	$name_esc   = esc_attr( $key );
+	$id_esc     = esc_attr( $id );
+	$value_esc  = esc_attr( $value );
+	$ph_esc     = esc_attr( $placeholder );
+	$ac_attr    = $autocomplete ? ' autocomplete="' . esc_attr( $autocomplete ) . '"' : '';
+	$label_esc  = $label ? wp_kses_post( $label ) . $req_mark : '';
+	$label_cls_esc = esc_attr( ( $required ? 'required_field ' : '' ) . $label_cls );
+
+	$container_class = 'form-row ' . esc_attr( $container_cls );
+	$container_id    = $id_esc . '_field';
+	$data_priority   = $sort !== '' ? ' data-priority="' . esc_attr( $sort ) . '"' : '';
+
+	echo '<p class="' . $container_class . '" id="' . esc_attr( $container_id ) . '"' . $data_priority . '>';
+	if ( $label_esc ) {
+		echo '<label for="' . $id_esc . '" class="' . $label_cls_esc . '">' . $label_esc . '</label>';
+	}
+	echo '<span class="woocommerce-input-wrapper">';
+
+	if ( $type === 'textarea' ) {
+		echo '<textarea name="' . $name_esc . '" id="' . $id_esc . '" class="input-text ' . esc_attr( $input_cls ) . '" placeholder="' . $ph_esc . '" rows="2" cols="5"' . $req_attr . $ac_attr . '>' . esc_textarea( $value ) . '</textarea>';
+	} else {
+		echo '<input type="' . esc_attr( $type ) . '" name="' . $name_esc . '" id="' . $id_esc . '" class="input-text ' . esc_attr( $input_cls ) . '" value="' . $value_esc . '" placeholder="' . $ph_esc . '"' . $req_attr . $ac_attr . ' />';
+	}
+
+	echo '</span></p>';
+}
+
+// Чекаут: у полей адреса всегда должен быть тип, по которому woocommerce_form_field выведет инпут (text, email, tel и т.д.).
+// Иначе в разметке остаётся только подпись без <input>. Приоритет 99999 — чтобы сработать после любых плагинов.
+add_filter('woocommerce_form_field_args', function($args, $key, $value) {
+    $address_keys = array('billing_first_name', 'billing_last_name', 'billing_address_1', 'billing_city', 'billing_postcode', 'billing_state', 'billing_email', 'billing_phone', 'shipping_first_name', 'shipping_last_name', 'shipping_address_1', 'shipping_city', 'shipping_postcode', 'shipping_state');
+    if (!in_array($key, $address_keys, true)) {
+        return $args;
+    }
+    $valid_types = array('text', 'password', 'datetime', 'datetime-local', 'date', 'month', 'time', 'week', 'number', 'email', 'url', 'tel', 'country', 'state', 'textarea', 'checkbox', 'select', 'radio', 'hidden');
+    $type = isset($args['type']) ? $args['type'] : '';
+    if ($type === '' || !in_array($type, $valid_types, true)) {
+        if (strpos($key, 'email') !== false) {
+            $args['type'] = 'email';
+        } elseif (strpos($key, 'phone') !== false) {
+            $args['type'] = 'tel';
+        } else {
+            $args['type'] = 'text';
+        }
+    }
+    return $args;
+}, 99999, 3);
+
+// Чекаут: не даём фильтрам (в т.ч. типа minimal_checkout_fields_only с приоритетом 9999) убрать поля billing —
+// если billing пустой, восстанавливаем стандартные поля. Приоритет 99999 чтобы сработать последним.
+add_filter('woocommerce_checkout_fields', function($fields) {
+    if (!empty($fields['billing']) || !function_exists('WC') || !WC()->countries) {
+        return $fields;
+    }
+    $country = WC()->countries->get_base_country();
+    $allowed = WC()->countries->get_allowed_countries();
+    if (empty($allowed)) {
+        $allowed = array($country => '');
+    }
+    $country = array_key_exists($country, $allowed) ? $country : key($allowed);
+    $fields['billing'] = WC()->countries->get_address_fields($country, 'billing_');
+    return $fields;
+}, 99999);
+
+// Вставка инпутов в строки чекаута, если их нет в DOM (после рендера или после address-i18n/update_checkout).
 add_action('wp_footer', function() {
     if (!is_checkout()) {
         return;
     }
+    $fields = array(
+        'billing_first_name'  => array( 'type' => 'text', 'required' => true ),
+        'billing_last_name'   => array( 'type' => 'text', 'required' => true ),
+        'billing_address_1'  => array( 'type' => 'text', 'required' => true ),
+        'billing_address_2'  => array( 'type' => 'text', 'required' => false ),
+        'billing_city'       => array( 'type' => 'text', 'required' => true ),
+        'billing_state'      => array( 'type' => 'text', 'required' => true ),
+        'billing_postcode'   => array( 'type' => 'text', 'required' => true ),
+        'billing_email'      => array( 'type' => 'email', 'required' => true ),
+        'billing_phone'      => array( 'type' => 'tel', 'required' => false ),
+        'shipping_first_name'  => array( 'type' => 'text', 'required' => true ),
+        'shipping_last_name'   => array( 'type' => 'text', 'required' => true ),
+        'shipping_address_1'  => array( 'type' => 'text', 'required' => true ),
+        'shipping_address_2'  => array( 'type' => 'text', 'required' => false ),
+        'shipping_city'       => array( 'type' => 'text', 'required' => true ),
+        'shipping_state'      => array( 'type' => 'text', 'required' => true ),
+        'shipping_postcode'   => array( 'type' => 'text', 'required' => true ),
+    );
+    $json = wp_json_encode( $fields );
     ?>
     <script>
         (function() {
-            function fixCheckoutFields() {
-                console.log('[OOR Fix] Running field fix...');
-                
-                var requiredFieldIds = [
-                    'billing_first_name',
-                    'billing_last_name', 
-                    'billing_address_1',
-                    'billing_city',
-                    'billing_postcode',
-                    'billing_email'
-                ];
-                
-                requiredFieldIds.forEach(function(fieldId) {
-                    var input = document.getElementById(fieldId);
-                    if (input) {
-                        console.log('[OOR Fix] Found input:', fieldId, 'tagName:', input.tagName, 'type:', input.type);
-                        
-                        // Проверяем, не скрыт ли родитель
-                        var parent = input.parentElement;
-                        var parentChain = [];
-                        while (parent && parent !== document.body) {
-                            var style = window.getComputedStyle(parent);
-                            parentChain.push({
-                                tag: parent.tagName,
-                                class: parent.className,
-                                display: style.display,
-                                visibility: style.visibility,
-                                height: style.height,
-                                overflow: style.overflow
-                            });
-                            
-                            // Принудительно показываем родителей
-                            parent.style.display = 'block';
-                            parent.style.visibility = 'visible';
-                            parent.style.height = 'auto';
-                            parent.style.overflow = 'visible';
-                            
-                            parent = parent.parentElement;
-                        }
-                        console.log('[OOR Fix] Parent chain for', fieldId, ':', JSON.stringify(parentChain.slice(0, 5)));
-                        
-                        // Применяем стили к инпуту напрямую
-                        input.style.cssText = 'display: block !important; visibility: visible !important; opacity: 1 !important; width: 100% !important; min-height: 52px !important; background-color: #ff0000 !important; border: 3px solid #00ff00 !important; color: #ffffff !important; padding: 12px !important; position: relative !important; z-index: 9999 !important; overflow: visible !important;';
-                        
-                        var rect = input.getBoundingClientRect();
-                        console.log('[OOR Fix] After fix, getBoundingClientRect:', rect.width, 'x', rect.height, 'at', rect.left, rect.top);
-                    } else {
-                        console.log('[OOR Fix] Input NOT found:', fieldId);
+            var section = '.oor-checkout-section';
+            var fieldConfig = <?php echo $json; ?>;
+
+            function injectMissingInputs() {
+                var wrap = document.querySelector(section);
+                if (!wrap) return;
+
+                Object.keys(fieldConfig).forEach(function(name) {
+                    var row = wrap.querySelector('#' + name + '_field');
+                    if (!row) return;
+                    var hasInput = row.querySelector('input, select, textarea');
+                    if (hasInput) return;
+
+                    var cfg = fieldConfig[name];
+                    var span = document.createElement('span');
+                    span.className = 'woocommerce-input-wrapper';
+
+                    var input = document.createElement('input');
+                    input.type = cfg.type;
+                    input.name = name;
+                    input.id = name;
+                    input.className = 'input-text';
+                    if (cfg.required) {
+                        input.setAttribute('required', 'required');
+                        input.setAttribute('aria-required', 'true');
                     }
+
+                    span.appendChild(input);
+                    row.appendChild(span);
                 });
             }
-            
-            // Запускаем сразу и после загрузки
-            if (document.readyState === 'complete') {
-                fixCheckoutFields();
-            } else {
-                window.addEventListener('load', fixCheckoutFields);
+
+            function run() {
+                injectMissingInputs();
+                setTimeout(injectMissingInputs, 100);
+                setTimeout(injectMissingInputs, 400);
             }
-            
-            // И через секунду на случай динамической загрузки
-            setTimeout(fixCheckoutFields, 1000);
-            setTimeout(fixCheckoutFields, 2000);
+
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', run);
+            } else {
+                run();
+            }
+            window.addEventListener('load', run);
+
+            if (typeof jQuery !== 'undefined') {
+                jQuery(document.body).on('updated_checkout country_to_state_changed wc_address_i18n_ready', function() {
+                    setTimeout(run, 0);
+                });
+            }
         })();
     </script>
     <?php
