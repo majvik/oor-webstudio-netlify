@@ -1,0 +1,248 @@
+/**
+ * ========================================
+ * UTILITY CLASSES
+ * ========================================
+ * 
+ * Утилитарные классы для устранения дублирования CSS
+ * Следуют принципам Always Works™
+ * 
+ * @author OOR Development Team
+ * @version 1.0.0
+ * @since 2025-09-21
+ */
+
+/* === DISPLAY UTILITIES === */
+.u-flex { display: flex !important; }
+.u-inline-flex { display: inline-flex !important; }
+.u-block { display: block !important; }
+.u-inline-block { display: inline-block !important; }
+.u-inline { display: inline !important; }
+.u-hidden { display: none !important; }
+
+/* === FLEXBOX UTILITIES === */
+.u-flex-center { 
+  display: flex !important; 
+  align-items: center !important; 
+  justify-content: center !important; 
+}
+.u-flex-between { 
+  display: flex !important; 
+  align-items: center !important; 
+  justify-content: space-between !important; 
+}
+.u-flex-start { 
+  display: flex !important; 
+  align-items: center !important; 
+  justify-content: flex-start !important; 
+}
+.u-flex-end { 
+  display: flex !important; 
+  align-items: center !important; 
+  justify-content: flex-end !important; 
+}
+.u-flex-column { 
+  display: flex !important; 
+  flex-direction: column !important; 
+}
+
+/* === POSITIONING UTILITIES === */
+.u-relative { position: relative !important; }
+.u-absolute { position: absolute !important; }
+.u-fixed { position: fixed !important; }
+.u-sticky { position: sticky !important; }
+
+/* === SPACING UTILITIES === */
+.u-m-0 { margin: 0 !important; }
+.u-m-auto { margin: auto !important; }
+.u-mx-auto { margin-left: auto !important; margin-right: auto !important; }
+.u-my-auto { margin-top: auto !important; margin-bottom: auto !important; }
+
+.u-p-0 { padding: 0 !important; }
+.u-px-0 { padding-left: 0 !important; padding-right: 0 !important; }
+.u-py-0 { padding-top: 0 !important; padding-bottom: 0 !important; }
+
+/* === TEXT UTILITIES === */
+.u-text-center { text-align: center !important; }
+.u-text-left { text-align: left !important; }
+.u-text-right { text-align: right !important; }
+.u-text-uppercase { text-transform: uppercase !important; }
+.u-text-lowercase { text-transform: lowercase !important; }
+.u-text-capitalize { text-transform: capitalize !important; }
+.u-text-nowrap { white-space: nowrap !important; }
+
+/* === COLOR UTILITIES === */
+.u-text-white { color: var(--color-white) !important; }
+.u-text-black { color: var(--color-black) !important; }
+.u-text-gray { color: var(--color-gray) !important; }
+.u-text-muted { color: var(--color-muted) !important; }
+
+.u-bg-white { background-color: var(--color-white) !important; }
+.u-bg-black { background-color: var(--color-black) !important; }
+.u-bg-transparent { background-color: transparent !important; }
+
+/* === FONT UTILITIES === */
+.u-font-ui { font-family: var(--font-ui) !important; }
+.u-font-pragmatica { font-family: var(--font-pragmatica) !important; }
+
+.u-font-xs { font-size: var(--text-xs) !important; }
+.u-font-sm { font-size: var(--text-sm) !important; }
+.u-font-base { font-size: var(--text-base) !important; }
+.u-font-lg { font-size: var(--text-lg) !important; }
+.u-font-xl { font-size: var(--text-xl) !important; }
+.u-font-2xl { font-size: var(--text-2xl) !important; }
+.u-font-3xl { font-size: var(--text-3xl) !important; }
+.u-font-4xl { font-size: var(--text-4xl) !important; }
+.u-font-5xl { font-size: var(--text-5xl) !important; }
+
+.u-font-light { font-weight: 300 !important; }
+.u-font-normal { font-weight: 400 !important; }
+.u-font-medium { font-weight: 500 !important; }
+.u-font-bold { font-weight: 700 !important; }
+
+/* === SIZING UTILITIES === */
+.u-w-full { width: 100% !important; }
+.u-h-full { height: 100% !important; }
+.u-w-auto { width: auto !important; }
+.u-h-auto { height: auto !important; }
+
+.u-min-h-screen { min-height: calc(100 * var(--oor-vh)) !important; }
+.u-min-w-screen { min-width: 100vw !important; }
+
+/* === OVERFLOW UTILITIES === */
+.u-overflow-hidden { overflow: hidden !important; }
+.u-overflow-x-hidden { overflow-x: hidden !important; }
+.u-overflow-y-hidden { overflow-y: hidden !important; }
+.u-overflow-auto { overflow: auto !important; }
+
+/* === BORDER UTILITIES === */
+.u-border-0 { border: 0 !important; }
+.u-border-none { border: none !important; }
+.u-rounded { border-radius: var(--border-radius-md) !important; }
+.u-rounded-sm { border-radius: var(--border-radius-sm) !important; }
+.u-rounded-lg { border-radius: var(--border-radius-lg) !important; }
+
+/* === SHADOW UTILITIES === */
+.u-shadow-sm { box-shadow: var(--shadow-sm) !important; }
+.u-shadow-md { box-shadow: var(--shadow-md) !important; }
+.u-shadow-lg { box-shadow: var(--shadow-lg) !important; }
+.u-shadow-none { box-shadow: none !important; }
+
+/* === TRANSITION UTILITIES === */
+.u-transition { transition: var(--transition-base) !important; }
+.u-transition-fast { transition: var(--transition-fast) !important; }
+.u-transition-slow { transition: var(--transition-slow) !important; }
+
+/* === Z-INDEX UTILITIES === */
+.u-z-dropdown { z-index: var(--z-dropdown) !important; }
+.u-z-sticky { z-index: var(--z-sticky) !important; }
+.u-z-fixed { z-index: var(--z-fixed) !important; }
+.u-z-modal { z-index: var(--z-modal) !important; }
+.u-z-tooltip { z-index: var(--z-tooltip) !important; }
+
+/* === CURSOR UTILITIES === */
+.u-cursor-pointer { cursor: pointer !important; }
+.u-cursor-default { cursor: default !important; }
+.u-cursor-not-allowed { cursor: not-allowed !important; }
+
+/* === OPACITY UTILITIES === */
+.u-opacity-0 { opacity: 0 !important; }
+.u-opacity-25 { opacity: 0.25 !important; }
+.u-opacity-50 { opacity: 0.5 !important; }
+.u-opacity-75 { opacity: 0.75 !important; }
+.u-opacity-100 { opacity: 1 !important; }
+
+/* === VISIBILITY UTILITIES === */
+.u-visible { visibility: visible !important; }
+.u-invisible { visibility: hidden !important; }
+
+/* === POINTER EVENTS UTILITIES === */
+.u-pointer-events-none { pointer-events: none !important; }
+.u-pointer-events-auto { pointer-events: auto !important; }
+
+/* === OBJECT FIT UTILITIES === */
+.u-object-cover { object-fit: cover !important; }
+.u-object-contain { object-fit: contain !important; }
+.u-object-fill { object-fit: fill !important; }
+.u-object-none { object-fit: none !important; }
+
+/* === RESPONSIVE UTILITIES === */
+@media screen and (max-width: 480px) {
+  .u-mobile-hidden { display: none !important; }
+  .u-mobile-block { display: block !important; }
+  .u-mobile-flex { display: flex !important; }
+}
+
+/* === SCROLLBAR UTILITIES === */
+.u-scrollbar-hide {
+  scrollbar-width: none !important; /* Firefox */
+  -ms-overflow-style: none !important; /* IE and Edge */
+}
+
+.u-scrollbar-hide::-webkit-scrollbar {
+  display: none !important; /* Chrome, Safari, Edge */
+}
+
+/* === FOCUS UTILITIES === */
+.u-focus-outline-none:focus {
+  outline: none !important;
+}
+
+.u-focus-ring:focus {
+  outline: 2px solid var(--color-accent) !important;
+  outline-offset: 2px !important;
+}
+
+/* === SELECTION UTILITIES === */
+.u-select-none {
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+}
+
+.u-select-text {
+  -webkit-user-select: text !important;
+  -moz-user-select: text !important;
+  -ms-user-select: text !important;
+  user-select: text !important;
+}
+
+/* === ANIMATION UTILITIES === */
+.u-animate-fade-in {
+  animation: fadeIn var(--transition-base) ease-in-out !important;
+}
+
+.u-animate-slide-up {
+  animation: slideUp var(--transition-base) ease-out !important;
+}
+
+.u-animate-scale-in {
+  animation: scaleIn var(--transition-base) ease-out !important;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { 
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from { 
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to { 
+    opacity: 1;
+    transform: scale(1);
+  }
+}

@@ -1,0 +1,86 @@
+/**
+ * ========================================
+ * ANIMATIONS AND TRANSITIONS
+ * ========================================
+ * 
+ * Анимации и переходы для OOR проекта
+ * Вынесены из components.css для модульности
+ * 
+ * @author OOR Development Team
+ * @version 1.0.0
+ * @since 2025-09-21
+ */
+
+/* Rolling button animation */
+.rolling-button .tn-atom {
+  line-height: 1.2;
+  height: 1.4em; /* чуть больше, чтобы не резать буквы */
+  overflow: hidden;
+  position: relative;
+  display: inline-block;
+  justify-content: center;
+}
+
+.rolling-button .tn-atom .letter {
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  transform: translateY(0);
+  transition: transform 0.6s cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+/* Первый блок остается в потоке и задает ширину контейнера */
+.rolling-button .block {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Второй блок перекрывает первый */
+.rolling-button .block:last-child {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Буквы второго блока стартуют ниже на 100% */
+.rolling-button .block:last-child .letter {
+  transform: translateY(100%);
+}
+
+/* Анимация при hover */
+.rolling-button .tn-atom:hover .block:first-child .letter {
+  transform: translateY(-100%);
+}
+
+.rolling-button .tn-atom:hover .block:last-child .letter {
+  transform: translateY(0%);
+}
+
+/* Подчеркивание для первого блока у целевых ссылок */
+.overlay-bottom.rolling-button .tn-atom .block:first-child,
+.slider-all-link.rolling-button .tn-atom .block:first-child,
+.oor-out-of-talk-link.rolling-button .tn-atom .block:first-child,
+.oor-events-photo-link.rolling-button .tn-atom .block:first-child {
+  text-decoration: underline;
+}
+
+/* Fallback: показать текст, если JS не инициализировал блоки */
+.rolling-button .tn-atom:not(:has(.block)) {
+  height: auto;
+  overflow: visible;
+}
+
+/* Media cover utility */
+.oor-media-cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

@@ -1,0 +1,79 @@
+services:
+  wordpress:
+    build:
+      context: .
+      dockerfile: Dockerfile.wordpress
+    container_name: oor-wordpress
+    restart: unless-stopped
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: wordpress
+      WORDPRESS_DB_NAME: wordpress
+      WORDPRESS_DEBUG: 1
+      PHP_INI_SCAN_DIR: /usr/local/etc/php/conf.d
+    volumes:
+      - wordpress-data:/var/www/html
+      - ./wp-content:/var/www/html/wp-content:rw
+      - ./wordpress-uploads:/var/www/html/wp-content/uploads:rw
+    depends_on:
+      - db
+    networks:
+      - oor-network
+
+  nginx:
+    image: nginx:alpine
+    container_name: oor-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "8080:80"
+      - "443:443"
+      - "8443:443"
+    volumes:
+      - wordpress-data:/var/www/html:ro
+      - ./wp-content:/var/www/html/wp-content:ro
+      - ./wordpress-uploads:/var/www/html/wp-content/uploads:ro
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - wordpress
+    networks:
+      - oor-network
+
+  db:
+    image: mysql:8.0
+    container_name: oor-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: wordpress
+      MYSQL_ROOT_PASSWORD: rootpassword
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - oor-network
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: oor-phpmyadmin
+    restart: unless-stopped
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: db
+      PMA_USER: wordpress
+      PMA_PASSWORD: wordpress
+    depends_on:
+      - db
+    networks:
+      - oor-network
+
+volumes:
+  mysql-data:
+  wordpress-data:
+
+networks:
+  oor-network:
+    driver: bridge

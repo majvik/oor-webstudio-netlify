@@ -1,0 +1,109 @@
+/* Шрифты OOR */
+
+@font-face {
+  font-family: "Pragmatica";
+  src: url("../../public/fonts/pragmatica-book.woff2") format("woff2"),
+       url("../../public/fonts/pragmatica-book.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pragmatica";
+  src: url("../../public/fonts/pragmatica-book-oblique.woff2") format("woff2"),
+       url("../../public/fonts/pragmatica-book-oblique.ttf") format("truetype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pragmatica Extended";
+  src: url("../../public/fonts/pragmatica-extended-extralight.woff2") format("woff2"),
+       url("../../public/fonts/pragmatica-extended-extralight.ttf") format("truetype");
+  font-weight: 200;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pragmatica Extended";
+  src: url("../../public/fonts/pragmatica-extended-extralight-oblique.woff2") format("woff2"),
+       url("../../public/fonts/pragmatica-extended-extralight-oblique.ttf") format("truetype");
+  font-weight: 200;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pragmatica Extended";
+  src: url("../../public/fonts/pragmatica-extended-light.woff2") format("woff2"),
+       url("../../public/fonts/pragmatica-extended-light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pragmatica Extended";
+  src: url("../../public/fonts/pragmatica-extended-light-oblique.woff2") format("woff2"),
+       url("../../public/fonts/pragmatica-extended-light-oblique.ttf") format("truetype");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pragmatica Extended";
+  src: url("../../public/fonts/pragmatica-extended-book.woff2") format("woff2"),
+       url("../../public/fonts/pragmatica-extended-book.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pragmatica Extended";
+  src: url("../../public/fonts/pragmatica-extended-book-oblique.woff2") format("woff2"),
+       url("../../public/fonts/pragmatica-extended-book-oblique.ttf") format("truetype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pragmatica Extended";
+  src: url("../../public/fonts/pragmatica-extended-medium.woff2") format("woff2"),
+       url("../../public/fonts/pragmatica-extended-medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pragmatica Extended";
+  src: url("../../public/fonts/pragmatica-extended-medium-oblique.woff2") format("woff2"),
+       url("../../public/fonts/pragmatica-extended-medium-oblique.ttf") format("truetype");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pragmatica Extended";
+  src: url("../../public/fonts/pragmatica-extended-bold.woff2") format("woff2"),
+       url("../../public/fonts/pragmatica-extended-bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pragmatica Extended";
+  src: url("../../public/fonts/pragmatica-extended-bold-oblique.woff2") format("woff2"),
+       url("../../public/fonts/pragmatica-extended-bold-oblique.ttf") format("truetype");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}

@@ -1,0 +1,78 @@
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Production builds
+dist/
+build/
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+logs
+*.log
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+
+# Temporary folders
+tmp/
+temp/
+
+# WordPress plugins — коммитим для полной копии при развёртывании в Docker
+# wp-content/plugins/
+# Разрешаем тему
+!wp-content/themes/oor-theme/
+
+# Always Works Guide (internal documentation)
+ALWAYS_WORKS_GUIDE.md
+
+# Документация (локальные изменения)
+docs_backup_*.tar.gz
+docs_backup_*/
+
+# Локальные SSL-сертификаты (генерируются scripts/generate-ssl-cert.sh)
+ssl/*.pem
+
+# WordPress uploads and caches (не коммитим медиа и кэш)
+wordpress-uploads/
+wp-content/uploads/
+wp-content/cache/
+wp-content/upgrade/
+wp-content/wflogs/
+wp-content/debug.log
+
+# Локальные mu-плагины для дев-среды
+wp-content/mu-plugins/local-https-url.php
+
+# Медиа темы (видео, аудио, картинки — не в репо, выкладывать отдельно/на CDN)
+wp-content/themes/oor-theme/public/

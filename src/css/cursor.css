@@ -1,0 +1,174 @@
+/**
+ * ========================================
+ * CURSOR STYLES - MouseFollower Implementation
+ * ========================================
+ * 
+ * Стили для кастомного курсора MouseFollower
+ * Вынесены из inline стилей для модульности
+ * 
+ * @author OOR Development Team
+ * @version 1.0.0
+ * @since 2025-09-21
+ */
+
+/* Базовые стили курсора */
+.mf-cursor {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  z-index: var(--z-tooltip) !important;
+  direction: ltr !important;
+  contain: layout style size !important;
+  pointer-events: none !important;
+  transition: opacity var(--transition-base), color 0.4s !important;
+}
+
+.mf-cursor:before {
+  content: "" !important;
+  position: absolute !important;
+  top: -24px !important;
+  left: -24px !important;
+  display: block !important;
+  width: 48px !important;
+  height: 48px !important;
+  /* Базовый размер точки ~10px (48 * 0.2). При наведении увеличиваем до 24px */
+  transform: scale(0.2) !important;
+  background: #FA4144 !important; /* Брендовый цвет OOR */
+  border-radius: 50% !important;
+  opacity: 1 !important; /* Без прозрачности */
+  transition: transform 0.25s ease-in-out !important; /* Убираем переход по opacity */
+}
+
+/* Состояния курсора */
+.mf-cursor.-inverse {
+  color: var(--color-white) !important;
+}
+
+.mf-cursor.-pointer:before {
+  /* Ховер-розмер 24x24px: 48 * 0.5 = 24 */
+  transform: scale(0.5) !important;
+}
+
+.mf-cursor.-text:before {
+  /* Текст не используется, оставляем видимой точку без изменения прозрачности */
+  opacity: 1 !important;
+}
+
+.mf-cursor.-text.-active:before {
+  transform: scale(1.6) !important;
+  transition-duration: 0.2s !important;
+}
+
+.mf-cursor.-icon:before {
+  transform: scale(1.5) !important;
+}
+
+.mf-cursor.-icon.-active:before {
+  transform: scale(1.4) !important;
+}
+
+.mf-cursor.-hidden:before {
+  transform: scale(0) !important;
+}
+
+/* Стили для текста в курсоре */
+.mf-cursor-text {
+  position: absolute !important;
+  top: -18px !important;
+  left: -18px !important;
+  width: 36px !important;
+  height: 36px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transform: scale(0) rotate(10deg) !important;
+  opacity: 0 !important;
+  color: var(--color-white) !important;
+  font-size: 10px !important;
+  line-height: 1.2 !important;
+  text-align: center !important;
+  transition: opacity 0.4s, transform 0.3s !important;
+  font-weight: 300 !important;
+  font-family: var(--font-ui) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  white-space: normal !important;
+}
+
+.mf-cursor.-text .mf-cursor-text,
+.mf-cursor.-icon .mf-cursor-text {
+  opacity: 1 !important;
+  transform: scale(1) !important;
+}
+
+/* Стили для медиа (видео/изображения) */
+.mf-cursor-media {
+  position: absolute !important;
+  width: 400px !important;
+  height: 400px !important;
+  margin: -200px 0 0 -200px !important;
+}
+
+.mf-cursor-media img,
+.mf-cursor-media video {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  border-radius: 50% !important;
+}
+
+@supports (object-fit: cover) {
+  .mf-cursor-media img,
+  .mf-cursor-media video {
+    position: static !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    transform: translateZ(0) !important;
+  }
+}
+
+.mf-cursor-media-box {
+  position: relative !important;
+  width: 100% !important;
+  height: 100% !important;
+  overflow: hidden !important;
+  transform: scale(0) translateZ(0) !important;
+  padding: 1px !important;
+  opacity: 0 !important;
+  border-radius: 50% !important;
+  transition: transform 0.35s, opacity 0.2s 0.2s !important;
+}
+
+.mf-cursor.-media .mf-cursor-media-box {
+  opacity: 1 !important;
+  transform: scale(0.696) !important;
+  transition-duration: 0.4s, 0.4s !important;
+  transition-delay: 0s, 0s !important;
+}
+
+/* Скрытие на мобильных устройствах и touch-устройствах */
+@media screen and (max-width: 480px) {
+  .mf-cursor {
+    display: none !important;
+  }
+}
+
+/* Скрытие на touch-устройствах (планшеты, сенсорные экраны) */
+@media (hover: none) and (pointer: coarse) {
+  .mf-cursor {
+    display: none !important;
+  }
+}
+
+/* Отключение курсора на страницах магазина */
+body.oor-merch-page .mf-cursor,
+body.oor-product-page .mf-cursor,
+body.oor-cart-page .mf-cursor,
+body.oor-checkout-page .mf-cursor {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}

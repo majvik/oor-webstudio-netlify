@@ -1,0 +1,45 @@
+/* 12-колоночный GRID система */
+
+/* Контейнер секции с внутренними боковыми полями 48px */
+.oor-container{
+  width:100%;
+  margin:0 auto;
+  padding-left:var(--container-x);
+  padding-right:var(--container-x);
+}
+
+/* Сетка 12 колонок + gap 16px */
+.oor-grid{
+  display:grid;
+  grid-template-columns:repeat(var(--grid-columns),minmax(0,1fr));
+  column-gap:var(--grid-gap);
+  align-items: stretch;
+}
+
+/* Утилиты span/start (только на десктопе) */
+[class*="oor-col-"]{min-width:0}
+.oor-col-1{grid-column:span 1}
+.oor-col-2{grid-column:span 2}
+.oor-col-3{grid-column:span 3}
+.oor-col-4{grid-column:span 4}
+.oor-col-5{grid-column:span 5}
+.oor-col-6{grid-column:span 6}
+.oor-col-7{grid-column:span 7}
+.oor-col-8{grid-column:span 8}
+.oor-col-9{grid-column:span 9}
+.oor-col-10{grid-column:span 10}
+.oor-col-11{grid-column:span 11}
+.oor-col-12{grid-column:span 12}
+
+.oor-start-1{grid-column-start:1}
+.oor-start-2{grid-column-start:2}
+.oor-start-3{grid-column-start:3}
+.oor-start-4{grid-column-start:4}
+.oor-start-5{grid-column-start:5}
+.oor-start-6{grid-column-start:6}
+.oor-start-7{grid-column-start:7}
+.oor-start-8{grid-column-start:8}
+.oor-start-9{grid-column-start:9}
+.oor-start-10{grid-column-start:10}
+.oor-start-11{grid-column-start:11}
+.oor-start-12{grid-column-start:12}

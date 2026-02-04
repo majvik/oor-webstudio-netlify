@@ -1,0 +1,44 @@
+/* Отступы секций, вертикальные ритмы */
+
+/* Полноэкранное поведение для всех секций */
+.oor-section{
+  width:100%;
+  position:relative;
+}
+
+/* Секции с уникальными якорями */
+.oor-section-hero{position:relative}
+.oor-section-benefits{position:relative}
+.oor-section-gallery{position:relative}
+.oor-section-events{position:relative}
+.oor-section-merch{position:relative}
+.oor-section-footer{position:relative}
+
+/* Базовые отступы секций */
+.oor-section{
+  padding:var(--spacing-xl) 0;
+}
+
+.oor-section-large{
+  padding:calc(var(--spacing-xl) * 2) 0;
+}
+
+.oor-section-small{
+  padding:var(--spacing-lg) 0;
+}
+
+/* Вертикальные ритмы */
+.oor-rhythm-1{margin-bottom:var(--spacing-sm)}
+.oor-rhythm-2{margin-bottom:32px}
+.oor-rhythm-3{margin-bottom:var(--spacing-lg)}
+.oor-rhythm-4{margin-bottom:64px}
+.oor-rhythm-5{margin-bottom:80px}
+
+/* Контейнеры секций */
+.oor-section .oor-container{
+  margin-bottom:var(--spacing-xl);
+}
+
+.oor-section .oor-container:last-child{
+  margin-bottom:0;
+}

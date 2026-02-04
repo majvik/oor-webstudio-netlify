@@ -1,0 +1,67 @@
+/**
+ * ========================================
+ * CUSTOM SCROLLBAR STYLES
+ * ========================================
+ * 
+ * Стили для кастомного скроллбара
+ * Вынесены из components.css для модульности
+ * 
+ * @author OOR Development Team
+ * @version 1.0.0
+ * @since 2025-09-21
+ */
+
+/* Lenis: безопасные минимальные стили, не блокирующие вертикальную прокрутку */
+html.lenis { 
+  height: auto; 
+}
+
+.lenis.lenis-smooth { 
+  scroll-behavior: auto; 
+}
+
+.lenis.lenis-stopped { 
+  overflow: hidden; 
+}
+
+/* Кастомный декоративный скроллбар */
+.custom-scrollbar {
+  position: fixed;
+  top: 4px;
+  right: 4px;
+  width: 8px;
+  height: calc(100 * var(--oor-vh) - 8px);
+  background: transparent;
+  z-index: var(--z-scrollbar);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--transition-base);
+  /* Компенсация zoom применяется через JS */
+  transform-origin: top left;
+}
+
+.custom-scrollbar.visible {
+  opacity: 0.6;
+}
+
+.custom-scrollbar-track {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 8px;
+  height: 100%;
+  background: transparent;
+}
+
+.custom-scrollbar-thumb {
+  position: absolute;
+  right: 0;
+  width: 8px;
+  background: var(--color-black);
+  border-radius: 4px;
+  transition: background-color var(--transition-base);
+}
+
+.custom-scrollbar-thumb:hover {
+  background: var(--color-gray);
+}

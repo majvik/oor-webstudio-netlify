@@ -1,0 +1,11 @@
+/* Мягкий reset (не ломаем метрики шрифтов) */
+*,*::before,*::after{box-sizing:border-box}
+html{height:100%}
+body,h1,h2,h3,h4,h5,h6,p,figure,blockquote,dl,dd{margin:0}
+img,svg,video{display:block;max-width:100%}
+a{text-decoration:none;color:inherit}
+
+/* Убираем горизонтальный скролл */
+html, body {
+  overflow-x: hidden;
+}
