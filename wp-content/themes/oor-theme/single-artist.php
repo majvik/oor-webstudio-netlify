@@ -25,7 +25,7 @@ if (empty(get_the_title())) {
 
 <!-- Breadcrumbs -->
     <div class="oor-artist-breadcrumbs">
-        <a href="<?php echo esc_url(home_url('/artists')); ?>" class="oor-artist-breadcrumb-link rolling-button"><span class="tn-atom">артисты</span></a>
+        <a href="<?php echo esc_url(home_url('/artists')); ?>" class="oor-artist-breadcrumb-link">артисты</a>
         <span class="oor-artist-breadcrumb-dot"></span>
         <span class="oor-artist-breadcrumb-current"><?php echo esc_html(get_post_field('post_name', get_the_ID())); ?></span>
     </div>
@@ -80,7 +80,8 @@ if (empty(get_the_title())) {
                         $platform = isset($social['platform']) ? $social['platform'] : (isset($social['name']) ? $social['name'] : '');
                         $url = isset($social['url']) ? $social['url'] : (isset($social['link']) ? $social['link'] : '#');
                         if ($platform && $url && $url !== '#') {
-                            echo '<a href="' . esc_url($url) . '" class="oor-artist-social-link rolling-button" target="_blank" rel="noopener noreferrer"><span class="tn-atom">' . esc_html($platform) . '</span></a>';
+                            $label = (strtolower($platform) === 'other') ? 'tiktok' : $platform;
+                            echo '<a href="' . esc_url($url) . '" class="oor-artist-social-link rolling-button" target="_blank" rel="noopener noreferrer"><span class="tn-atom">' . esc_html($label) . '</span></a>';
                         }
                     }
                 }

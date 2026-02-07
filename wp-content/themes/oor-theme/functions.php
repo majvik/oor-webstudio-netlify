@@ -38,6 +38,24 @@ add_filter('upload_dir', function($uploads) {
     return $uploads;
 }, 10, 1);
 add_filter('wp_get_attachment_url', $oor_fix_canonical_url_filter, 10, 1);
+
+/**
+ * ACF: в поле «платформа» соцссылок артиста показывать и хранить "tiktok" вместо "other".
+ */
+add_filter('acf/load_field/name=platform', function($field) {
+    if (!empty($field['choices']) && isset($field['choices']['other'])) {
+        $field['choices']['tiktok'] = $field['choices']['other'];
+        unset($field['choices']['other']);
+    }
+    return $field;
+});
+add_filter('acf/load_value/name=platform', function($value, $post_id, $field) {
+    if (get_post_type($post_id) === 'artist' && $value === 'other') {
+        return 'tiktok';
+    }
+    return $value;
+}, 10, 3);
+
 add_filter('wp_calculate_image_srcset', function($sources) {
     if (!is_array($sources)) return $sources;
     foreach ($sources as $w => $data) {

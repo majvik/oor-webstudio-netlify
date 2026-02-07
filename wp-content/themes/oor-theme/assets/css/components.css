@@ -4992,7 +4992,7 @@ a.oor-artist-card:hover {
 
 .oor-artist-image {
   width: 100%;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 3 / 4;
   position: relative;
   overflow: hidden;
 }
@@ -6382,7 +6382,7 @@ a.oor-artist-card:hover {
 
 .oor-artist-image {
   width: 100%;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 3 / 4;
   position: relative;
   overflow: hidden;
 }
@@ -6934,7 +6934,7 @@ body.oor-services-page .oor-btn-small-icon img {
 
   .oor-artist-image {
     width: 100%;
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 3 / 4;
     position: relative;
     overflow: hidden;
   }
@@ -7903,7 +7903,7 @@ body.oor-artist-page .oor-btn-small-icon img {
 }
 
 .oor-artist-breadcrumb-dot {
-  width: 6px;
+  width: 3px;
   height: 3px;
   background: #000;
   border-radius: 50%;
