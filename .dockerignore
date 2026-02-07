@@ -1,0 +1,35 @@
+# Git
+.git
+.gitignore
+
+# Documentation
+*.md
+!README.md
+
+# Node
+node_modules
+package-lock.json
+
+# Scripts (не нужны в контейнере)
+scripts/
+
+# HTML файлы (старые, не нужны в WP)
+*.html
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+docker-compose.yml
+.dockerignore
+
+# Temporary files
+*.log
+*.tmp

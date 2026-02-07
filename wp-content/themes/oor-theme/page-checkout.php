@@ -23,6 +23,14 @@ get_header();
 
             <div class="oor-checkout-content">
                 <style id="oor-checkout-fields-fix">
+                    /* Отступ снизу у всех заголовков h3 в оплате */
+                    .oor-checkout-section h3 {
+                        margin-bottom: 16px !important;
+                    }
+                    /* Отступ у инпута внутри обёртки (для новодобавленных полей) */
+                    .oor-checkout-section .woocommerce-input-wrapper > input {
+                        margin-top: 4px !important;
+                    }
                     /* Критично: обязательные поля чекаута всегда видимы (приоритет над WC/темами) */
                     .oor-checkout-section .woocommerce-billing-fields,
                     .oor-checkout-section .woocommerce-billing-fields__field-wrapper,

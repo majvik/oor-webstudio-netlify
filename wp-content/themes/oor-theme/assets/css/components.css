@@ -11402,10 +11402,14 @@ body.oor-checkout-page .oor-header .oor-merch-cart-icon img {
   font-weight: 400 !important;
 }
 
-/* Поля чекаута Woo: все инпуты и обёртки видимы (исправляет скрытые обязательные поля) */
+/* Поля чекаута Woo: обёртки и ряды принудительно видимы (исправляет скрытые обязательные поля) */
+.oor-checkout-section .woocommerce-billing-fields,
+.oor-checkout-section .woocommerce-billing-fields__field-wrapper,
 .oor-checkout-section .woocommerce .form-row {
   display: block !important;
   overflow: visible !important;
+  visibility: visible !important;
+  opacity: 1 !important;
 }
 /* Поля billing и shipping — принудительно через ID */
 input[id*="billing_"],

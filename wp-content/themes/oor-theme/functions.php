@@ -411,7 +411,7 @@ add_filter('woocommerce_checkout_fields', function($fields) {
 
 // Вставка инпутов в строки чекаута, если их нет в DOM (после рендера или после address-i18n/update_checkout).
 add_action('wp_footer', function() {
-    if (!is_checkout()) {
+    if (!function_exists('is_checkout') || !is_checkout()) {
         return;
     }
     $fields = array(
@@ -433,11 +433,14 @@ add_action('wp_footer', function() {
         'shipping_postcode'   => array( 'type' => 'text', 'required' => true ),
     );
     $json = wp_json_encode( $fields );
+    if ( $json === false ) {
+        $json = '{}';
+    }
     ?>
     <script>
         (function() {
             var section = '.oor-checkout-section';
-            var fieldConfig = <?php echo $json; ?>;
+            var fieldConfig = <?php echo $json; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- JSON for JS ?>;
 
             function injectMissingInputs() {
                 var wrap = document.querySelector(section);
@@ -446,12 +449,16 @@ add_action('wp_footer', function() {
                 Object.keys(fieldConfig).forEach(function(name) {
                     var row = wrap.querySelector('#' + name + '_field');
                     if (!row) return;
-                    var hasInput = row.querySelector('input, select, textarea');
-                    if (hasInput) return;
+                    var existingInput = row.querySelector('input, select, textarea');
+                    if (existingInput) return;
 
                     var cfg = fieldConfig[name];
-                    var span = document.createElement('span');
-                    span.className = 'woocommerce-input-wrapper';
+                    var wrapper = row.querySelector('.woocommerce-input-wrapper');
+                    if (!wrapper) {
+                        wrapper = document.createElement('span');
+                        wrapper.className = 'woocommerce-input-wrapper';
+                        row.appendChild(wrapper);
+                    }
 
                     var input = document.createElement('input');
                     input.type = cfg.type;
@@ -462,9 +469,8 @@ add_action('wp_footer', function() {
                         input.setAttribute('required', 'required');
                         input.setAttribute('aria-required', 'true');
                     }
-
-                    span.appendChild(input);
-                    row.appendChild(span);
+                    wrapper.appendChild(input);
+                    row.classList.add('oor-injected-field');
                 });
             }
 

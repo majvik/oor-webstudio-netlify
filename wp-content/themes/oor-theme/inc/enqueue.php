@@ -35,10 +35,10 @@ function oor_enqueue_scripts() {
     }
     
     // JavaScript
-    // GSAP (критический, загружается синхронно)
+    // GSAP (критический, загружается синхронно; jsDelivr как основной CDN — реже 404 в локальной среде)
     wp_enqueue_script(
         'gsap',
-        'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js',
+        'https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js',
         [],
         '3.12.5',
         false
