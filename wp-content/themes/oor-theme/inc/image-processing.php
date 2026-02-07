@@ -343,6 +343,26 @@ function oor_process_uploaded_image($attachment_id) {
 }
 
 /**
+ * Применяет канонический хост ко всем URL в массиве вариантов (для сервера с nip.io).
+ */
+function oor_fix_variants_urls($variants) {
+    if (!is_array($variants) || !function_exists('oor_fix_canonical_url')) {
+        return $variants;
+    }
+    foreach (['1x', '2x'] as $density) {
+        if (empty($variants[$density]) || !is_array($variants[$density])) {
+            continue;
+        }
+        foreach ($variants[$density] as $format => $data) {
+            if (!empty($data['url'])) {
+                $variants[$density][$format]['url'] = oor_fix_canonical_url($data['url']);
+            }
+        }
+    }
+    return $variants;
+}
+
+/**
  * Получает варианты изображения
  */
 function oor_get_image_variants($attachment_id) {
@@ -353,10 +373,11 @@ function oor_get_image_variants($attachment_id) {
         $variants = oor_generate_image_variants($attachment_id);
     }
     
-    return $variants ?: [
+    $variants = $variants ?: [
         '1x' => [],
         '2x' => []
     ];
+    return oor_fix_variants_urls($variants);
 }
 
 /**

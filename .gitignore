@@ -63,6 +63,10 @@ docs_backup_*/
 # Локальные SSL-сертификаты (генерируются scripts/generate-ssl-cert.sh)
 ssl/*.pem
 
+# Let's Encrypt webroot (на сервере)
+certbot-webroot/
+docker-compose.override.yml
+
 # WordPress uploads and caches (не коммитим медиа и кэш)
 wordpress-uploads/
 wp-content/uploads/

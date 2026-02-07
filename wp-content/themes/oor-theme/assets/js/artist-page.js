@@ -76,26 +76,31 @@
     }
   }
 
-  // Description toggle
+  // Description toggle: полное описание скрыто в HTML (style="display:none"), по клику показываем/скрываем
   function initDescription() {
-    const toggleButton = document.getElementById('description-toggle');
-    const descriptionContent = document.getElementById('artist-description');
-    
-    if (!toggleButton || !descriptionContent) return;
+    var toggleButton = document.getElementById('description-toggle');
+    var descriptionContent = document.getElementById('artist-description');
+    if (!descriptionContent) return;
+    var expandedEls = descriptionContent.querySelectorAll('.oor-artist-description-expanded');
+    if (!expandedEls.length) return;
 
-    let isExpanded = false;
-
-    toggleButton.addEventListener('click', function() {
-      isExpanded = !isExpanded;
-      
-      if (isExpanded) {
-        descriptionContent.classList.add('expanded');
-        toggleButton.textContent = 'свернуть';
-      } else {
-        descriptionContent.classList.remove('expanded');
-        toggleButton.textContent = 'подробнее';
+    var isExpanded = false;
+    function setExpanded(show) {
+      isExpanded = show;
+      for (var i = 0; i < expandedEls.length; i++) {
+        expandedEls[i].style.display = show ? 'block' : 'none';
       }
-    });
+      descriptionContent.classList.toggle('expanded', show);
+      if (toggleButton) toggleButton.textContent = show ? 'свернуть' : 'подробнее';
+    }
+    setExpanded(false);
+
+    if (toggleButton) {
+      toggleButton.style.cursor = 'pointer';
+      toggleButton.addEventListener('click', function() {
+        setExpanded(!isExpanded);
+      });
+    }
   }
 
   // Audio Player

@@ -41,7 +41,7 @@ function oor_body_classes($classes) {
         if (is_woocommerce()) {
             $classes[] = 'oor-merch-page';
         }
-        if (is_product()) {
+        if (is_product() || !empty($GLOBALS['oor_is_single_product_template'])) {
             $classes[] = 'oor-product-page';
         }
         if (is_cart()) {
@@ -51,7 +51,7 @@ function oor_body_classes($classes) {
             $classes[] = 'oor-checkout-page';
         }
         // Единый класс для чёрного хедера на всех страницах магазина (каталог, товар, корзина, оформление)
-        if (is_woocommerce() || is_product() || is_cart() || is_checkout()) {
+        if (is_woocommerce() || is_product() || is_cart() || is_checkout() || !empty($GLOBALS['oor_is_single_product_template'])) {
             $classes[] = 'oor-shop-header';
         }
     }

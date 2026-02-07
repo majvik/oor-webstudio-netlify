@@ -5,6 +5,15 @@
 
 function oor_enqueue_scripts() {
     $theme_uri = get_template_directory_uri();
+    // На сервере с nip.io: единый канонический URL для скриптов и для window.oorPaths (иначе JS грузит ресурсы с неправильного хоста).
+    if (defined('OOR_FORCE_CANONICAL_HOST') && OOR_FORCE_CANONICAL_HOST) {
+        $theme_uri = str_replace('.nip.io.nip.io', '.nip.io', $theme_uri);
+        $host = parse_url($theme_uri, PHP_URL_HOST);
+        if ($host === '45.141.102.187') {
+            $theme_uri = str_replace('45.141.102.187', OOR_FORCE_CANONICAL_HOST, $theme_uri);
+            $theme_uri = preg_replace('#^http://#', 'https://', $theme_uri);
+        }
+    }
     $version = OOR_THEME_VERSION;
     
     // CSS (в правильном порядке)

@@ -8,6 +8,9 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+// Гарантируем класс body.oor-product-page при загрузке этого шаблона (на сервере is_product() может быть не готов к get_header).
+$GLOBALS['oor_is_single_product_template'] = true;
+
 get_header();
 ?>
 

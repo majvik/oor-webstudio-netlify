@@ -11,6 +11,150 @@ if (!defined('ABSPATH')) {
 // Версия темы
 define('OOR_THEME_VERSION', '1.2.1');
 
+/**
+ * На сервере с nip.io: подмена URL с IP на канонический домен.
+ * Работает при define('OOR_FORCE_CANONICAL_HOST', '45.141.102.187.nip.io') в wp-config
+ * ИЛИ при заходе по https://45.141.102.187.nip.io — картинки из ACF/медиа и темы грузятся с правильным хостом.
+ */
+$oor_fix_canonical_url_filter = function($url) {
+    return oor_fix_canonical_url($url);
+};
+add_filter('home_url', $oor_fix_canonical_url_filter, 1, 4);
+add_filter('site_url', $oor_fix_canonical_url_filter, 1, 4);
+add_filter('script_loader_src', $oor_fix_canonical_url_filter, 10, 2);
+add_filter('style_loader_src', $oor_fix_canonical_url_filter, 10, 2);
+add_filter('content_url', $oor_fix_canonical_url_filter, 10, 2);
+add_filter('plugins_url', $oor_fix_canonical_url_filter, 10, 2);
+add_filter('rest_url', $oor_fix_canonical_url_filter, 10, 2);
+add_filter('theme_root_uri', $oor_fix_canonical_url_filter, 10, 1);
+add_filter('admin_url', $oor_fix_canonical_url_filter, 10, 3);
+add_filter('includes_url', $oor_fix_canonical_url_filter, 10, 2);
+add_filter('upload_dir', function($uploads) {
+    foreach (array('url', 'baseurl') as $key) {
+        if (!empty($uploads[$key])) {
+            $uploads[$key] = oor_fix_canonical_url($uploads[$key]);
+        }
+    }
+    return $uploads;
+}, 10, 1);
+add_filter('wp_get_attachment_url', $oor_fix_canonical_url_filter, 10, 1);
+add_filter('wp_calculate_image_srcset', function($sources) {
+    if (!is_array($sources)) return $sources;
+    foreach ($sources as $w => $data) {
+        if (!empty($data['url'])) {
+            $sources[$w]['url'] = oor_fix_canonical_url($data['url']);
+        }
+    }
+    return $sources;
+}, 10, 1);
+
+/**
+ * Приводит URL к каноническому хосту (nip.io). Вызывать для любых URL из ACF/мета/загрузок.
+ * Учитывает OOR_FORCE_CANONICAL_HOST и текущий HTTP_HOST (если зашли по nip.io — подставляем его).
+ */
+function oor_fix_canonical_url($url) {
+    if (!is_string($url) || $url === '') {
+        return $url;
+    }
+    $url = str_replace('.nip.io.nip.io', '.nip.io', $url);
+    $host = parse_url($url, PHP_URL_HOST);
+    if ($host !== '45.141.102.187') {
+        return $url;
+    }
+    $canonical = (defined('OOR_FORCE_CANONICAL_HOST') && OOR_FORCE_CANONICAL_HOST) ? OOR_FORCE_CANONICAL_HOST : null;
+    if (!$canonical && !empty($_SERVER['HTTP_HOST']) && $_SERVER['HTTP_HOST'] === '45.141.102.187.nip.io') {
+        $canonical = '45.141.102.187.nip.io';
+    }
+    if ($canonical) {
+        $url = str_replace('45.141.102.187', $canonical, $url);
+        $url = preg_replace('#^http://#', 'https://', $url);
+    }
+    return $url;
+}
+
+/**
+ * Собирает HTML <picture> для fallback-изображения артиста только из существующих файлов (без 404).
+ * $artist_slug — slug артиста, $base_name — имя без расширения (например main).
+ */
+function oor_artist_fallback_picture($artist_slug, $base_name = 'main', $img_class = 'oor-artist-image-main no-parallax', $alt = '') {
+    $theme_dir = get_template_directory();
+    $base_path = $theme_dir . '/public/assets/artists/' . $artist_slug . '/' . $base_name;
+    $base_url = oor_theme_base_uri() . '/public/assets/artists/' . $artist_slug . '/' . $base_name;
+    $sources = [];
+    if (file_exists($base_path . '.avif')) {
+        $sources['avif'] = ['1x' => $base_url . '.avif'];
+        if (file_exists($base_path . '@2x.avif')) {
+            $sources['avif']['2x'] = $base_url . '@2x.avif';
+        }
+    }
+    if (file_exists($base_path . '.webp')) {
+        $sources['webp'] = ['1x' => $base_url . '.webp'];
+        if (file_exists($base_path . '@2x.webp')) {
+            $sources['webp']['2x'] = $base_url . '@2x.webp';
+        }
+    }
+    $img_src = null;
+    $img_srcset = [];
+    if (file_exists($base_path . '.png')) {
+        $img_src = $base_url . '.png';
+        $img_srcset[] = esc_url($base_url . '.png') . ' 1x';
+        if (file_exists($base_path . '@2x.png')) {
+            $img_srcset[] = esc_url($base_url . '@2x.png') . ' 2x';
+        }
+    }
+    if (!$img_src && file_exists($base_path . '.jpg')) {
+        $img_src = $base_url . '.jpg';
+        $img_srcset[] = esc_url($base_url . '.jpg') . ' 1x';
+        if (file_exists($base_path . '@2x.jpg')) {
+            $img_srcset[] = esc_url($base_url . '@2x.jpg') . ' 2x';
+        }
+    }
+    if (!$img_src) {
+        return '';
+    }
+    $html = '<picture>';
+    if (!empty($sources['avif'])) {
+        $parts = [];
+        if (!empty($sources['avif']['1x'])) $parts[] = esc_url($sources['avif']['1x']) . ' 1x';
+        if (!empty($sources['avif']['2x'])) $parts[] = esc_url($sources['avif']['2x']) . ' 2x';
+        if ($parts) $html .= '<source srcset="' . implode(', ', $parts) . '" type="image/avif">';
+    }
+    if (!empty($sources['webp'])) {
+        $parts = [];
+        if (!empty($sources['webp']['1x'])) $parts[] = esc_url($sources['webp']['1x']) . ' 1x';
+        if (!empty($sources['webp']['2x'])) $parts[] = esc_url($sources['webp']['2x']) . ' 2x';
+        if ($parts) $html .= '<source srcset="' . implode(', ', $parts) . '" type="image/webp">';
+    }
+    $html .= '<img src="' . esc_url($img_src) . '"';
+    if (!empty($img_srcset)) {
+        $html .= ' srcset="' . implode(', ', $img_srcset) . '"';
+    }
+    $html .= ' alt="' . esc_attr($alt) . '" class="' . esc_attr($img_class) . '">';
+    $html .= '</picture>';
+    return $html;
+}
+
+/**
+ * Базовый URL темы для ресурсов (картинки, скрипты). На сервере с nip.io возвращает канонический URL.
+ * Использовать вместо get_template_directory_uri() там, где критично правильный хост (артисты, медиа).
+ * Учитывает OOR_FORCE_CANONICAL_HOST и текущий HTTP_HOST (если зашли по 45.141.102.187.nip.io — подставляем его).
+ */
+function oor_theme_base_uri() {
+    $uri = get_template_directory_uri();
+    $uri = str_replace('.nip.io.nip.io', '.nip.io', $uri);
+    $host = parse_url($uri, PHP_URL_HOST);
+    $request_host = isset($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : '';
+    $canonical = (defined('OOR_FORCE_CANONICAL_HOST') && OOR_FORCE_CANONICAL_HOST) ? OOR_FORCE_CANONICAL_HOST : null;
+    if (!$canonical && $request_host === '45.141.102.187.nip.io') {
+        $canonical = '45.141.102.187.nip.io';
+    }
+    if ($canonical && $host === '45.141.102.187') {
+        $uri = str_replace('45.141.102.187', $canonical, $uri);
+        $uri = preg_replace('#^http://#', 'https://', $uri);
+    }
+    return $uri;
+}
+
 // Подавление deprecation warnings от ACF Pro (PHP 8.2+ совместимость)
 // ACF Pro 6.4.2 использует динамические свойства, которые deprecated в PHP 8.2+
 // Это не критично и не влияет на функциональность, но вызывает предупреждения
@@ -131,6 +275,15 @@ add_filter('woocommerce_get_price_html', function ($price_html, $product) {
     }
     return $price_html;
 }, 999, 2);
+
+/** На страницах WooCommerce убираем стандартные хлебные крошки и сайдбар (поиск, страницы и т.д.). */
+add_action('init', function () {
+    if (!function_exists('woocommerce_breadcrumb')) {
+        return;
+    }
+    remove_action('woocommerce_before_main_content', 'woocommerce_breadcrumb', 20);
+    remove_action('woocommerce_sidebar', 'woocommerce_get_sidebar', 10);
+}, 20);
 
 /**
  * Страница товара: без табов (wc-tabs), порядок в summary — описание, доп. информация (атрибуты), похожие товары, артикул внизу.
@@ -282,16 +435,28 @@ add_action('init', function() {
 }, 1);
 
 // Чекаут: всегда используем шаблон со шорткодом [woocommerce_checkout], а не блок — чтобы поля billing были в DOM
+// Мерч: для страницы с slug merch принудительно archive-product.php (главный запрос не трогаем — иначе 404)
+// Страница товара: принудительно single-product.php темы (чтобы не подгружался блоковый/другой шаблон)
 add_filter('template_include', function($template) {
-    if (!function_exists('is_checkout') || !is_checkout()) {
+    if (function_exists('is_checkout') && is_checkout()) {
+        if (!(function_exists('is_wc_endpoint_url') && is_wc_endpoint_url())) {
+            $our = get_stylesheet_directory() . '/page-checkout.php';
+            if (file_exists($our)) {
+                return $our;
+            }
+        }
         return $template;
     }
-    if (function_exists('is_wc_endpoint_url') && is_wc_endpoint_url()) {
-        return $template; // order-received, order-pay и т.д. — не подменяем
+    $theme_dir = get_stylesheet_directory();
+    if (function_exists('is_product') && is_product()) {
+        $single = $theme_dir . '/woocommerce/single-product.php';
+        if (file_exists($single)) {
+            return $single;
+        }
     }
-    $our = get_stylesheet_directory() . '/page-checkout.php';
-    if (file_exists($our)) {
-        return $our;
+    $merch_template = $theme_dir . '/woocommerce/archive-product.php';
+    if ((function_exists('is_shop') && is_shop() || is_page('merch')) && file_exists($merch_template)) {
+        return $merch_template;
     }
     return $template;
 }, 99);

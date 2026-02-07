@@ -150,12 +150,13 @@ function initRetinaSupport() {
   const isHighDPR = (typeof window !== 'undefined') && (window.devicePixelRatio && window.devicePixelRatio >= 2);
   if (!isHighDPR) return;
 
-  // Генерирует @2x версию URL для retina
+  // Генерирует @2x версию URL для retina (не дублирует, если уже есть @2x)
   function build2xUrl(url) {
     try {
       const qIndex = url.indexOf('?');
       const base = qIndex >= 0 ? url.slice(0, qIndex) : url;
       const query = qIndex >= 0 ? url.slice(qIndex) : '';
+      if (/@2x\.(avif|webp|png|jpg|jpeg)(\?|$)/i.test(base)) return null;
       const dot = base.lastIndexOf('.');
       if (dot <= 0) return null;
       return base.slice(0, dot) + '@2x' + base.slice(dot) + query;
