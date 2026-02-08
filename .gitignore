@@ -18,6 +18,7 @@ build/
 # IDE files
 .vscode/
 .idea/
+.cursor/
 *.swp
 *.swo
 *~
@@ -86,4 +87,5 @@ wp-content/themes/oor-theme/public/
 
 # Локальные дампы и бэкапы (не в репо)
 local-wordpress.sql
+local_backup_*.sql
 wp-content/ai1wm-backups/
