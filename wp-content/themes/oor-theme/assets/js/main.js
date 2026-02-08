@@ -185,6 +185,7 @@ function initRetinaSupport() {
       if (!src) continue;
       if (/video-cover/i.test(src)) continue;
       if (/splash\.gif/i.test(src)) continue;
+      if (/splash-last-frame/i.test(src)) continue; // нет @2x версии, не запрашивать
       if (/events-gallery/i.test(src)) continue;
       if (/events-card/i.test(src)) continue;
       const hi = build2xUrl(src);
@@ -205,6 +206,7 @@ function initRetinaSupport() {
       if (!match || !match[2]) continue;
       const url = match[2];
       if (/\.svg($|\?)/i.test(url)) continue;
+      if (/splash-last-frame/i.test(url)) continue;
       const hi = build2xUrl(url);
       if (!hi) continue;
       const ok = await imageExists(hi);
@@ -230,6 +232,7 @@ function initRetinaSupport() {
       if (!match || !match[2]) continue;
       const url = match[2];
       if (/\.svg($|\?)/i.test(url)) continue;
+      if (/splash-last-frame/i.test(url)) continue;
       const hi = build2xUrl(url);
       if (!hi) continue;
       const ok = await imageExists(hi);

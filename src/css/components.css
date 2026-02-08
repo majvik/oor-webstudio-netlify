@@ -1197,6 +1197,8 @@ a.text-cuberto-cursor-2:not([href^="mailto:"]):hover {
     border-top: 1px solid rgba(255, 255, 255, 0.70);
     outline: none;
     cursor: pointer;
+    text-decoration: none;
+    color: inherit;
 }
 
 .oor-manifesto-text {
@@ -1420,6 +1422,16 @@ a.text-cuberto-cursor-2:not([href^="mailto:"]):hover {
   align-items: start;
 }
 
+/* Размещение на десктопе: картинка — колонка 1, текст (внутри него studio + music-game) — колонка 2 (как в рабочей статичной версии) */
+.oor-challenge-2-left .oor-challenge-studio-image {
+  grid-column: 1;
+  grid-row: 1;
+}
+.oor-challenge-2-left .oor-challenge-2-text {
+  grid-column: 2;
+  grid-row: 1;
+}
+
 .oor-challenge-studio-image {
   display: block;
   overflow: hidden;
@@ -1459,6 +1471,8 @@ a.text-cuberto-cursor-2:not([href^="mailto:"]):hover {
   align-items: flex-start;
   gap: 16px;
   align-self: stretch;
+  text-decoration: none;
+  color: inherit;
 }
 
 .oor-challenge-2-studio-title {
@@ -2189,7 +2203,7 @@ a.text-cuberto-cursor-2:not([href^="mailto:"]):hover {
 .oor-footer {
   display: flex;
   width: 100%;
-  padding: 120px var(--container-x) 40px var(--container-x);
+  padding: 120px 0 40px 0; /* горизонтальный отступ только у .oor-container внутри */
   flex-direction: column;
   align-items: flex-start;
   gap: 120px;
@@ -2666,7 +2680,7 @@ body:has(.oor-mobile-menu.active) {
 
 @media (max-width: 1024px) {
   .oor-footer {
-    padding: 60px var(--container-x) 20px var(--container-x);
+    padding: 60px 0 20px 0;
     gap: 60px;
   }
   
@@ -2817,41 +2831,98 @@ body:has(.oor-mobile-menu.active) {
   html {
     font-size: 14px; /* Уменьшаем с 16px по умолчанию до 14px */
   }
-  
+
+  /* Мобильные отступы по макету (приоритет над 1024px и др.) */
+  .slider-section {
+    padding: 48px !important;
+  }
+
   .oor-musical-association {
     padding-left: var(--container-x);
   }
-  
+
   .oor-challenge-section {
-    padding: 80px var(--container-x);
+    padding: 48px var(--container-x) 16px var(--container-x) !important;
+    gap: 48px !important;
   }
-  
+
+  .oor-challenge-left {
+    gap: 32px !important;
+  }
+
+  .oor-challenge-2-studio-text {
+    margin-bottom: 0 !important;
+  }
+
   .oor-challenge-2-section {
-    padding: 160px var(--container-x) 104px var(--container-x);
+    padding: 0 var(--container-x) 48px var(--container-x) !important;
   }
-  
+
   .oor-out-of-talk-text {
-    padding: 80px var(--container-x) 0 var(--container-x);
+    padding-top: 48px !important;
   }
-  
-  .oor-out-of-talk-media {
-    padding: 120px 0 0 var(--container-x);
+
+  .oor-out-of-talk-title {
+    gap: 24px !important;
   }
-  
+
   .oor-events-text {
-    padding: 80px var(--container-x) 0 var(--container-x);
+    padding: 48px var(--container-x) 48px var(--container-x) !important;
   }
-  
-  .oor-events-media {
-    padding: 80px var(--container-x);
+
+  .oor-events-title {
+    gap: 24px !important;
   }
-  
+
   .oor-merch-text {
-    padding: 120px var(--container-x) 0 var(--container-x);
+    padding: 48px var(--container-x) 0 var(--container-x) !important;
   }
-  
+
+  .oor-merch-title {
+    padding: 0 0 26px 0 !important;
+  }
+
+  .oor-merch-description {
+    padding-top: 0 !important;
+    width: auto;
+  }
+
   .oor-merch-images-grid {
-    padding: 120px var(--container-x) 0 var(--container-x);
+    padding: 32px var(--container-x) 0 var(--container-x) !important;
+  }
+
+  .oor-merch-content {
+    gap: 32px !important;
+  }
+
+  .oor-footer {
+    padding: 60px 0 24px 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .oor-footer-email {
+    font-size: 3.120rem !important;
+  }
+
+  .oor-footer-content {
+    gap: 80px !important;
+  }
+
+  .oor-footer-links-top {
+    gap: 24px !important;
+  }
+
+  .oor-footer-links-bottom {
+    gap: 24px !important;
+  }
+
+  .oor-footer-links {
+    padding-bottom: 32px !important;
+  }
+
+  .oor-col-3.oor-challenge-2-good-works {
+    gap: 32px !important;
   }
   
   /* Plus иконки - позиционирование для мобильных */
@@ -2873,16 +2944,16 @@ body:has(.oor-mobile-menu.active) {
     font-size: 3.000rem;
   }
   
-  .oor-merch-description {
-    width: auto;
-  }
-  
   .oor-nav-item .tn-atom {
     line-height: 24px !important;
   }
 
   .oor-quality-title {
     font-size: 1.4rem;
+  }
+
+  .oor-become-artist-container {
+    width: 100%;
   }
 
   .oor-become-artist-container .oor-become-artist-button {
@@ -2907,8 +2978,13 @@ body:has(.oor-mobile-menu.active) {
   .oor-challenge-2-good-works-description {
     font-size: 0.875rem;
   }
-  .oor-footer-email {
-    font-size: 3.000rem;
+  
+  .oor-out-of-talk-media {
+    padding: 120px 0 0 var(--container-x);
+  }
+  
+  .oor-events-media {
+    padding: 80px var(--container-x);
   }
 }
 
@@ -2933,8 +3009,31 @@ body:has(.oor-mobile-menu.active) {
   }
 }
 
-/* Адаптация для больших телефонов (≥460px) */
+/* Адаптация для экранов ≤460px (iPhone 14 Pro Max 430px и уже) — фиксируем отступы по макету */
 @media (max-width: 460px) {
+  /* Дублируем мобильные значения с !important, чтобы перекрыть любые другие правила */
+  .slider-section { padding: 48px !important; }
+  .oor-challenge-section { padding: 48px var(--container-x) 16px var(--container-x) !important; gap: 48px !important; }
+  .oor-challenge-left { gap: 32px !important; }
+  .oor-challenge-2-studio-text { margin-bottom: 0 !important; }
+  .oor-challenge-2-section { padding: 0 var(--container-x) 48px var(--container-x) !important; }
+  .oor-out-of-talk-text { padding-top: 48px !important; }
+  .oor-out-of-talk-title { gap: 24px !important; }
+  .oor-events-text { padding: 48px var(--container-x) 48px var(--container-x) !important; }
+  .oor-events-title { gap: 24px !important; }
+  .oor-merch-text { padding: 48px var(--container-x) 0 var(--container-x) !important; }
+  .oor-merch-title { padding: 0 0 26px 0 !important; }
+  .oor-merch-description { padding-top: 0 !important; }
+  .oor-merch-images-grid { padding: 32px var(--container-x) 0 var(--container-x) !important; }
+  .oor-merch-content { gap: 32px !important; }
+  .oor-footer { padding: 60px 0 24px 0 !important; padding-left: 0 !important; padding-right: 0 !important; }
+  .oor-footer-email { font-size: 3.120rem !important; }
+  .oor-footer-content { gap: 80px !important; }
+  .oor-footer-links-top { gap: 24px !important; }
+  .oor-footer-links-bottom { gap: 24px !important; }
+  .oor-footer-links { padding-bottom: 32px !important; }
+  .oor-col-3.oor-challenge-2-good-works { gap: 32px !important; }
+
   .oor-hero-main {
     padding: 380px 0 160px 0;
   }
@@ -2965,10 +3064,23 @@ body:has(.oor-mobile-menu.active) {
     display: none !important;
   }
 
-  /* Переносим колонки в строки — одна колонка во всю ширину */
+  /* Переносим колонки в строки — одна колонка во всю ширину (два дочерних элемента: image и text) */
   .oor-challenge-2-left {
     grid-template-columns: 1fr !important;
     gap: 32px !important;
+  }
+  /* На мобильных: порядок — текст (отступ 64px сверху), затем картинка */
+  .oor-challenge-2-left .oor-challenge-2-text {
+    order: 1;
+    margin-top: 64px;
+  }
+  .oor-challenge-2-left .oor-challenge-studio-image {
+    order: 2;
+  }
+  .oor-challenge-2-left .oor-challenge-2-text,
+  .oor-challenge-2-left .oor-challenge-studio-image {
+    grid-column: 1;
+    grid-row: auto;
   }
 
   .oor-out-of-talk-media {
@@ -3024,7 +3136,7 @@ body:has(.oor-mobile-menu.active) {
   }
 
   .oor-events-text {
-    padding: 88px var(--container-x) 88px var(--container-x) !important;
+    padding: 48px var(--container-x) 48px var(--container-x) !important;
   }
 
   .oor-events-media {
@@ -3048,17 +3160,17 @@ body:has(.oor-mobile-menu.active) {
 
   .oor-merch-text {
     grid-template-columns: 1fr;
-    padding: 88px var(--container-x) 0 var(--container-x);
+    padding: 48px var(--container-x) 0 var(--container-x);
     display: flex;
     flex-direction: column;
   }
 
   .oor-merch-title {
-    padding: 0 0 48px 0;
+    padding: 0 0 26px 0;
   }
 
   .oor-merch-description {
-    padding-top: 48px;
+    padding-top: 0;
   }
 
   .oor-merch-buttons {
@@ -3066,7 +3178,7 @@ body:has(.oor-mobile-menu.active) {
   }
 
   .oor-merch-images-grid {
-    padding: 64px var(--container-x) 0 var(--container-x) !important;
+    padding: 32px var(--container-x) 0 var(--container-x) !important;
   }
 
   .oor-merch-images-wrapper {
@@ -3168,8 +3280,8 @@ body:has(.oor-mobile-menu.active) {
   /* Challenge section: на мобиле в колонку с большим отступом между блоками */
   .oor-challenge-section {
     flex-direction: column !important;
-    gap: 80px !important;
-    padding: 88px var(--container-x) 16px var(--container-x) !important;
+    gap: 48px !important;
+    padding: 48px var(--container-x) 16px var(--container-x) !important;
   }
 
   /* Good Works image — отступ сверху */
@@ -3251,7 +3363,7 @@ body:has(.oor-mobile-menu.active) {
   }
 
   .oor-merch-images-grid {
-    padding: 120px var(--container-x) 0 var(--container-x);
+    padding: 32px var(--container-x) 0 var(--container-x) !important;
   }
 
   .oor-merch-images-wrapper {
@@ -3260,7 +3372,7 @@ body:has(.oor-mobile-menu.active) {
 
   /* Дополнительные стили для challenge секций */
   .oor-challenge-left {
-    gap: 64px !important;
+    gap: 32px !important;
   }
 
   .oor-challenge-gap {
@@ -3268,7 +3380,7 @@ body:has(.oor-mobile-menu.active) {
   }
 
   .oor-challenge-2-section {
-    padding: 0px var(--container-x) 64px var(--container-x) !important;
+    padding: 0px var(--container-x) 48px var(--container-x) !important;
   }
 
   .oor-challenge-2-studio {
@@ -3277,7 +3389,7 @@ body:has(.oor-mobile-menu.active) {
 
   .oor-challenge-2-music-game {
     display: flex !important;
-    flex-direction: column-reverse !important;
+    flex-direction: column !important; /* иконка над текстом на мобильном */
     align-items: flex-start !important;
     gap: 16px !important;
     align-self: stretch !important;
@@ -3293,6 +3405,66 @@ body:has(.oor-mobile-menu.active) {
     align-items: flex-start !important;
     align-self: stretch !important;
     justify-content: flex-start !important;
+  }
+}
+
+/* Десктоп: явно восстанавливаем grid и колонки секции challenge-2 (чтобы не разваливалось при загрузке с десктопа и при переходе с мобилки) */
+@media (min-width: 461px) {
+  .oor-challenge-2-section {
+    padding: 160px var(--container-x) 104px var(--container-x) !important;
+  }
+
+  .oor-challenge-2-section .oor-grid {
+    display: grid !important;
+    grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr)) !important;
+    column-gap: var(--grid-gap) !important;
+    align-items: stretch;
+  }
+
+  .oor-grid {
+    display: grid !important;
+    grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr)) !important;
+    column-gap: var(--grid-gap) !important;
+    align-items: stretch !important;
+    flex-direction: unset !important;
+  }
+
+  .oor-challenge-2-left {
+    display: grid !important;
+    grid-template-columns: 4fr 3fr !important;
+    gap: 24px !important;
+    align-items: start !important;
+  }
+
+  .oor-challenge-2-left .oor-challenge-studio-image {
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+    order: unset !important;
+    min-width: 0 !important;
+    align-self: start !important;
+  }
+
+  .oor-challenge-2-left .oor-challenge-2-text {
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+    order: unset !important;
+    margin-top: 0 !important;
+  }
+
+  .oor-challenge-2-section .oor-challenge-studio-image {
+    display: block !important;
+    width: 100% !important;
+    overflow: hidden !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+
+  .oor-challenge-2-section .oor-challenge-studio-image picture,
+  .oor-challenge-2-section .oor-challenge-studio-image img {
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    max-width: 100% !important;
   }
 }
 
@@ -11835,6 +12007,56 @@ body.oor-become-artist-page .oor-become-artist-container {
   .oor-checkout-disclaimer {
     font-size: 10px;
     letter-spacing: -0.2px;
+  }
+}
+
+/* ===== ФИНАЛЬНЫЙ ОВЕРРАЙД: секция [04] oor-challenge-2 на десктопе (в конце файла — побеждает каскад) ===== */
+@media (min-width: 461px) {
+  .oor-challenge-2-section {
+    padding: 160px var(--container-x) 104px var(--container-x) !important;
+  }
+  .oor-challenge-2-section .oor-grid {
+    display: grid !important;
+    grid-template-columns: repeat(12, minmax(0, 1fr)) !important;
+    column-gap: 16px !important;
+    align-items: stretch !important;
+  }
+  .oor-challenge-2-section .oor-grid .oor-col-7 {
+    grid-column: span 7 !important;
+    min-width: 0 !important;
+  }
+  .oor-challenge-2-section .oor-grid .oor-col-2 {
+    grid-column: span 2 !important;
+  }
+  .oor-challenge-2-section .oor-grid .oor-col-3 {
+    grid-column: span 3 !important;
+  }
+  .oor-challenge-2-section .oor-challenge-2-left {
+    display: grid !important;
+    grid-template-columns: 4fr 3fr !important;
+    gap: 24px !important;
+    align-items: start !important;
+  }
+  .oor-challenge-2-section .oor-challenge-2-left .oor-challenge-studio-image {
+    display: block !important;
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    overflow: hidden !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  .oor-challenge-2-section .oor-challenge-2-left .oor-challenge-studio-image picture,
+  .oor-challenge-2-section .oor-challenge-2-left .oor-challenge-studio-image img {
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+  }
+  .oor-challenge-2-section .oor-challenge-2-left .oor-challenge-2-text {
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+    margin-top: 0 !important;
   }
 }
 

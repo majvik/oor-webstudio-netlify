@@ -275,6 +275,10 @@ get_header();
                 <p class="oor-musical-association-text">
                     Основали лейбл, агентство дистрибуции и премиальную студию, а еще серию городских культурных событий и музыкальное talk-шоу
         </p>
+                
+                <div class="oor-line-divider">
+                    <img src="<?php echo get_template_directory_uri(); ?>/public/assets/line-large.svg" alt="" width="18" height="0">
+                </div>
       </div>
             
             <!-- Правая колонка - 6 колонок -->
@@ -304,12 +308,12 @@ get_header();
                     Бросить вызов привычному
                 </h2>
                 
-                <button class="oor-manifesto-button">
-                    <span class="oor-manifesto-text">Манифест</span>
+                <a href="<?php echo esc_url( home_url( '/manifest' ) ); ?>" class="oor-manifesto-button rolling-button">
+                    <span class="oor-manifesto-text tn-atom">Манифест</span>
                     <div class="oor-manifesto-icon">
                         <img src="<?php echo get_template_directory_uri(); ?>/public/assets/arrow-right.svg" alt="Arrow" width="32" height="32">
         </div>
-                </button>
+                </a>
       </div>
             
             <div class="oor-without-fear-text">
@@ -409,9 +413,8 @@ get_header();
                     </picture>
         </div>
                 
-                <!-- Challenge To The Usual 2 — Text - оставшееся пространство (справа) -->
+                <!-- Challenge To The Usual 2 — Text (заголовок, описание и ссылка — как в рабочей статичной версии, два дочерних элемента в grid) -->
                 <div class="oor-challenge-2-text">
-                    <!-- Challenge To The Usual 2 — Studio -->
                     <div class="oor-challenge-2-studio">
                         <h2 class="oor-challenge-2-studio-title">
                 Студия Out Of Records
@@ -420,17 +423,15 @@ get_header();
                             Легендарное оборудование и индивидуальный сетап под проект и жанр. Записывай авторскую музыку, песни, подкасты, саундтреки и другое
               </p>
             </div>
-                    
-                    <!-- Challenge To The Usual 2 — Music Is A Game -->
-                    <div class="oor-challenge-2-music-game">
+                    <a href="<?php echo esc_url( home_url( '/studio' ) ); ?>" class="oor-challenge-2-music-game">
                         <div class="oor-challenge-2-music-icon">
                             <img src="<?php echo get_template_directory_uri(); ?>/public/assets/icons-linking.svg" alt="Music Game Icon" width="32" height="32">
               </div>
                         <p class="oor-challenge-2-music-text">
-                            МУЗЫКА — ЭТО ИГРА. ИГРАТЬ ПО-СВОЕМУ ПРОЩЕ, ЕСЛИ НЕ БОЯТЬСЯ ПРОВАЛОВ И ПРАВИЛ
+                            <span class="tn-atom">МУЗЫКА — ЭТО ИГРА. ИГРАТЬ ПО-СВОЕМУ ПРОЩЕ, ЕСЛИ НЕ БОЯТЬСЯ ПРОВАЛОВ И ПРАВИЛ</span>
               </p>
-            </div>
-          </div>
+                    </a>
+                </div>
         </div>
             
             <!-- Пустой промежуток - 2 колонки -->
@@ -629,6 +630,7 @@ get_header();
                     $event_3_poster = $events_section[2]['event_poster'];
                 }
                 
+                $event_3_assets = get_template_directory_uri() . '/public/assets';
                 if ($event_3_poster) {
                     $event_3_url = is_array($event_3_poster) ? $event_3_poster['url'] : wp_get_attachment_image_url($event_3_poster, 'full');
                     $event_3_medium = is_array($event_3_poster) && isset($event_3_poster['sizes']['medium']) ? $event_3_poster['sizes']['medium'] : $event_3_url;
@@ -642,6 +644,17 @@ get_header();
                             <img src="<?php echo esc_url($event_3_url); ?>" 
                                  srcset="<?php echo esc_url($event_3_url); ?> 1x, <?php echo esc_url($event_3_large); ?> 2x" 
                                  alt="<?php echo esc_attr($event_3_alt); ?>">
+                        </picture>
+                    </div>
+                    <?php
+                } else {
+                    // Fallback: статичные файлы темы (event-3.avif, event-3@2x.avif и др.)
+                    ?>
+                    <div class="oor-events-photo-image text-cuberto-cursor-1" data-text="Все события">
+                        <picture>
+                            <source srcset="<?php echo esc_url($event_3_assets); ?>/event-3.avif 1x, <?php echo esc_url($event_3_assets); ?>/event-3@2x.avif 2x" type="image/avif">
+                            <source srcset="<?php echo esc_url($event_3_assets); ?>/event-3.webp 1x, <?php echo esc_url($event_3_assets); ?>/event-3@2x.webp 2x" type="image/webp">
+                            <img src="<?php echo esc_url($event_3_assets); ?>/event-3.png" srcset="<?php echo esc_url($event_3_assets); ?>/event-3.png 1x, <?php echo esc_url($event_3_assets); ?>/event-3@2x.png 2x" alt="Event 3">
                         </picture>
                     </div>
                     <?php

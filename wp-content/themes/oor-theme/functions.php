@@ -9,7 +9,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Версия темы
-define('OOR_THEME_VERSION', '1.2.1');
+define('OOR_THEME_VERSION', '1.2.2');
 
 /**
  * На сервере с nip.io: подмена URL с IP на канонический домен.
@@ -85,7 +85,8 @@ function oor_fix_canonical_url($url) {
     }
     if ($canonical) {
         $url = str_replace('45.141.102.187', $canonical, $url);
-        $url = preg_replace('#^http://#', 'https://', $url);
+        $protocol = is_ssl() ? 'https://' : 'http://';
+        $url = preg_replace('#^https?://#', $protocol, $url);
     }
     return $url;
 }
@@ -168,7 +169,8 @@ function oor_theme_base_uri() {
     }
     if ($canonical && $host === '45.141.102.187') {
         $uri = str_replace('45.141.102.187', $canonical, $uri);
-        $uri = preg_replace('#^http://#', 'https://', $uri);
+        $protocol = is_ssl() ? 'https://' : 'http://';
+        $uri = preg_replace('#^https?://#', $protocol, $uri);
     }
     return $uri;
 }

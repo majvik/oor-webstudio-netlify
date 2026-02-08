@@ -86,29 +86,23 @@
   }
 
   function applyStyles() {
-    // Container styles
+    // Container styles (не задаём touch-action: pan-x — вертикальный скролл секции должен работать)
     container.style.cssText = `
       width: 100% !important;
       overflow: hidden !important;
       position: relative !important;
-      touch-action: pan-x !important;
     `;
     
-    // Также устанавливаем touch-action для родительского контейнера .slider
     const sliderContainer = container.closest('.slider');
     if (sliderContainer) {
       const existingStyle = sliderContainer.getAttribute('style') || '';
       sliderContainer.style.cssText = existingStyle + `
-        touch-action: pan-x !important;
         overflow: hidden !important;
       `;
     }
     
-    // Устанавливаем touch-action для всей секции слайдера
-    const sliderSection = container.closest('#wsls');
-    if (sliderSection) {
-      sliderSection.style.touchAction = 'pan-x';
-    }
+    // Не задаём touch-action на секции — иначе на мобильном блокируется вертикальный скролл.
+    // Направление жеста обрабатывается в onTouchMove (preventDefault только при горизонтальном свайпе).
 
     // Wrapper styles - без gap, используем margin-right на слайдах
     wrapper.style.cssText = `

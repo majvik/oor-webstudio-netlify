@@ -248,17 +248,9 @@ function initPreloader() {
       checkLoadedResources();
       
       if (loadedResources < totalResources) {
-        console.warn('Preloader timeout, forcing completion', {
-          loaded: loadedResources,
-          total: totalResources,
-          remaining: totalResources - loadedResources,
-          missingResources: missingResources,
-          allResources: {
-            static: resourcesToLoad,
-            cssJs: expectedCssJsFiles,
-            domLoad: 'document.readyState'
-          }
-        });
+        if (typeof console.debug === 'function') {
+          console.debug('Preloader timeout, forcing completion', { loaded: loadedResources, total: totalResources });
+        }
         loadedResources = totalResources;
         updateProgress();
       }

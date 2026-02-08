@@ -11,11 +11,22 @@ function oor_enqueue_scripts() {
         $host = parse_url($theme_uri, PHP_URL_HOST);
         if ($host === '45.141.102.187') {
             $theme_uri = str_replace('45.141.102.187', OOR_FORCE_CANONICAL_HOST, $theme_uri);
-            $theme_uri = preg_replace('#^http://#', 'https://', $theme_uri);
+            // Используем протокол текущего запроса: если сервер без SSL — открывают по HTTP, и ресурсы должны грузиться по HTTP (иначе ERR_SSL_PROTOCOL_ERROR).
+            $protocol = is_ssl() ? 'https://' : 'http://';
+            $theme_uri = preg_replace('#^https?://#', $protocol, $theme_uri);
         }
     }
     $version = OOR_THEME_VERSION;
-    
+    // Версия для CSS: при изменении components.css на сервере меняется и ver= (обход кэша)
+    $css_version = $version;
+    $components_path = get_template_directory() . '/assets/css/components.css';
+    if (file_exists($components_path)) {
+        $mtime = filemtime($components_path);
+        if ($mtime) {
+            $css_version = $version . '.' . $mtime;
+        }
+    }
+
     // CSS (в правильном порядке)
     $css_files = [
         'reset' => 'reset.css',
@@ -38,7 +49,7 @@ function oor_enqueue_scripts() {
             'oor-' . $handle,
             $theme_uri . '/assets/css/' . $file,
             $prev_handle ? ['oor-' . $prev_handle] : [],
-            $version
+            $css_version
         );
         $prev_handle = $handle;
     }
