@@ -321,6 +321,27 @@ function initParallaxImages() {
   });
 
   // Поддержка параллакса для блоков с фоном
+  function build2xUrlForParallax(url) {
+    try {
+      const qIndex = url.indexOf('?');
+      const base = qIndex >= 0 ? url.slice(0, qIndex) : url;
+      const query = qIndex >= 0 ? url.slice(qIndex) : '';
+      if (/@2x\.(avif|webp|png|jpg|jpeg)(\?|$)/i.test(base)) return null;
+      const dot = base.lastIndexOf('.');
+      if (dot <= 0) return null;
+      return base.slice(0, dot) + '@2x' + base.slice(dot) + query;
+    } catch (_) { return null; }
+  }
+  function upgradeBgToImageSet(cssBg) {
+    if (!cssBg || cssBg === 'none') return cssBg;
+    const match = /url\(("|')?(.*?)("|')?\)/.exec(cssBg);
+    if (!match || !match[2]) return cssBg;
+    const url = (match[2] || '').trim().replace(/^["']|["']$/g, '');
+    if (/\.svg($|\?)/i.test(url)) return cssBg;
+    const hi = build2xUrlForParallax(url);
+    if (!hi) return cssBg;
+    return `image-set(url("${url}") 1x, url("${hi}") 2x)`;
+  }
   const bgTargets = [];
   document.querySelectorAll('.oor-musical-association-right').forEach(el => {
     const cs = getComputedStyle(el);
@@ -332,7 +353,7 @@ function initParallaxImages() {
     layer.className = 'oor-parallax-bg';
     layer.style.position = 'absolute';
     layer.style.inset = '0';
-    layer.style.backgroundImage = cs.backgroundImage;
+    layer.style.backgroundImage = upgradeBgToImageSet(cs.backgroundImage) || cs.backgroundImage;
     layer.style.backgroundSize = cs.backgroundSize || 'cover';
     layer.style.backgroundRepeat = cs.backgroundRepeat || 'no-repeat';
     layer.style.backgroundPosition = cs.backgroundPosition || 'center';

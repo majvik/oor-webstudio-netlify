@@ -8,6 +8,23 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+// Заглушки ACF при неактивном плагине — избегаем fatal error в шаблонах
+if (!function_exists('get_field')) {
+    function get_field($selector, $post_id = false) {
+        return null;
+    }
+}
+if (!function_exists('have_rows')) {
+    function have_rows($selector, $post_id = false) {
+        return false;
+    }
+}
+if (!function_exists('get_sub_field')) {
+    function get_sub_field($selector) {
+        return null;
+    }
+}
+
 // Версия темы
 define('OOR_THEME_VERSION', '1.2.2');
 
@@ -43,6 +60,9 @@ add_filter('wp_get_attachment_url', $oor_fix_canonical_url_filter, 10, 1);
  * ACF: в поле «платформа» соцссылок артиста показывать и хранить "tiktok" вместо "other".
  */
 add_filter('acf/load_field/name=platform', function($field) {
+    if (!function_exists('acf_get_setting') || !is_array($field)) {
+        return $field;
+    }
     if (!empty($field['choices']) && isset($field['choices']['other'])) {
         $field['choices']['tiktok'] = $field['choices']['other'];
         unset($field['choices']['other']);

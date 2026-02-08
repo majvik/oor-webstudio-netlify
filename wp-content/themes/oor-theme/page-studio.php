@@ -23,9 +23,9 @@ get_header();
         
         <div class="oor-studio-hero-image">
             <picture>
-                <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-hero-image.avif" type="image/avif">
-                <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-hero-image.webp" type="image/webp">
-                <img src="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-hero-image.png" alt="Студия Out of Records" class="oor-media-cover">
+                <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-hero-image.avif 1x, <?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-hero-image@2x.avif 2x" type="image/avif">
+                <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-hero-image.webp 1x, <?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-hero-image@2x.webp 2x" type="image/webp">
+                <img src="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-hero-image.png" srcset="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-hero-image.png 1x, <?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-hero-image@2x.png 2x" alt="Студия Out of Records" class="oor-media-cover">
             </picture>
         </div>
     </section>
@@ -50,16 +50,16 @@ get_header();
                     <div class="oor-studio-image-row">
                         <div class="oor-studio-image-item">
                             <picture>
-                                <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-image-item-1.avif" type="image/avif">
-                                <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-image-item-1.webp" type="image/webp">
-                                <img src="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-image-item-1.png" alt="Студия" class="oor-media-cover">
+                                <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-image-item-1.avif 1x, <?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-image-item-1@2x.avif 2x" type="image/avif">
+                                <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-image-item-1.webp 1x, <?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-image-item-1@2x.webp 2x" type="image/webp">
+                                <img src="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-image-item-1.png" srcset="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-image-item-1.png 1x, <?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-image-item-1@2x.png 2x" alt="Студия" class="oor-media-cover">
                             </picture>
                         </div>
                         <div class="oor-studio-image-item">
                             <picture>
-                                <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-image-item-2.avif" type="image/avif">
-                                <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-image-item-2.webp" type="image/webp">
-                                <img src="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-image-item-2.png" alt="Студия" class="oor-media-cover">
+                                <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-image-item-2.avif 1x, <?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-image-item-2@2x.avif 2x" type="image/avif">
+                                <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-image-item-2.webp 1x, <?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-image-item-2@2x.webp 2x" type="image/webp">
+                                <img src="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-image-item-2.png" srcset="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-image-item-2.png 1x, <?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-image-item-2@2x.png 2x" alt="Студия" class="oor-media-cover">
                             </picture>
                         </div>
                     </div>
@@ -112,9 +112,9 @@ get_header();
                             </p>
                             <div class="oor-studio-equipment-item-image">
                                 <picture>
-                                    <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-1.avif" type="image/avif">
-                                    <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-1.webp" type="image/webp">
-                                    <img src="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-1.png" alt="Мониторинг и акустика" class="oor-media-cover">
+                                    <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-1.avif 1x, <?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-1@2x.avif 2x" type="image/avif">
+                                    <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-1.webp 1x, <?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-1@2x.webp 2x" type="image/webp">
+                                    <img src="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-1.png" srcset="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-1.png 1x, <?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-1@2x.png 2x" alt="Мониторинг и акустика" class="oor-media-cover">
                                 </picture>
                             </div>
                         </div>
@@ -139,9 +139,9 @@ get_header();
                             </p>
                             <div class="oor-studio-equipment-item-image">
                                 <picture>
-                                    <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-2.avif" type="image/avif">
-                                    <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-2.webp" type="image/webp">
-                                    <img src="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-2.png" alt="Рабочие станции и управление" class="oor-media-cover">
+                                    <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-2.avif 1x, <?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-2@2x.avif 2x" type="image/avif">
+                                    <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-2.webp 1x, <?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-2@2x.webp 2x" type="image/webp">
+                                    <img src="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-2.png" srcset="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-2.png 1x, <?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-2@2x.png 2x" alt="Рабочие станции и управление" class="oor-media-cover">
                                 </picture>
                             </div>
                         </div>
@@ -166,9 +166,9 @@ get_header();
                             </p>
                             <div class="oor-studio-equipment-item-image">
                                 <picture>
-                                    <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-3.avif" type="image/avif">
-                                    <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-3.webp" type="image/webp">
-                                    <img src="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-3.png" alt="Микрофоны и предусилители" class="oor-media-cover">
+                                    <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-3.avif 1x, <?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-3@2x.avif 2x" type="image/avif">
+                                    <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-3.webp 1x, <?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-3@2x.webp 2x" type="image/webp">
+                                    <img src="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-3.png" srcset="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-3.png 1x, <?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-3@2x.png 2x" alt="Микрофоны и предусилители" class="oor-media-cover">
                                 </picture>
                             </div>
                         </div>
@@ -193,9 +193,9 @@ get_header();
                             </p>
                             <div class="oor-studio-equipment-item-image">
                                 <picture>
-                                    <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-4.avif" type="image/avif">
-                                    <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-4.webp" type="image/webp">
-                                    <img src="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-4.png" alt="Компрессоры и эквалайзеры" class="oor-media-cover">
+                                    <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-4.avif 1x, <?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-4@2x.avif 2x" type="image/avif">
+                                    <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-4.webp 1x, <?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-4@2x.webp 2x" type="image/webp">
+                                    <img src="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-4.png" srcset="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-4.png 1x, <?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-4@2x.png 2x" alt="Компрессоры и эквалайзеры" class="oor-media-cover">
                                 </picture>
                             </div>
                         </div>
@@ -220,9 +220,9 @@ get_header();
                             </p>
                             <div class="oor-studio-equipment-item-image">
                                 <picture>
-                                    <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-5.avif" type="image/avif">
-                                    <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-5.webp" type="image/webp">
-                                    <img src="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-5.png" alt="Инструменты и контроллеры" class="oor-media-cover">
+                                    <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-5.avif 1x, <?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-5@2x.avif 2x" type="image/avif">
+                                    <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-5.webp 1x, <?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-5@2x.webp 2x" type="image/webp">
+                                    <img src="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-5.png" srcset="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-5.png 1x, <?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-5@2x.png 2x" alt="Инструменты и контроллеры" class="oor-media-cover">
                                 </picture>
                             </div>
                         </div>
@@ -247,9 +247,9 @@ get_header();
                             </p>
                             <div class="oor-studio-equipment-item-image">
                                 <picture>
-                                    <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-6.avif" type="image/avif">
-                                    <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-6.webp" type="image/webp">
-                                    <img src="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-6.png" alt="DAW и плагины" class="oor-media-cover">
+                                    <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-6.avif 1x, <?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-6@2x.avif 2x" type="image/avif">
+                                    <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-6.webp 1x, <?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-6@2x.webp 2x" type="image/webp">
+                                    <img src="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-6.png" srcset="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-6.png 1x, <?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-6@2x.png 2x" alt="DAW и плагины" class="oor-media-cover">
                                 </picture>
                             </div>
                         </div>
@@ -258,9 +258,9 @@ get_header();
                 
                 <div class="oor-studio-equipment-image">
                     <picture>
-                        <source data-equipment-image-avif srcset="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-1.avif" type="image/avif">
-                        <source data-equipment-image-webp srcset="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-1.webp" type="image/webp">
-                        <img id="equipment-image" src="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-1.png" alt="Оборудование студии" class="oor-media-cover">
+                        <source data-equipment-image-avif srcset="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-1.avif 1x, <?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-1@2x.avif 2x" type="image/avif">
+                        <source data-equipment-image-webp srcset="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-1.webp 1x, <?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-1@2x.webp 2x" type="image/webp">
+                        <img id="equipment-image" src="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-1.png" srcset="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-1.png 1x, <?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-equipment-image-1@2x.png 2x" alt="Оборудование студии" class="oor-media-cover">
                     </picture>
                 </div>
             </div>
@@ -362,9 +362,9 @@ get_header();
             <div class="oor-grid oor-studio-recording-grid">
                 <div class="oor-col-7 oor-studio-recording-image">
                     <picture>
-                        <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-recording-image.avif" type="image/avif">
-                        <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-recording-image.webp" type="image/webp">
-                        <img src="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-recording-image.png" alt="Запись в студии" class="oor-media-cover">
+                        <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-recording-image.avif 1x, <?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-recording-image@2x.avif 2x" type="image/avif">
+                        <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-recording-image.webp 1x, <?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-recording-image@2x.webp 2x" type="image/webp">
+                        <img src="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-recording-image.png" srcset="<?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-recording-image.png 1x, <?php echo get_template_directory_uri(); ?>/public/assets/oor-studio-recording-image@2x.png 2x" alt="Запись в студии" class="oor-media-cover">
                     </picture>
                 </div>
                 

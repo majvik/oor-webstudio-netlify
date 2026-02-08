@@ -65,9 +65,9 @@ get_header();
                     <!-- Recording Image (mobile: between list and contact) -->
                     <div class="oor-services-recording-image">
                         <picture>
-                            <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/services-recording.avif" type="image/avif">
-                            <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/services-recording.webp" type="image/webp">
-                            <img src="<?php echo get_template_directory_uri(); ?>/public/assets/services-recording.png" alt="Recording Studio" class="oor-media-cover">
+                            <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/services-recording.avif 1x, <?php echo get_template_directory_uri(); ?>/public/assets/services-recording@2x.avif 2x" type="image/avif">
+                            <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/services-recording.webp 1x, <?php echo get_template_directory_uri(); ?>/public/assets/services-recording@2x.webp 2x" type="image/webp">
+                            <img src="<?php echo get_template_directory_uri(); ?>/public/assets/services-recording.png" srcset="<?php echo get_template_directory_uri(); ?>/public/assets/services-recording.png 1x, <?php echo get_template_directory_uri(); ?>/public/assets/services-recording@2x.png 2x" alt="Recording Studio" class="oor-media-cover">
                         </picture>
                     </div>
                     
@@ -84,9 +84,9 @@ get_header();
                 <!-- Desktop Image -->
                 <div class="oor-services-recording-image-desktop">
                     <picture>
-                        <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/services-recording.avif" type="image/avif">
-                        <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/services-recording.webp" type="image/webp">
-                        <img src="<?php echo get_template_directory_uri(); ?>/public/assets/services-recording.png" alt="Recording Studio" class="oor-media-cover" data-parallax-scale="1.15" data-parallax-max="48">
+                        <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/services-recording.avif 1x, <?php echo get_template_directory_uri(); ?>/public/assets/services-recording@2x.avif 2x" type="image/avif">
+                        <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/services-recording.webp 1x, <?php echo get_template_directory_uri(); ?>/public/assets/services-recording@2x.webp 2x" type="image/webp">
+                        <img src="<?php echo get_template_directory_uri(); ?>/public/assets/services-recording.png" srcset="<?php echo get_template_directory_uri(); ?>/public/assets/services-recording.png 1x, <?php echo get_template_directory_uri(); ?>/public/assets/services-recording@2x.png 2x" alt="Recording Studio" class="oor-media-cover" data-parallax-scale="1.15" data-parallax-max="48">
                     </picture>
                 </div>
             </div>

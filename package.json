@@ -4,9 +4,7 @@
   "description": "Out of Records Web Studio",
   "scripts": {
     "build": "node scripts/update-cache-version.js",
-    "process-artists": "node scripts/process-artists.js",
-    "migrate-paths": "node scripts/migrate-paths-to-wp.js",
-    "migrate-paths:dry-run": "node scripts/migrate-paths-to-wp.js --dry-run",
+    "generate-image-variants": "node scripts/generate-image-variants.js",
     "setup": "bash scripts/setup-dev.sh",
     "serve": "python3 -m http.server 8040",
     "serve:alt": "npx serve . -p 8040"

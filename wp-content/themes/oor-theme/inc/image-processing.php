@@ -44,13 +44,18 @@ function oor_get_file_extension($filename) {
  * Конвертирует изображение в другой формат
  */
 function oor_convert_image($source_path, $output_path, $format, $width = null, $height = null) {
-    // Проверяем доступность Imagick (предпочтительно) или GD
+    $format = strtolower($format);
+    if (!in_array($format, ['avif', 'webp', 'png', 'jpg', 'jpeg'], true)) {
+        return false;
+    }
     if (extension_loaded('imagick')) {
-        return oor_convert_with_imagick($source_path, $output_path, $format, $width, $height);
-    } elseif (function_exists('imagecreatefromstring')) {
+        $r = oor_convert_with_imagick($source_path, $output_path, $format, $width, $height);
+        if ($r) return true;
+        // При ошибке Imagick (например, AVIF не собран) пробуем GD
+    }
+    if (function_exists('imagecreatefromstring')) {
         return oor_convert_with_gd($source_path, $output_path, $format, $width, $height);
     }
-    
     return false;
 }
 
@@ -273,6 +278,15 @@ function oor_generate_image_variants($attachment_id) {
         }
     }
     
+    // Всегда добавляем оригинал в 1x (если загружен не @2x), чтобы picture имел fallback и правильный URL
+    if (!$is_2x && !isset($variants['1x'][$original_ext])) {
+        $variants['1x'][$original_ext] = [
+            'path' => $file_path,
+            'url' => str_replace($base_dir, $base_url, $file_path),
+            'filename' => $filename
+        ];
+    }
+    
     // Генерируем варианты для 2x (если загружен @2x)
     if ($is_2x) {
         // Сначала сохраняем оригинал как вариант 2x
@@ -321,25 +335,34 @@ function oor_generate_image_variants($attachment_id) {
         }
     }
     
-    // Сохраняем метаданные о вариантах
+    // Сохраняем метаданные о вариантах (даже если часть конвертаций не удалась — сохраняем то, что есть)
     update_post_meta($attachment_id, '_oor_image_variants', $variants);
     
     return $variants;
 }
 
 /**
- * Хук для обработки загруженного изображения
+ * Хук для обработки загруженного изображения (в т.ч. через ACF)
  */
-add_action('add_attachment', 'oor_process_uploaded_image');
+add_action('add_attachment', 'oor_process_uploaded_image', 20);
 
 function oor_process_uploaded_image($attachment_id) {
-    // Проверяем, что это изображение
+    $attachment_id = (int) $attachment_id;
+    if ($attachment_id <= 0) {
+        return;
+    }
     if (!wp_attachment_is_image($attachment_id)) {
         return;
     }
     
-    // Генерируем варианты
-    oor_generate_image_variants($attachment_id);
+    try {
+        oor_generate_image_variants($attachment_id);
+    } catch (Throwable $e) {
+        if (defined('WP_DEBUG') && WP_DEBUG) {
+            error_log('OOR Image Processing: ' . $e->getMessage());
+        }
+        // Не прерываем загрузку — изображение уже сохранено, варианты подставятся при первом выводе
+    }
 }
 
 /**
@@ -368,26 +391,59 @@ function oor_fix_variants_urls($variants) {
 function oor_get_image_variants($attachment_id) {
     $variants = get_post_meta($attachment_id, '_oor_image_variants', true);
     
-    // Если варианты не найдены, пытаемся сгенерировать
-    if (empty($variants)) {
+    if (empty($variants) || !is_array($variants)) {
         $variants = oor_generate_image_variants($attachment_id);
+        if ($variants === false) {
+            // Конвертация не удалась (нет Imagick/GD и т.д.) — сохраняем минимум по оригиналу, чтобы не дергать генерацию при каждом запросе
+            $variants = oor_build_minimal_variants_from_attachment($attachment_id);
+            if (is_array($variants)) {
+                update_post_meta($attachment_id, '_oor_image_variants', $variants);
+            } else {
+                $variants = ['1x' => [], '2x' => []];
+            }
+        }
     }
     
-    $variants = $variants ?: [
-        '1x' => [],
+    $variants = is_array($variants) ? $variants : ['1x' => [], '2x' => []];
+    return oor_fix_variants_urls($variants);
+}
+
+/**
+ * Строит минимальный набор вариантов из оригинала (когда конвертация недоступна)
+ */
+function oor_build_minimal_variants_from_attachment($attachment_id) {
+    $file_path = get_attached_file($attachment_id);
+    if (!$file_path || !file_exists($file_path)) {
+        return null;
+    }
+    $url = wp_get_attachment_image_url($attachment_id, 'full');
+    if (!$url) {
+        return null;
+    }
+    $filename = basename($file_path);
+    $ext = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
+    
+    return [
+        '1x' => [
+            $ext => ['path' => $file_path, 'url' => $url, 'filename' => $filename]
+        ],
         '2x' => []
     ];
-    return oor_fix_variants_urls($variants);
 }
 
 /**
  * Генерирует HTML для picture элемента с поддержкой всех форматов
  */
 function oor_picture_element($attachment_id, $alt = '', $class = '', $attributes = []) {
-    $variants = oor_get_image_variants($attachment_id);
-    
-    // Получаем оригинальный файл как fallback
+    $attachment_id = (int) $attachment_id;
+    if ($attachment_id <= 0) {
+        return '';
+    }
     $original_file_path = get_attached_file($attachment_id);
+    if (!$original_file_path || !file_exists($original_file_path)) {
+        return '';
+    }
+    $variants = oor_get_image_variants($attachment_id);
     $original_url = wp_get_attachment_image_url($attachment_id, 'full');
     $original_filename = basename($original_file_path);
     

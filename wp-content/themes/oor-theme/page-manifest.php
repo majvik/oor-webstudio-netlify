@@ -88,9 +88,9 @@ get_header();
                 </div>
                 <div class="oor-manifest-ceo-image">
                     <picture>
-                        <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/manifest-ceo-photo.avif" type="image/avif">
-                        <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/manifest-ceo-photo.webp" type="image/webp">
-                        <img src="<?php echo get_template_directory_uri(); ?>/public/assets/manifest-ceo-photo.png" alt="Анастасия Кудряшкина - CEO OOR" class="oor-media-cover">
+                        <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/manifest-ceo-photo.avif 1x, <?php echo get_template_directory_uri(); ?>/public/assets/manifest-ceo-photo@2x.avif 2x" type="image/avif">
+                        <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/manifest-ceo-photo.webp 1x, <?php echo get_template_directory_uri(); ?>/public/assets/manifest-ceo-photo@2x.webp 2x" type="image/webp">
+                        <img src="<?php echo get_template_directory_uri(); ?>/public/assets/manifest-ceo-photo.png" srcset="<?php echo get_template_directory_uri(); ?>/public/assets/manifest-ceo-photo.png 1x, <?php echo get_template_directory_uri(); ?>/public/assets/manifest-ceo-photo@2x.png 2x" alt="Анастасия Кудряшкина - CEO OOR" class="oor-media-cover">
                     </picture>
                 </div>
                 <div class="oor-manifest-ceo-plus-bottom">

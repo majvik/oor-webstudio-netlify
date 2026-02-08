@@ -60,8 +60,11 @@ ALWAYS_WORKS_GUIDE.md
 docs_backup_*.tar.gz
 docs_backup_*/
 
-# Локальные SSL-сертификаты (генерируются scripts/generate-ssl-cert.sh)
+# Локальные SSL-сертификаты
 ssl/*.pem
+certs/*.pem
+certs/*.crt
+certs/*.key
 
 # Let's Encrypt webroot (на сервере)
 certbot-webroot/
@@ -80,3 +83,7 @@ wp-content/mu-plugins/local-https-url.php
 
 # Медиа темы (видео, аудио, картинки — не в репо, выкладывать отдельно/на CDN)
 wp-content/themes/oor-theme/public/
+
+# Локальные дампы и бэкапы (не в репо)
+local-wordpress.sql
+wp-content/ai1wm-backups/

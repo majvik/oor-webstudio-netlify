@@ -407,9 +407,9 @@ get_header();
                 <!-- Challenge Studio Image - 4 колонки минус 8px (слева) -->
                 <div class="oor-challenge-studio-image img-cuberto-cursor-1" data-cursor-img="<?php echo get_template_directory_uri(); ?>/public/assets/challenge-studio.png">
                     <picture>
-                        <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/challenge-studio.avif" type="image/avif">
-                        <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/challenge-studio.webp" type="image/webp">
-                        <img src="<?php echo get_template_directory_uri(); ?>/public/assets/challenge-studio.png" alt="Challenge Studio">
+                        <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/challenge-studio.avif 1x, <?php echo get_template_directory_uri(); ?>/public/assets/challenge-studio@2x.avif 2x" type="image/avif">
+                        <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/challenge-studio.webp 1x, <?php echo get_template_directory_uri(); ?>/public/assets/challenge-studio@2x.webp 2x" type="image/webp">
+                        <img src="<?php echo get_template_directory_uri(); ?>/public/assets/challenge-studio.png" srcset="<?php echo get_template_directory_uri(); ?>/public/assets/challenge-studio.png 1x, <?php echo get_template_directory_uri(); ?>/public/assets/challenge-studio@2x.png 2x" alt="Challenge Studio">
                     </picture>
         </div>
                 
