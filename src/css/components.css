@@ -1421,22 +1421,21 @@ a.text-cuberto-cursor-2:not([href^="mailto:"]):hover {
 }
 
 .oor-challenge-studio-image {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  height: 100%;
+  display: block;
+  overflow: hidden;
+  width: 100%;
 }
 
 .oor-challenge-studio-image picture {
-  width: 100%;
-  height: 100%;
   display: block;
+  width: 100%;
 }
 
 .oor-challenge-studio-image img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
+  display: block;
+  vertical-align: top;
 }
 
 .oor-challenge-2-text {

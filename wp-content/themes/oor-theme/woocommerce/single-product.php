@@ -15,7 +15,7 @@ get_header();
 ?>
 
 <main id="main-content">
-    <section class="oor-product-section">
+    <section class="oor-product-section oor-product-page-layout">
         <div class="oor-container">
             <?php
             while (have_posts()) :
@@ -31,7 +31,10 @@ get_header();
         </div>
     </section>
 </main>
-
+<?php
+// Если на body не попал класс oor-product-page (кэш/сервер), добавляем его для хедера и общих стилей
+?>
+<script>(function(){ if (!document.body.classList.contains('oor-product-page') && document.querySelector('.oor-product-page-layout')) { document.body.classList.add('oor-product-page'); } })();</script>
 <?php
 get_footer();
 
