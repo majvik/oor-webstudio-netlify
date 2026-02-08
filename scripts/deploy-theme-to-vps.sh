@@ -1,5 +1,6 @@
 #!/bin/bash
 # Синхронизация темы oor-theme на VPS.
+# При каждом деплое в footer подставляется комментарий с временем и версией (см. SAFETY-SYNC.md).
 # Использование:
 #   DEPLOY_TARGET="root@45.141.102.187" DEPLOY_PASSWORD="yourpass" bash scripts/deploy-theme-to-vps.sh
 # Или без пароля (по ключу): DEPLOY_TARGET="root@45.141.102.187" bash scripts/deploy-theme-to-vps.sh
@@ -11,6 +12,18 @@ cd "$PROJECT_ROOT"
 DEPLOY_TARGET="${DEPLOY_TARGET:-root@45.141.102.187}"
 REMOTE_PATH="${REMOTE_PATH:-/opt/oor-webstudio}"
 THEME_DIR="wp-content/themes/oor-theme"
+FOOTER_FILE="$PROJECT_ROOT/$THEME_DIR/footer.php"
+
+# Время деплоя (ISO 8601) и версия (короткий хеш коммита)
+DEPLOY_TIMESTAMP="${DEPLOY_TIMESTAMP:-$(date -Iseconds 2>/dev/null || date +%Y-%m-%dT%H:%M:%S%z 2>/dev/null)}"
+DEPLOY_VERSION="${DEPLOY_VERSION:-$(git rev-parse --short HEAD 2>/dev/null || echo 'n/a')}"
+echo "→ Деплой: $DEPLOY_TIMESTAMP | версия: $DEPLOY_VERSION"
+
+# Подставить в footer комментарий с временем и версией (на сервере будет актуальное значение)
+if [ -f "$FOOTER_FILE" ]; then
+  (sed -i.bak "s|{{DEPLOY_TIMESTAMP}}|$DEPLOY_TIMESTAMP|g; s|{{DEPLOY_VERSION}}|$DEPLOY_VERSION|g" "$FOOTER_FILE" 2>/dev/null && rm -f "${FOOTER_FILE}.bak") || \
+  sed -i '' "s|{{DEPLOY_TIMESTAMP}}|$DEPLOY_TIMESTAMP|g; s|{{DEPLOY_VERSION}}|$DEPLOY_VERSION|g" "$FOOTER_FILE" 2>/dev/null || true
+fi
 
 if [ -n "${DEPLOY_PASSWORD:-}" ]; then
   echo "→ Деплой темы на $DEPLOY_TARGET (с паролем)..."
@@ -35,4 +48,7 @@ else
     "$PROJECT_ROOT/$THEME_DIR/" \
     "$DEPLOY_TARGET:$REMOTE_PATH/$THEME_DIR/"
 fi
-echo "✅ Готово."
+
+# Вернуть в репозитории плейсхолдер (в репо хранятся {{...}}, на сервере — фактические значение)
+git checkout -- "$THEME_DIR/footer.php" 2>/dev/null || true
+echo "✅ Готово. В HTML футера на проде: <!-- deploy: $DEPLOY_TIMESTAMP $DEPLOY_VERSION -->"

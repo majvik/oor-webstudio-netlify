@@ -1,6 +1,6 @@
     </main>
     
-    <!-- deploy-test: SAFETY-SYNC theme deploy 2026-02-09 -->
+    <!-- deploy: {{DEPLOY_TIMESTAMP}} {{DEPLOY_VERSION}} -->
     <!-- Footer Section -->
     <footer class="oor-footer">
         <div class="oor-container">
