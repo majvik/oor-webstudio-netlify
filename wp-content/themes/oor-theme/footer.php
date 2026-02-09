@@ -11,10 +11,19 @@
                              alt="<?php bloginfo('name'); ?>" 
                              class="oor-footer-logo-image">
                     </div>
-                    <a href="mailto:info@OOR.com" 
+                    <?php
+                    $footer_email = function_exists('get_field') ? get_field('footer_email', 'option') : '';
+                    $footer_email = is_string($footer_email) ? trim($footer_email) : '';
+                    if (!$footer_email) {
+                        $footer_email = 'info@OOR.com';
+                    }
+                    $footer_email_safe = esc_attr($footer_email);
+                    $footer_email_mailto = 'mailto:' . $footer_email_safe;
+                    ?>
+                    <a href="<?php echo esc_url($footer_email_mailto); ?>" 
                        class="oor-footer-email rolling-button text-cuberto-cursor-1" 
                        data-text="Написать">
-                        <span class="tn-atom">info@OOR.com</span>
+                        <span class="tn-atom"><?php echo esc_html($footer_email); ?></span>
                     </a>
                 </div>
                 
@@ -54,10 +63,30 @@
                     <div class="oor-footer-links-bottom">
                         <h3 class="oor-footer-social-title">соцсети</h3>
                         <div class="oor-footer-links-bottom-group">
-                            <a href="#" class="oor-footer-link rolling-button"><span class="tn-atom">ВК</span></a>
-                            <a href="#" class="oor-footer-link rolling-button"><span class="tn-atom">Инста</span></a>
-                            <a href="#" class="oor-footer-link rolling-button"><span class="tn-atom">Ютуб</span></a>
-                            <a href="#" class="oor-footer-link rolling-button"><span class="tn-atom">Телеграм</span></a>
+                            <?php
+                            $footer_socials = function_exists('get_field') ? get_field('footer_social_links', 'option') : [];
+                            if (!empty($footer_socials) && is_array($footer_socials)) {
+                                foreach ($footer_socials as $item) {
+                                    $label = isset($item['social_label']) ? trim((string) $item['social_label']) : '';
+                                    $url   = isset($item['social_url']) ? trim((string) $item['social_url']) : '';
+                                    if ($label !== '' && $url !== '') {
+                                        echo sprintf(
+                                            '<a href="%s" class="oor-footer-link rolling-button" target="_blank" rel="noopener noreferrer"><span class="tn-atom">%s</span></a>',
+                                            esc_url($url),
+                                            esc_html($label)
+                                        );
+                                    }
+                                }
+                            } else {
+                                // Fallback, если в настройках пусто
+                                ?>
+                                <a href="#" class="oor-footer-link rolling-button"><span class="tn-atom">ВК</span></a>
+                                <a href="#" class="oor-footer-link rolling-button"><span class="tn-atom">Инста</span></a>
+                                <a href="#" class="oor-footer-link rolling-button"><span class="tn-atom">Ютуб</span></a>
+                                <a href="#" class="oor-footer-link rolling-button"><span class="tn-atom">Телеграм</span></a>
+                                <?php
+                            }
+                            ?>
                         </div>
                     </div>
                 </div>
@@ -65,8 +94,20 @@
             
             <div class="oor-footer-privacy">
                 <div class="oor-footer-privacy-left">
-                    <a href="#" class="oor-footer-privacy-link rolling-button"><span class="tn-atom">политика конфиденциальности</span></a>
-                    <a href="#" class="oor-footer-privacy-link rolling-button"><span class="tn-atom">все права защищены</span></a>
+                    <?php
+                    $footer_privacy_url = (function_exists('get_field') ? get_field('footer_privacy_policy_url', 'option') : '') ?: '#';
+                    $footer_all_rights_url = (function_exists('get_field') ? get_field('footer_all_rights_url', 'option') : '') ?: '#';
+                    $footer_privacy_url = is_string($footer_privacy_url) ? trim($footer_privacy_url) : '#';
+                    $footer_all_rights_url = is_string($footer_all_rights_url) ? trim($footer_all_rights_url) : '#';
+                    if ($footer_privacy_url === '') {
+                        $footer_privacy_url = '#';
+                    }
+                    if ($footer_all_rights_url === '') {
+                        $footer_all_rights_url = '#';
+                    }
+                    ?>
+                    <a href="<?php echo esc_url($footer_privacy_url); ?>" class="oor-footer-privacy-link rolling-button"><span class="tn-atom">политика конфиденциальности</span></a>
+                    <a href="<?php echo esc_url($footer_all_rights_url); ?>" class="oor-footer-privacy-link rolling-button"><span class="tn-atom">все права защищены</span></a>
                 </div>
                 <div class="oor-footer-copyright">© <?php echo date('Y'); ?></div>
             </div>

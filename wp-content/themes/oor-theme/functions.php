@@ -254,6 +254,86 @@ add_action('acf/update_field_group', function($field_group) {
     // Дополнительная логика не требуется
 }, 10, 1);
 
+// ACF Options: страница настроек темы (футер — email и соцсети)
+add_action('acf/init', function() {
+    if (!function_exists('acf_add_options_page')) {
+        return;
+    }
+    acf_add_options_page([
+        'page_title' => 'Настройки темы (футер)',
+        'menu_title' => 'Футер',
+        'menu_slug'  => 'acf-options-footer',
+        'capability' => 'edit_posts',
+        'redirect'   => false,
+    ]);
+});
+
+// ACF Options: группа полей для футера (редактируемые email и соцсети)
+add_action('acf/init', function() {
+    if (!function_exists('acf_add_local_field_group')) {
+        return;
+    }
+    acf_add_local_field_group([
+        'key'                   => 'group_footer_options',
+        'title'                 => 'Футер — email и соцсети',
+        'fields'                => [
+            [
+                'key'   => 'field_footer_email',
+                'label' => 'Email в футере',
+                'name'  => 'footer_email',
+                'type'  => 'email',
+                'instructions' => 'Отображается в футере и используется для ссылки mailto:. Если пусто — будет info@OOR.com',
+            ],
+            [
+                'key'   => 'field_footer_social_links',
+                'label' => 'Соцсети в футере',
+                'name'  => 'footer_social_links',
+                'type'  => 'repeater',
+                'layout' => 'table',
+                'sub_fields' => [
+                    [
+                        'key'   => 'field_footer_social_label',
+                        'label' => 'Название',
+                        'name'  => 'social_label',
+                        'type'  => 'text',
+                        'placeholder' => 'Напр. ВК, Инста, Ютуб, Телеграм',
+                    ],
+                    [
+                        'key'   => 'field_footer_social_url',
+                        'label' => 'Ссылка',
+                        'name'  => 'social_url',
+                        'type'  => 'url',
+                        'placeholder' => 'https://...',
+                    ],
+                ],
+            ],
+            [
+                'key'   => 'field_footer_privacy_policy_url',
+                'label' => 'Ссылка «Политика конфиденциальности»',
+                'name'  => 'footer_privacy_policy_url',
+                'type'  => 'url',
+                'instructions' => 'Ссылка в футере под логотипом. Если пусто — будет #.',
+            ],
+            [
+                'key'   => 'field_footer_all_rights_url',
+                'label' => 'Ссылка «Все права защищены»',
+                'name'  => 'footer_all_rights_url',
+                'type'  => 'url',
+                'instructions' => 'Ссылка в футере. Если пусто — будет #.',
+            ],
+        ],
+        'location' => [
+            [
+                [
+                    'param'    => 'options_page',
+                    'operator' => '==',
+                    'value'    => 'acf-options-footer',
+                ],
+            ],
+        ],
+    ]);
+});
+
 // Включение поддержки AVIF и WebP изображений
 add_filter('mime_types', function($mimes) {
     // Добавляем поддержку AVIF
