@@ -1299,31 +1299,30 @@ function installScrollDiagnostics() {
   }
 }
 
-// Функция для предотвращения висячих строк
+// Функция для предотвращения висячих строк (последнее короткое слово не остаётся одним на строке)
 function preventOrphans(element) {
   if (!element || !element.textContent) return;
-  
+
   const text = element.textContent.trim();
   const words = text.split(/\s+/);
-  
-  // Если слов меньше 2, не обрабатываем
+
   if (words.length < 2) return;
-  
-  // Если последнее слово короткое (до 4 символов), связываем с предыдущим
+
+  // Если последние два слова короткие (до 4 символов), связываем их неразрывным пробелом
+  const lastTwoWords = words.slice(-2);
+  if (lastTwoWords.every(word => word.length <= 4)) {
+    const textWithoutLastTwo = words.slice(0, -2).join(' ');
+    const lastTwoJoined = lastTwoWords.join('\u00A0');
+    element.textContent = textWithoutLastTwo ? textWithoutLastTwo + ' ' + lastTwoJoined : lastTwoJoined;
+    return;
+  }
+
+  // Если только последнее слово короткое — связываем с предпоследним (заменяем последний пробел на \u00A0)
   const lastWord = words[words.length - 1];
   if (lastWord.length <= 4) {
-    // Заменяем последний пробел на неразрывный пробел
-    const newText = text.replace(/\s+$/, '\u00A0');
-    element.textContent = newText;
-  }
-  
-  // Дополнительная проверка: если последние два слова короткие, связываем их
-  if (words.length >= 2) {
-    const lastTwoWords = words.slice(-2);
-    if (lastTwoWords.every(word => word.length <= 4)) {
-      const textWithoutLastTwo = words.slice(0, -2).join(' ');
-      const lastTwoJoined = lastTwoWords.join('\u00A0');
-      element.textContent = textWithoutLastTwo + ' ' + lastTwoJoined;
+    const lastSpaceIndex = text.lastIndexOf(' ');
+    if (lastSpaceIndex !== -1) {
+      element.textContent = text.slice(0, lastSpaceIndex) + '\u00A0' + text.slice(lastSpaceIndex + 1);
     }
   }
 }
