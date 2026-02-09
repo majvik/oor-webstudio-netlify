@@ -1,4 +1,4 @@
-FROM wordpress:php8.2-fpm
+FROM wordpress:php8.3-fpm
 
 # Устанавливаем WP-CLI
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \

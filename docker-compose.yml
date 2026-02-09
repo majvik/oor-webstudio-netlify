@@ -14,8 +14,12 @@ services:
       WORDPRESS_DB_USER: ${DB_USER:-wordpress}
       WORDPRESS_DB_PASSWORD: ${DB_PASSWORD:-wordpress}
       WORDPRESS_DB_NAME: ${DB_NAME:-wordpress}
-      WORDPRESS_DEBUG: ${WP_DEBUG:-1}
+      WORDPRESS_DEBUG: ${WP_DEBUG:-0}
       PHP_INI_SCAN_DIR: /usr/local/etc/php/conf.d
+    extra_hosts:
+      # Loopback/REST API: хост сайта должен резолвиться в nginx, иначе таймаут из контейнера
+      - "45.141.102.187.nip.io:172.28.0.250"
+      - "localhost:172.28.0.250"
     volumes:
       - wordpress-data:/var/www/html
       - ./wp-content:/var/www/html/wp-content:rw
@@ -45,7 +49,8 @@ services:
     depends_on:
       - wordpress
     networks:
-      - oor-network
+      oor-network:
+        ipv4_address: 172.28.0.250
 
   db:
     image: mysql:8.0
@@ -83,3 +88,6 @@ volumes:
 networks:
   oor-network:
     driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.0.0/24

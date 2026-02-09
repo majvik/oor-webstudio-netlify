@@ -77,9 +77,9 @@ bash scripts/pull-prod.sh
 - **БД/миграции:** «Изменения в БД делай через PHP-миграцию или wp-cli, не предлагай ручной импорт SQL.»
 - **URL/HTTPS:** «Локально сайт за Nginx на порту 8443. Ссылки должны идти через `get_stylesheet_directory_uri()` и аналоги.»
 
-## Версия WordPress
+## Версия WordPress и PHP
 
-Чтобы совпадать с продом: на сервере посмотреть `wp-includes/version.php` (или через SSH: `cat wp-includes/version.php`). В `Dockerfile.wordpress` использовать тот же тег образа (например, `wordpress:6.4-php8.2-fpm`).
+Чтобы совпадать с продом: на сервере посмотреть `wp-includes/version.php` (или через SSH: `cat wp-includes/version.php`). В `Dockerfile.wordpress` используется образ с PHP 8.3 (рекомендация «Здоровья сайта»); для совпадения с продом при необходимости смените тег (например, `wordpress:6.4-php8.3-fpm`).
 
 ## Сертификаты на проде
 
