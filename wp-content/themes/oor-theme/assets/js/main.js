@@ -1299,7 +1299,13 @@ function installScrollDiagnostics() {
   }
 }
 
-// Функция для предотвращения висячих строк (последнее короткое слово не остаётся одним на строке)
+// Короткое слово (предлог, союз): не должно оставаться одно в конце строки — уходит со следующим или с предыдущим
+function isShortWord(word) {
+  return word.length <= 3;
+}
+
+// Функция для предотвращения висячих строк: предлоги уходят на новую строку со следующим словом;
+// если короткое слово последнее — скрепляем с предыдущим, чтобы оба переходили вместе
 function preventOrphans(element) {
   if (!element || !element.textContent) return;
 
@@ -1308,23 +1314,29 @@ function preventOrphans(element) {
 
   if (words.length < 2) return;
 
-  // Если последние два слова короткие (до 4 символов), связываем их неразрывным пробелом
-  const lastTwoWords = words.slice(-2);
-  if (lastTwoWords.every(word => word.length <= 4)) {
-    const textWithoutLastTwo = words.slice(0, -2).join(' ');
-    const lastTwoJoined = lastTwoWords.join('\u00A0');
-    element.textContent = textWithoutLastTwo ? textWithoutLastTwo + ' ' + lastTwoJoined : lastTwoJoined;
-    return;
-  }
+  const nbsp = '\u00A0';
+  const parts = [];
 
-  // Если только последнее слово короткое — связываем с предпоследним (заменяем последний пробел на \u00A0)
-  const lastWord = words[words.length - 1];
-  if (lastWord.length <= 4) {
-    const lastSpaceIndex = text.lastIndexOf(' ');
-    if (lastSpaceIndex !== -1) {
-      element.textContent = text.slice(0, lastSpaceIndex) + '\u00A0' + text.slice(lastSpaceIndex + 1);
+  for (let i = 0; i < words.length; i++) {
+    parts.push(words[i]);
+    if (i === words.length - 1) break;
+
+    const isCurrentShort = isShortWord(words[i]);
+    const isNextShort = isShortWord(words[i + 1]);
+    const isNextLast = i + 1 === words.length - 1;
+
+    // Предлог/короткое слово — скрепляем со следующим, чтобы переходили на новую строку вместе
+    if (isCurrentShort) {
+      parts.push(nbsp);
+    } else if (isNextShort && isNextLast) {
+      // Последнее слово короткое — скрепляем с предыдущим, оба переходят на новую строку
+      parts.push(nbsp);
+    } else {
+      parts.push(' ');
     }
   }
+
+  element.textContent = parts.join('');
 }
 
 // Страница товара: если цена выведена без <del>/<ins>, оборачиваем две цены вручную
