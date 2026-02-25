@@ -5594,6 +5594,7 @@ body.oor-manifest-page .oor-mobile-menu .oor-mobile-menu-main a.rolling-button {
 }
 
 .oor-manifest-ceo-quote {
+  display: none; /* скрыто пока */
   font-family: var(--font-ui);
   font-size: 48px;
   line-height: 100%;
@@ -5653,6 +5654,7 @@ body.oor-manifest-page .oor-mobile-menu .oor-mobile-menu-main a.rolling-button {
 }
 
 .oor-manifest-ceo-role {
+  display: none; /* скрыто пока */
   font-family: var(--font-ui);
   font-size: 14px;
   line-height: 120%;

@@ -345,6 +345,42 @@ add_action('acf/init', function() {
     ]);
 });
 
+// ACF: Hero — соцсети (Телеграм, Инста) в блоке под заголовком. Редактируются на главной странице.
+add_action('acf/init', function() {
+    if (!function_exists('acf_add_local_field_group')) {
+        return;
+    }
+    acf_add_local_field_group([
+        'key'                   => 'group_hero_options',
+        'title'                 => 'Hero — соцсети',
+        'fields'                => [
+            [
+                'key'   => 'field_hero_telegram_url',
+                'label' => 'Ссылка Telegram (hero)',
+                'name'  => 'hero_telegram_url',
+                'type'  => 'url',
+                'instructions' => 'Иконка Telegram в hero под заголовком. Пусто — ссылка #.',
+            ],
+            [
+                'key'   => 'field_hero_instagram_url',
+                'label' => 'Ссылка Instagram (hero)',
+                'name'  => 'hero_instagram_url',
+                'type'  => 'url',
+                'instructions' => 'Иконка Instagram в hero. Пусто — ссылка #.',
+            ],
+        ],
+        'location' => [
+            [
+                [
+                    'param'    => 'page_type',
+                    'operator' => '==',
+                    'value'    => 'front_page',
+                ],
+            ],
+        ],
+    ]);
+});
+
 // Включение поддержки AVIF и WebP изображений
 add_filter('mime_types', function($mimes) {
     // Добавляем поддержку AVIF

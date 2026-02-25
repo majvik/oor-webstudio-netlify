@@ -21,8 +21,8 @@ get_header();
             <div class="oor-manifest-hero-video-wrapper">
                 <!-- Video background -->
                 <video class="oor-manifest-hero-video" autoplay muted loop playsinline preload="metadata" poster="<?php echo get_template_directory_uri(); ?>/public/assets/video-cover.avif">
-                    <source src="<?php echo get_template_directory_uri(); ?>/public/assets/OUTOFREC_reel_v4_nologo.webm" type="video/webm">
-                    <source src="<?php echo get_template_directory_uri(); ?>/public/assets/OUTOFREC_reel_v4_nologo.mp4" type="video/mp4">
+                    <source src="<?php echo get_template_directory_uri(); ?>/public/assets/manifest-hero.webm" type="video/webm">
+                    <source src="<?php echo get_template_directory_uri(); ?>/public/assets/manifest-hero.mp4" type="video/mp4">
                 </video>
                 <div class="oor-manifest-hero-overlay">
                     <div class="oor-manifest-hero-col-left">
@@ -84,7 +84,7 @@ get_header();
                         <p>Мы считаем несправедливым, что артистам так часто приходится гнаться за цифрами, выживать в иерархии индустрии, подгонять свое творчество под чужие лекала.</p>
                         <p>Мы здесь, чтобы поддержать тех для кого музыка многое значит. Тех, кто многое делает ради музыки. Тех, чьи треки и голоса еще не были услышаны — но мы это исправим</p>
                     </div>
-                    <a href="https://music.apple.com/ru/artist/%D0%BD%D0%B5%D1%82-%D0%B2%D1%80%D0%B5%D0%BC%D0%B5%D0%BD%D0%B8-%D0%BE%D0%B1%D1%8A%D1%8F%D1%81%D0%BD%D1%8F%D1%82%D1%8C/1587750356" class="oor-manifest-ceo-link" target="_blank" rel="noopener noreferrer">MUSIC</a>
+                    <a href="<?php echo esc_url( home_url( '/artists/net-vremeni-obyasnyat/' ) ); ?>" class="oor-manifest-ceo-link">MUSIC</a>
                 </div>
                 <div class="oor-manifest-ceo-image">
                     <picture>
