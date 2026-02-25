@@ -151,59 +151,13 @@ get_header();
                     </div>
                     
                     <div class="oor-talk-show-rules-right">
-                        <!-- Column 1 - Faster scroll -->
+                        <!-- Column 1 - Faster scroll (participants 1-4) -->
                         <div class="oor-talk-show-rules-col oor-talk-show-rules-col-1" data-scroll-speed="1.5">
                             <div class="oor-talk-show-participant-card">
                                 <picture>
-                                    <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-6.avif 1x, <?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-6@2x.avif 2x" type="image/avif">
-                                    <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-6.webp 1x, <?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-6@2x.webp 2x" type="image/webp">
-                                    <img src="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-6.png" srcset="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-6.png 1x, <?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-6@2x.png 2x" alt="Participant" class="oor-media-cover">
-                                </picture>
-                            </div>
-                            <div class="oor-talk-show-participant-card">
-                                <picture>
-                                    <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-3.avif 1x, <?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-3@2x.avif 2x" type="image/avif">
-                                    <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-3.webp 1x, <?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-3@2x.webp 2x" type="image/webp">
-                                    <img src="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-3.png" srcset="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-3.png 1x, <?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-3@2x.png 2x" alt="Participant" class="oor-media-cover">
-                                </picture>
-                            </div>
-                            <div class="oor-talk-show-participant-card">
-                                <picture>
-                                    <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-4.avif 1x, <?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-4@2x.avif 2x" type="image/avif">
-                                    <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-4.webp 1x, <?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-4@2x.webp 2x" type="image/webp">
-                                    <img src="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-4.png" srcset="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-4.png 1x, <?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-4@2x.png 2x" alt="Participant" class="oor-media-cover">
-                                </picture>
-                            </div>
-                            <div class="oor-talk-show-participant-card">
-                                <picture>
-                                    <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-5.avif 1x, <?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-5@2x.avif 2x" type="image/avif">
-                                    <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-5.webp 1x, <?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-5@2x.webp 2x" type="image/webp">
-                                    <img src="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-5.png" srcset="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-5.png 1x, <?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-5@2x.png 2x" alt="Participant" class="oor-media-cover">
-                                </picture>
-                            </div>
-                            <div class="oor-talk-show-participant-card">
-                                <picture>
                                     <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-1.avif 1x, <?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-1@2x.avif 2x" type="image/avif">
                                     <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-1.webp 1x, <?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-1@2x.webp 2x" type="image/webp">
                                     <img src="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-1.png" srcset="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-1.png 1x, <?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-1@2x.png 2x" alt="Participant" class="oor-media-cover">
-                                </picture>
-                            </div>
-                        </div>
-                        
-                        <!-- Column 2 - Slower scroll -->
-                        <div class="oor-talk-show-rules-col oor-talk-show-rules-col-2" data-scroll-speed="1">
-                            <div class="oor-talk-show-participant-card">
-                                <picture>
-                                    <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-1.avif 1x, <?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-1@2x.avif 2x" type="image/avif">
-                                    <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-1.webp 1x, <?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-1@2x.webp 2x" type="image/webp">
-                                    <img src="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-1.png" srcset="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-1.png 1x, <?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-1@2x.png 2x" alt="Participant" class="oor-media-cover">
-                                </picture>
-                            </div>
-                            <div class="oor-talk-show-participant-card">
-                                <picture>
-                                    <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-7.avif 1x, <?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-7@2x.avif 2x" type="image/avif">
-                                    <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-7.webp 1x, <?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-7@2x.webp 2x" type="image/webp">
-                                    <img src="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-7.png" srcset="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-7.png 1x, <?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-7@2x.png 2x" alt="Participant" class="oor-media-cover">
                                 </picture>
                             </div>
                             <div class="oor-talk-show-participant-card">
@@ -215,16 +169,48 @@ get_header();
                             </div>
                             <div class="oor-talk-show-participant-card">
                                 <picture>
+                                    <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-3.avif 1x, <?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-3@2x.avif 2x" type="image/avif">
+                                    <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-3.webp 1x, <?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-3@2x.webp 2x" type="image/webp">
+                                    <img src="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-3.png" srcset="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-3.png 1x, <?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-3@2x.png 2x" alt="Participant" class="oor-media-cover">
+                                </picture>
+                            </div>
+                            <div class="oor-talk-show-participant-card">
+                                <picture>
                                     <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-4.avif 1x, <?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-4@2x.avif 2x" type="image/avif">
                                     <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-4.webp 1x, <?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-4@2x.webp 2x" type="image/webp">
                                     <img src="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-4.png" srcset="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-4.png 1x, <?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-4@2x.png 2x" alt="Participant" class="oor-media-cover">
                                 </picture>
                             </div>
+                        </div>
+                        
+                        <!-- Column 2 - Slower scroll (participants 5-8) -->
+                        <div class="oor-talk-show-rules-col oor-talk-show-rules-col-2" data-scroll-speed="1">
                             <div class="oor-talk-show-participant-card">
                                 <picture>
-                                    <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-3.avif 1x, <?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-3@2x.avif 2x" type="image/avif">
-                                    <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-3.webp 1x, <?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-3@2x.webp 2x" type="image/webp">
-                                    <img src="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-3.png" srcset="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-3.png 1x, <?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-3@2x.png 2x" alt="Participant" class="oor-media-cover">
+                                    <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-5.avif 1x, <?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-5@2x.avif 2x" type="image/avif">
+                                    <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-5.webp 1x, <?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-5@2x.webp 2x" type="image/webp">
+                                    <img src="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-5.png" srcset="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-5.png 1x, <?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-5@2x.png 2x" alt="Participant" class="oor-media-cover">
+                                </picture>
+                            </div>
+                            <div class="oor-talk-show-participant-card">
+                                <picture>
+                                    <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-6.avif 1x, <?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-6@2x.avif 2x" type="image/avif">
+                                    <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-6.webp 1x, <?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-6@2x.webp 2x" type="image/webp">
+                                    <img src="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-6.png" srcset="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-6.png 1x, <?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-6@2x.png 2x" alt="Participant" class="oor-media-cover">
+                                </picture>
+                            </div>
+                            <div class="oor-talk-show-participant-card">
+                                <picture>
+                                    <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-7.avif 1x, <?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-7@2x.avif 2x" type="image/avif">
+                                    <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-7.webp 1x, <?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-7@2x.webp 2x" type="image/webp">
+                                    <img src="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-7.png" srcset="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-7.png 1x, <?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-7@2x.png 2x" alt="Participant" class="oor-media-cover">
+                                </picture>
+                            </div>
+                            <div class="oor-talk-show-participant-card">
+                                <picture>
+                                    <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-8.avif 1x, <?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-8@2x.avif 2x" type="image/avif">
+                                    <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-8.webp 1x, <?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-8@2x.webp 2x" type="image/webp">
+                                    <img src="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-8.png" srcset="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-8.png 1x, <?php echo get_template_directory_uri(); ?>/public/assets/talk-show-participant-8@2x.png 2x" alt="Participant" class="oor-media-cover">
                                 </picture>
                             </div>
                         </div>

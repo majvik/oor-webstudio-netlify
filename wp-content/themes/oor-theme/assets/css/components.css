@@ -5467,6 +5467,7 @@ body.oor-manifest-page .oor-mobile-menu .oor-mobile-menu-main a.rolling-button {
   height: 100%;
   object-fit: contain;
   display: block;
+  mix-blend-mode: difference;
 }
 
 .oor-manifest-hero-text {
@@ -5478,6 +5479,7 @@ body.oor-manifest-page .oor-mobile-menu .oor-mobile-menu-main a.rolling-button {
   color: #fff;
   margin: 0;
   max-width: 521px;
+  mix-blend-mode: difference;
   text-shadow: 0 2px 9px rgba(0, 0, 0, 0.4);
 }
 
@@ -5796,6 +5798,10 @@ body.oor-manifest-page .oor-mobile-menu .oor-mobile-menu-main a.rolling-button {
     z-index: 3;
   }
 
+  .oor-manifest-hero-card img {
+    mix-blend-mode: normal;
+  }
+
   .oor-manifest-hero-col-right {
     padding: 0 var(--container-x);
     width: 100%;
@@ -5811,6 +5817,7 @@ body.oor-manifest-page .oor-mobile-menu .oor-mobile-menu-main a.rolling-button {
     letter-spacing: -0.28px;
     text-align: left;
     color: #fff;
+    mix-blend-mode: normal;
     text-shadow: 0px 2px 9px rgba(0, 0, 0, 0.4);
     max-width: 100%;
     position: relative;
