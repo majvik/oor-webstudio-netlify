@@ -309,18 +309,20 @@ if (empty(get_the_title())) {
     </main>
 
     <!-- Player -->
+    <?php $player_assets = oor_theme_base_uri() . '/public/assets'; ?>
     <div class="oor-artist-player">
+        <div class="oor-artist-player-progress-bg" id="player-progress-bg" aria-hidden="true"></div>
         <div class="oor-artist-player-left">
             <div class="oor-artist-player-controls">
                 <button class="oor-artist-player-btn" id="player-prev">
-                    <img src="<?php echo esc_url(oor_theme_base_uri() . '/public/assets/artist-page/prev-icon.svg'); ?>" alt="Previous" width="24" height="24">
+                    <img src="<?php echo esc_url($player_assets . '/Player_Previous.svg'); ?>" alt="Previous" width="24" height="24">
                 </button>
                 <button class="oor-artist-player-btn oor-artist-player-btn-play" id="player-play-pause">
-                    <img src="<?php echo esc_url(oor_theme_base_uri() . '/public/assets/artist-page/play-icon.svg'); ?>" alt="Play" width="24" height="24" class="oor-artist-player-play-icon">
-                    <img src="<?php echo esc_url(oor_theme_base_uri() . '/public/assets/artist-page/pause-icon.svg'); ?>" alt="Pause" width="24" height="24" class="oor-artist-player-pause-icon">
+                    <img src="<?php echo esc_url($player_assets . '/Player_Play.svg'); ?>" alt="Play" width="24" height="24" class="oor-artist-player-play-icon">
+                    <img src="<?php echo esc_url($player_assets . '/Player_Pause.svg'); ?>" alt="Pause" width="24" height="24" class="oor-artist-player-pause-icon">
                 </button>
                 <button class="oor-artist-player-btn" id="player-next">
-                    <img src="<?php echo esc_url(oor_theme_base_uri() . '/public/assets/artist-page/next-icon.svg'); ?>" alt="Next" width="24" height="24">
+                    <img src="<?php echo esc_url($player_assets . '/Player_Next.svg'); ?>" alt="Next" width="24" height="24">
                 </button>
             </div>
             <div class="oor-artist-player-track-name" id="player-track-name">Бьется</div>
@@ -335,7 +337,8 @@ if (empty(get_the_title())) {
             <div class="oor-artist-player-time" id="player-time">00:00</div>
             <div class="oor-artist-player-volume">
                 <button class="oor-artist-player-volume-btn" id="player-volume-btn">
-                    <img src="<?php echo esc_url(oor_theme_base_uri() . '/public/assets/artist-page/volume-icon.svg'); ?>" alt="Volume" width="24" height="24">
+                    <img src="<?php echo esc_url($player_assets . '/Player_Volume.svg'); ?>" alt="Volume" width="24" height="24" class="oor-artist-player-volume-icon">
+                    <img src="<?php echo esc_url($player_assets . '/Player_Mute.svg'); ?>" alt="Mute" width="24" height="24" class="oor-artist-player-mute-icon" style="display:none">
                 </button>
                 <div class="oor-artist-player-volume-bar-wrapper">
                     <div class="oor-artist-player-volume-bar">

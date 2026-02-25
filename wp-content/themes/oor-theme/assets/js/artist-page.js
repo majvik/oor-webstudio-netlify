@@ -210,10 +210,13 @@
     const playerProgress = document.getElementById('player-progress');
     const playerHandle = document.getElementById('player-handle');
     const playerProgressBar = document.querySelector('.oor-artist-player-progress-bar') || (playerProgress ? playerProgress.parentElement : null);
+    const playerProgressBg = document.getElementById('player-progress-bg');
     const playerVolumeBtn = document.getElementById('player-volume-btn');
     const playerVolumeFill = document.getElementById('player-volume-fill');
     const playerVolumeHandle = document.getElementById('player-volume-handle');
     const playerVolumeBar = playerVolumeFill ? playerVolumeFill.parentElement : null;
+    const playerVolumeIcon = playerVolumeBtn ? playerVolumeBtn.querySelector('.oor-artist-player-volume-icon') : null;
+    const playerMuteIcon = playerVolumeBtn ? playerVolumeBtn.querySelector('.oor-artist-player-mute-icon') : null;
     let savedVolume = 1;
     let isMuted = false;
 
@@ -597,6 +600,10 @@
       if (playerVolumeHandle) {
         playerVolumeHandle.style.left = (percentage * 100) + '%';
       }
+      if (playerVolumeIcon && playerMuteIcon) {
+        playerVolumeIcon.style.display = isMuted ? 'none' : 'block';
+        playerMuteIcon.style.display = isMuted ? 'block' : 'none';
+      }
     }
 
     // Audio event listeners
@@ -608,7 +615,9 @@
       if (playerProgress) {
         playerProgress.style.width = percentage + '%';
       }
-      
+      if (playerProgressBg) {
+        playerProgressBg.style.width = percentage + '%';
+      }
       if (playerHandle) {
         playerHandle.style.left = percentage + '%';
       }

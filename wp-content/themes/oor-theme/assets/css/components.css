@@ -8532,6 +8532,28 @@ body.oor-artist-page .oor-artist-tracks-container {
   z-index: 200;
   border-top: none;
   border-image: none;
+  overflow: hidden;
+}
+
+/* Фоновый прогресс (на мобильном — оверлей #000 10%, под контентом) */
+.oor-artist-player-progress-bg {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 0%;
+  background: rgba(0, 0, 0, 0.1);
+  z-index: 0;
+  pointer-events: none;
+  transition: width 0.1s linear;
+}
+
+.oor-artist-player-left,
+.oor-artist-player-center,
+.oor-artist-player-right {
+  position: relative;
+  z-index: 1;
 }
 
 .oor-artist-player-left {
@@ -9055,6 +9077,10 @@ body.oor-studio-page .oor-header .oor-burger-menu .oor-burger-icon img {
 
   .oor-artist-player-center {
     display: none;
+  }
+
+  .oor-artist-player-progress-bg {
+    display: block;
   }
 
   .oor-artist-player-right {
