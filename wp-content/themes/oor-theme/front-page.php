@@ -700,13 +700,35 @@ get_header();
                 <!-- Description -->
                 <p class="oor-merch-description">Присоединяйся к Out Of Records!</p>
                 
-                <!-- Buttons Menu -->
+                <!-- Buttons Menu: категории из WooCommerce -->
                 <div class="oor-merch-buttons">
-                    <button class="oor-merch-button">Лонгсливы</button>
-                    <button class="oor-merch-button">Футболки</button>
-                    <button class="oor-merch-button">Кепки</button>
-                    <button class="oor-merch-button">Носки</button>
-                    <button class="oor-merch-button">Худи</button>
+                    <?php
+                    $product_cats = get_terms([
+                        'taxonomy'   => 'product_cat',
+                        'hide_empty' => true,
+                        'orderby'    => 'name',
+                        'order'      => 'ASC',
+                    ]);
+                    if (!is_wp_error($product_cats) && !empty($product_cats)) {
+                        foreach ($product_cats as $term) {
+                            $url = add_query_arg('product_cat', $term->slug, $merch_section_url);
+                            printf(
+                                '<a href="%s" class="oor-merch-button">%s</a>',
+                                esc_url($url),
+                                esc_html($term->name)
+                            );
+                        }
+                    } else {
+                        // Fallback, если WooCommerce выключен или категорий нет
+                        ?>
+                        <a href="<?php echo esc_url($merch_section_url); ?>" class="oor-merch-button">Лонгсливы</a>
+                        <a href="<?php echo esc_url($merch_section_url); ?>" class="oor-merch-button">Футболки</a>
+                        <a href="<?php echo esc_url($merch_section_url); ?>" class="oor-merch-button">Кепки</a>
+                        <a href="<?php echo esc_url($merch_section_url); ?>" class="oor-merch-button">Носки</a>
+                        <a href="<?php echo esc_url($merch_section_url); ?>" class="oor-merch-button">Худи</a>
+                        <?php
+                    }
+                    ?>
                 </div>
               </div>
             </div>

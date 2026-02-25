@@ -76,6 +76,17 @@ add_filter('acf/load_value/name=platform', function($value, $post_id, $field) {
     return $value;
 }, 10, 3);
 
+/**
+ * ACF медиа-модалка: кнопка выбора не должна показывать «Выпадающий список»
+ * (исправление ошибочного перевода — принудительно «Выбрать»).
+ */
+add_filter('gettext_with_context', function($translated, $text, $context, $domain) {
+    if ($domain === 'acf' && $context === 'verb' && $text === 'Select') {
+        return 'Выбрать';
+    }
+    return $translated;
+}, 10, 4);
+
 add_filter('wp_calculate_image_srcset', function($sources) {
     if (!is_array($sources)) return $sources;
     foreach ($sources as $w => $data) {

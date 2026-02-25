@@ -2124,6 +2124,10 @@ a.text-cuberto-cursor-2:not([href^="mailto:"]):hover {
   color: var(--color-white);
 }
 
+a.oor-merch-button {
+  text-decoration: none;
+}
+
 
 /* Slider Section */
 .overlay-top,
@@ -2607,7 +2611,7 @@ body:has(.oor-mobile-menu.active) {
     display: flex;
   }
 
-  /* Musical Association: desktop/tablet — без верхнего отступа у [02], снизу 80px до следующего блока */
+  /* Musical Association: desktop/tablet — без верхнего отступа у [02], снизу 80px */
   .oor-musical-association-left {
     padding-top: 0;
     padding-bottom: 80px;
@@ -2817,9 +2821,9 @@ body:has(.oor-mobile-menu.active) {
     padding-bottom: 80px;
   }
 
-  /* Musical Association: tablet/desktop bottom padding */
+  /* Musical Association: снизу 80px */
   .oor-musical-association-left {
-    padding-bottom: 40px;
+    padding-bottom: 80px;
   }
   
   /* Studio page - ensure black header on desktop */
