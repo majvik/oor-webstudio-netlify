@@ -7470,15 +7470,26 @@ body.oor-talk-show-page .oor-btn-small-icon img {
 
 .oor-talk-show-episode-image {
   width: 100%;
-  height: 240px;
+  aspect-ratio: 321 / 240; /* пропорции карточки по макету */
   position: relative;
   overflow: hidden;
 }
 
+.oor-talk-show-episode-image picture {
+  display: block;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
 .oor-talk-show-episode-image img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
   transition: transform 0.4s ease, filter 0.4s ease;
 }
 
@@ -7506,7 +7517,8 @@ body.oor-talk-show-page .oor-btn-small-icon img {
   height: 100%;
 }
 
-/* Hover states for episode cards */
+/* Hover states for episode cards — без scale, параллакса нет */
+/* Hover: лёгкий scale обложки (параллакса нет, карточка уже заполнена cover) */
 .oor-talk-show-episode-card:hover .oor-talk-show-episode-image img {
   transform: scale(1.05);
   filter: brightness(0.7);
@@ -7839,7 +7851,7 @@ body.oor-talk-show-page .oor-btn-small-icon img {
   }
 
   .oor-talk-show-episode-image {
-    height: 200px;
+    aspect-ratio: 321 / 240;
   }
 
   .oor-talk-show-episode-title {
