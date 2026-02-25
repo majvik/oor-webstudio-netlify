@@ -17,6 +17,9 @@
     
     // Player functionality
     initPlayer();
+    
+    // Кастомный скроллбар для контейнера треков
+    initArtistTracksScrollbar();
   }
 
   function disableLenisForArtistPage() {
@@ -74,6 +77,93 @@
         }
       }, { passive: true });
     }
+  }
+
+  function initArtistTracksScrollbar() {
+    const container = document.querySelector('.oor-artist-tracks-container');
+    const scrollbarEl = document.getElementById('artistTracksScrollbar');
+    const thumbEl = document.getElementById('artistTracksScrollbarThumb');
+    if (!container || !scrollbarEl || !thumbEl) return;
+
+    let hideTimeout = null;
+
+    function updateThumb() {
+      const scrollHeight = container.scrollHeight;
+      const clientHeight = container.clientHeight;
+      if (scrollHeight <= clientHeight) {
+        scrollbarEl.classList.remove('visible');
+        return;
+      }
+      const trackHeight = scrollbarEl.getBoundingClientRect().height;
+      const thumbHeight = Math.max(40, (clientHeight / scrollHeight) * trackHeight);
+      const scrollTop = container.scrollTop;
+      const maxScroll = scrollHeight - clientHeight;
+      const thumbTop = maxScroll <= 0 ? 0 : (scrollTop / maxScroll) * (trackHeight - thumbHeight);
+
+      thumbEl.style.height = thumbHeight + 'px';
+      thumbEl.style.top = thumbTop + 'px';
+      scrollbarEl.classList.add('visible');
+
+      clearTimeout(hideTimeout);
+      hideTimeout = setTimeout(function() {
+        scrollbarEl.classList.remove('visible');
+      }, 1000);
+    }
+
+    container.addEventListener('scroll', updateThumb, { passive: true });
+
+    let isDragging = false;
+    let dragStartY = 0;
+    let dragStartScrollTop = 0;
+
+    thumbEl.addEventListener('mousedown', function(e) {
+      e.preventDefault();
+      isDragging = true;
+      dragStartY = e.clientY;
+      dragStartScrollTop = container.scrollTop;
+    });
+
+    document.addEventListener('mousemove', function(e) {
+      if (!isDragging) return;
+      const trackHeight = scrollbarEl.getBoundingClientRect().height;
+      const scrollHeight = container.scrollHeight;
+      const clientHeight = container.clientHeight;
+      const maxScroll = scrollHeight - clientHeight;
+      if (maxScroll <= 0) return;
+      const deltaY = e.clientY - dragStartY;
+      const scrollDelta = (deltaY / trackHeight) * maxScroll;
+      container.scrollTop = Math.max(0, Math.min(maxScroll, dragStartScrollTop + scrollDelta));
+      dragStartY = e.clientY;
+      dragStartScrollTop = container.scrollTop;
+      updateThumb();
+    });
+
+    document.addEventListener('mouseup', function() {
+      isDragging = false;
+    });
+
+    document.addEventListener('mouseleave', function() {
+      isDragging = false;
+    });
+
+    scrollbarEl.querySelector('.oor-artist-tracks-scrollbar-track').addEventListener('click', function(e) {
+      if (e.target === thumbEl || thumbEl.contains(e.target)) return;
+      const rect = scrollbarEl.getBoundingClientRect();
+      const y = e.clientY - rect.top;
+      const trackHeight = rect.height;
+      const scrollHeight = container.scrollHeight;
+      const clientHeight = container.clientHeight;
+      const maxScroll = scrollHeight - clientHeight;
+      if (maxScroll <= 0) return;
+      const ratio = y / trackHeight;
+      container.scrollTop = ratio * maxScroll;
+      updateThumb();
+    });
+
+    var ro = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(updateThumb) : null;
+    if (ro) ro.observe(container);
+    window.addEventListener('resize', updateThumb);
+    updateThumb();
   }
 
   // Description toggle: полное описание скрыто в HTML (style="display:none"), по клику показываем/скрываем

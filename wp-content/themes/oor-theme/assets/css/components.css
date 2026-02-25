@@ -8349,12 +8349,71 @@ body.oor-artist-page .oor-btn-small-icon img {
   pointer-events: auto;
   will-change: scroll-position;
   scroll-behavior: auto;
+  scrollbar-width: none; /* Firefox — скрываем системный скролл, как на всей странице */
+}
+
+.oor-artist-tracks-container::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Edge — скрываем системный скролл */
 }
 
 /* Ensure tracks container can scroll even if Lenis is active */
 body.oor-artist-page .oor-artist-tracks-container {
   overflow-y: auto !important;
   -webkit-overflow-scrolling: touch !important;
+}
+
+/* Wrapper для контейнера треков + кастомный скроллбар */
+.oor-artist-tracks-wrapper {
+  position: relative;
+  width: 636px;
+  flex-shrink: 0;
+  height: 100%;
+}
+
+.oor-artist-tracks-wrapper > .oor-artist-tracks-container {
+  width: 100%;
+}
+
+/* Кастомный скроллбар контейнера треков */
+.oor-artist-tracks-scrollbar {
+  position: absolute;
+  top: 0;
+  right: 4px;
+  width: 8px;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--transition-base, 0.2s ease);
+  z-index: 20;
+}
+
+.oor-artist-tracks-scrollbar.visible {
+  opacity: 0.6;
+  pointer-events: auto;
+}
+
+.oor-artist-tracks-scrollbar-track {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 8px;
+  height: 100%;
+  background: transparent;
+}
+
+.oor-artist-tracks-scrollbar-thumb {
+  position: absolute;
+  right: 0;
+  width: 8px;
+  min-height: 40px;
+  background: var(--color-black);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color var(--transition-base, 0.2s ease);
+}
+
+.oor-artist-tracks-scrollbar-thumb:hover {
+  background: var(--color-gray, #666);
 }
 
 .oor-artist-tracks-grid {
@@ -8916,6 +8975,10 @@ body.oor-studio-page .oor-header .oor-burger-menu .oor-burger-icon img {
   }
 
   /* Tracks Container - 2 колонки, без горизонтальной прокрутки */
+  .oor-artist-tracks-wrapper {
+    width: 100%;
+  }
+
   .oor-artist-tracks-container {
     width: 100%;
     flex: none;
@@ -8924,6 +8987,10 @@ body.oor-studio-page .oor-header .oor-burger-menu .oor-burger-icon img {
     overflow-y: visible;
     overflow-x: hidden;
     padding: 0 12px 100px 12px;
+  }
+
+  .oor-artist-tracks-scrollbar {
+    display: none; /* на мобиле контейнер не скроллится */
   }
 
   .oor-artist-tracks-grid {

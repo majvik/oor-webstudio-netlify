@@ -154,7 +154,8 @@ if (empty(get_the_title())) {
             ?>
         </div>
 
-        <!-- Right Side - Tracks Grid (3 columns) -->
+        <!-- Right Side - Tracks Grid (3 columns) + custom scrollbar -->
+        <div class="oor-artist-tracks-wrapper">
         <div class="oor-artist-tracks-container">
             <div class="oor-artist-tracks-grid">
                 <?php
@@ -298,6 +299,12 @@ if (empty(get_the_title())) {
                 }
                 ?>
             </div>
+        </div>
+        <div class="oor-artist-tracks-scrollbar" id="artistTracksScrollbar" aria-hidden="true">
+            <div class="oor-artist-tracks-scrollbar-track">
+                <div class="oor-artist-tracks-scrollbar-thumb" id="artistTracksScrollbarThumb"></div>
+            </div>
+        </div>
         </div>
     </main>
 
