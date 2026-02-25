@@ -7459,7 +7459,7 @@ body.oor-talk-show-page .oor-btn-small-icon img {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 22px;
-  margin-bottom: 22px;
+  margin-bottom: 40px;
 }
 
 .oor-talk-show-episode-card {
@@ -7519,13 +7519,25 @@ body.oor-talk-show-page .oor-btn-small-icon img {
 
 .oor-talk-show-episode-title {
   font-family: var(--font-ui);
-  font-size: 12px;
+  font-size: 18px;
   line-height: 20px;
   font-weight: 300;
   letter-spacing: 0;
   color: #fff;
   margin: 16px 0 0;
-  padding: 0 16px;
+  padding: 0;
+}
+
+.oor-talk-show-episode-subtitle {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  line-height: 1.2;
+  font-weight: 300;
+  letter-spacing: 0;
+  color: #fff;
+  opacity: 0.7;
+  margin: 6px 0 0;
+  padding: 0;
 }
 
 .oor-talk-show-episodes-footer {
@@ -7831,10 +7843,16 @@ body.oor-talk-show-page .oor-btn-small-icon img {
   }
 
   .oor-talk-show-episode-title {
-    font-size: 12px;
+    font-size: 18px;
     line-height: 20px;
-    margin: 12px 0 0;
+    margin: 16px 0 0;
     padding: 0;
+  }
+
+  .oor-talk-show-episode-subtitle {
+    font-size: 12px;
+    margin-top: 6px;
+    opacity: 0.7;
   }
 
   .oor-talk-show-episodes-footer {

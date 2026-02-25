@@ -54,74 +54,62 @@ get_header();
             </div>
             
             <div class="oor-talk-show-episodes-grid">
-                <!-- Episode 1 -->
-                <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" class="oor-talk-show-episode-card">
+                <?php
+                $episodes = get_field('talk_show_episodes');
+                $default_url = 'https://www.youtube.com';
+                $theme_uri = get_template_directory_uri();
+                if (!is_array($episodes)) {
+                    $episodes = [];
+                }
+                // Показываем до 4 карточек: из ACF или заглушки
+                for ($i = 0; $i < 4; $i++) {
+                    $title = 'Podcast title';
+                    $subtitle = '';
+                    $url = $default_url;
+                    $image = null;
+                    $fallback_img = $i + 1;
+                    if (!empty($episodes[$i])) {
+                        $row = $episodes[$i];
+                        if (!empty($row['episode_title'])) $title = $row['episode_title'];
+                        if (!empty($row['episode_subtitle'])) $subtitle = $row['episode_subtitle'];
+                        if (!empty($row['episode_url'])) $url = $row['episode_url'];
+                        if (!empty($row['episode_image']) && is_array($row['episode_image']) && !empty($row['episode_image']['url'])) {
+                            $image = $row['episode_image'];
+                        }
+                    }
+                    ?>
+                <a href="<?php echo esc_url($url); ?>" target="_blank" rel="noopener noreferrer" class="oor-talk-show-episode-card">
                     <div class="oor-talk-show-episode-image">
+                        <?php if ($image) : ?>
                         <picture>
-                            <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-episode-1.avif 1x, <?php echo get_template_directory_uri(); ?>/public/assets/talk-show-episode-1@2x.avif 2x" type="image/avif">
-                            <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-episode-1.webp 1x, <?php echo get_template_directory_uri(); ?>/public/assets/talk-show-episode-1@2x.webp 2x" type="image/webp">
-                            <img src="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-episode-1.png" srcset="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-episode-1.png 1x, <?php echo get_template_directory_uri(); ?>/public/assets/talk-show-episode-1@2x.png 2x" alt="Podcast title" class="oor-media-cover">
+                            <img src="<?php echo esc_url($image['url']); ?>" alt="<?php echo esc_attr($title); ?>" class="oor-media-cover" loading="lazy">
                         </picture>
+                        <?php else : ?>
+                        <picture>
+                            <source srcset="<?php echo $theme_uri; ?>/public/assets/talk-show-episode-<?php echo $fallback_img; ?>.avif 1x, <?php echo $theme_uri; ?>/public/assets/talk-show-episode-<?php echo $fallback_img; ?>@2x.avif 2x" type="image/avif">
+                            <source srcset="<?php echo $theme_uri; ?>/public/assets/talk-show-episode-<?php echo $fallback_img; ?>.webp 1x, <?php echo $theme_uri; ?>/public/assets/talk-show-episode-<?php echo $fallback_img; ?>@2x.webp 2x" type="image/webp">
+                            <img src="<?php echo $theme_uri; ?>/public/assets/talk-show-episode-<?php echo $fallback_img; ?>.png" srcset="<?php echo $theme_uri; ?>/public/assets/talk-show-episode-<?php echo $fallback_img; ?>.png 1x, <?php echo $theme_uri; ?>/public/assets/talk-show-episode-<?php echo $fallback_img; ?>@2x.png 2x" alt="<?php echo esc_attr($title); ?>" class="oor-media-cover" loading="lazy">
+                        </picture>
+                        <?php endif; ?>
                         <div class="oor-talk-show-episode-overlay"></div>
                         <div class="oor-talk-show-episode-play">
-                            <img src="<?php echo get_template_directory_uri(); ?>/public/assets/youtube-icon.svg" alt="Play" width="50" height="50">
+                            <img src="<?php echo $theme_uri; ?>/public/assets/youtube-icon.svg" alt="Play" width="50" height="50">
                         </div>
                     </div>
-                    <h3 class="oor-talk-show-episode-title">Podcast title</h3>
+                    <h3 class="oor-talk-show-episode-title"><?php echo esc_html($title); ?></h3>
+                    <?php if ($subtitle !== '') : ?>
+                    <p class="oor-talk-show-episode-subtitle"><?php echo esc_html($subtitle); ?></p>
+                    <?php endif; ?>
                 </a>
-                
-                <!-- Episode 2 -->
-                <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" class="oor-talk-show-episode-card">
-                    <div class="oor-talk-show-episode-image">
-                        <picture>
-                            <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-episode-2.avif 1x, <?php echo get_template_directory_uri(); ?>/public/assets/talk-show-episode-2@2x.avif 2x" type="image/avif">
-                            <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-episode-2.webp 1x, <?php echo get_template_directory_uri(); ?>/public/assets/talk-show-episode-2@2x.webp 2x" type="image/webp">
-                            <img src="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-episode-2.png" srcset="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-episode-2.png 1x, <?php echo get_template_directory_uri(); ?>/public/assets/talk-show-episode-2@2x.png 2x" alt="Podcast title" class="oor-media-cover">
-                        </picture>
-                        <div class="oor-talk-show-episode-overlay"></div>
-                        <div class="oor-talk-show-episode-play">
-                            <img src="<?php echo get_template_directory_uri(); ?>/public/assets/youtube-icon.svg" alt="Play" width="50" height="50">
-                        </div>
-                    </div>
-                    <h3 class="oor-talk-show-episode-title">Podcast title</h3>
-                </a>
-                
-                <!-- Episode 3 -->
-                <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" class="oor-talk-show-episode-card">
-                    <div class="oor-talk-show-episode-image">
-                        <picture>
-                            <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-episode-3.avif 1x, <?php echo get_template_directory_uri(); ?>/public/assets/talk-show-episode-3@2x.avif 2x" type="image/avif">
-                            <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-episode-3.webp 1x, <?php echo get_template_directory_uri(); ?>/public/assets/talk-show-episode-3@2x.webp 2x" type="image/webp">
-                            <img src="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-episode-3.png" srcset="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-episode-3.png 1x, <?php echo get_template_directory_uri(); ?>/public/assets/talk-show-episode-3@2x.png 2x" alt="Podcast title" class="oor-media-cover">
-                        </picture>
-                        <div class="oor-talk-show-episode-overlay"></div>
-                        <div class="oor-talk-show-episode-play">
-                            <img src="<?php echo get_template_directory_uri(); ?>/public/assets/youtube-icon.svg" alt="Play" width="50" height="50">
-                        </div>
-                    </div>
-                    <h3 class="oor-talk-show-episode-title">Podcast title</h3>
-                </a>
-                
-                <!-- Episode 4 -->
-                <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" class="oor-talk-show-episode-card">
-                    <div class="oor-talk-show-episode-image">
-                        <picture>
-                            <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-episode-4.avif 1x, <?php echo get_template_directory_uri(); ?>/public/assets/talk-show-episode-4@2x.avif 2x" type="image/avif">
-                            <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-episode-4.webp 1x, <?php echo get_template_directory_uri(); ?>/public/assets/talk-show-episode-4@2x.webp 2x" type="image/webp">
-                            <img src="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-episode-4.png" srcset="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-episode-4.png 1x, <?php echo get_template_directory_uri(); ?>/public/assets/talk-show-episode-4@2x.png 2x" alt="Podcast title" class="oor-media-cover">
-                        </picture>
-                        <div class="oor-talk-show-episode-overlay"></div>
-                        <div class="oor-talk-show-episode-play">
-                            <img src="<?php echo get_template_directory_uri(); ?>/public/assets/youtube-icon.svg" alt="Play" width="50" height="50">
-                        </div>
-                    </div>
-                    <h3 class="oor-talk-show-episode-title">Podcast title</h3>
-                </a>
+                <?php } ?>
             </div>
             
             <div class="oor-talk-show-episodes-footer">
-                <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" class="oor-talk-show-episodes-more">Больше выпусков</a>
-                <div class="oor-talk-show-episodes-counter">4/25</div>
+                <?php
+                $more_url = get_field('talk_show_episodes_more_url');
+                if (empty($more_url)) $more_url = 'https://www.youtube.com/@OutOfTalk';
+                ?>
+                <a href="<?php echo esc_url($more_url); ?>" target="_blank" rel="noopener noreferrer" class="oor-talk-show-episodes-more">Больше выпусков</a>
             </div>
         </div>
     </section>
