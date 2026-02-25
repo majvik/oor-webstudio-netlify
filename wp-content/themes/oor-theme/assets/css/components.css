@@ -2607,9 +2607,10 @@ body:has(.oor-mobile-menu.active) {
     display: flex;
   }
 
-  /* Musical Association: desktop-only larger bottom padding */
+  /* Musical Association: desktop/tablet — без верхнего отступа у [02], снизу 80px до следующего блока */
   .oor-musical-association-left {
-    padding-bottom: 96px;
+    padding-top: 0;
+    padding-bottom: 80px;
   }
 }
 
@@ -2621,6 +2622,47 @@ body:has(.oor-mobile-menu.active) {
 }
 
 /* Медиа-запрос для диапазона 1680px - 1025px: включаем wrap для навигации */
+@media (min-width: 1025px) {
+  /* Футер: логотип и навигация на одной линии по низу, email и соцсети на одной линии по низу */
+  .oor-footer-content {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    align-items: end;
+    gap: 72px 80px;
+  }
+  .oor-footer-content-left,
+  .oor-footer-links {
+    display: contents;
+  }
+  .oor-footer-logo {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .oor-footer-logo-image {
+    padding-bottom: 4px;
+  }
+  .oor-footer-email {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  .oor-footer-links-top {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .oor-footer-links-bottom {
+    grid-column: 2;
+    grid-row: 2;
+    padding-bottom: 24px;
+  }
+}
+
+@media (min-width: 1025px) {
+  .oor-footer-privacy {
+    align-items: flex-end;
+  }
+}
+
 @media (min-width: 1025px) and (max-width: 1680px) {
   .oor-footer-content {
     justify-content: space-between;

@@ -715,26 +715,19 @@ get_header();
         <div class="oor-merch-images-grid">
             <div class="oor-merch-images-wrapper">
                 <?php
-                // Получаем изображения мерч из ACF Gallery
+                // Получаем изображения мерч из ACF Gallery — используем oor_picture_element для качества и правильных 1x/2x, avif/webp/png
                 $merch_images = get_field('merch_images');
                 
                 if ($merch_images && is_array($merch_images)) {
                     foreach ($merch_images as $image) {
-                        $image_url = is_array($image) ? $image['url'] : wp_get_attachment_image_url($image, 'full');
-                        $image_medium = is_array($image) && isset($image['sizes']['medium']) ? $image['sizes']['medium'] : $image_url;
-                        $image_large = is_array($image) && isset($image['sizes']['large']) ? $image['sizes']['large'] : $image_url;
-                        $image_alt = is_array($image) && isset($image['alt']) ? $image['alt'] : 'Merch';
-                        ?>
-                        <a href="<?php echo esc_url($merch_section_url); ?>" class="oor-merch-image-item text-cuberto-cursor-1" data-text="Мерч">
-                            <picture>
-                                <source srcset="<?php echo esc_url($image_medium); ?> 1x, <?php echo esc_url($image_large); ?> 2x" type="image/avif">
-                                <source srcset="<?php echo esc_url($image_medium); ?> 1x, <?php echo esc_url($image_large); ?> 2x" type="image/webp">
-                                <img src="<?php echo esc_url($image_url); ?>" 
-                                     srcset="<?php echo esc_url($image_url); ?> 1x, <?php echo esc_url($image_large); ?> 2x" 
-                                     alt="<?php echo esc_attr($image_alt); ?>">
-                            </picture>
-                        </a>
-                        <?php
+                        $image_id = is_array($image) && isset($image['ID']) ? (int) $image['ID'] : (int) $image;
+                        if ($image_id <= 0) {
+                            continue;
+                        }
+                        $image_alt = is_array($image) && isset($image['alt']) ? $image['alt'] : 'Мерч';
+                        echo '<a href="' . esc_url($merch_section_url) . '" class="oor-merch-image-item text-cuberto-cursor-1" data-text="Мерч">';
+                        echo oor_picture_element($image_id, $image_alt, 'oor-merch-image-item-img', ['loading' => 'lazy']);
+                        echo '</a>';
                     }
                 }
                 ?>
