@@ -35,8 +35,11 @@ RUN echo "log_errors = On" >> /usr/local/etc/php/conf.d/uploads.ini && echo "err
 COPY wp-content/ /var/www/html/wp-content/
 RUN chown -R www-data:www-data /var/www/html
 
-# Запуск: entrypoint (wp-config из env), chown+chmod, затем php-fpm и nginx (логи nginx/php в stdout/stderr)
-ENTRYPOINT ["docker-entrypoint.sh"]
-CMD ["sh", "-c", "chown -R www-data:www-data /var/www/html 2>/dev/null; chmod -R a+rX /var/www/html; php-fpm & i=0; while [ ! -S /tmp/php-fpm.sock ]; do i=$((i+1)); [ $i -ge 30 ] && break; sleep 0.5; done; if [ ! -S /tmp/php-fpm.sock ]; then echo 'ERR: php-fpm socket not found' >&2; fi; sleep 1; exec nginx -g 'daemon off;'"]
+# Скрипт запуска: вызывает docker-entrypoint.sh php-fpm (инициализация WP + запуск FPM), затем nginx
+COPY start.sh /usr/local/bin/start.sh
+RUN chmod +x /usr/local/bin/start.sh
+
+ENTRYPOINT []
+CMD ["/usr/local/bin/start.sh"]
 
 EXPOSE 80
