@@ -25,9 +25,10 @@ COPY nginx.prod.conf /etc/nginx/conf.d/default.conf
 
 # Полный слепок wp-content из репозитория (темы, плагины, mu-plugins, uploads, языки и т.д.)
 COPY wp-content/ /var/www/html/wp-content/
+RUN chown -R www-data:www-data /var/www/html
 
-# Запуск: entrypoint WordPress (создаёт wp-config из env), затем php-fpm в фоне и nginx в foreground
+# Запуск: entrypoint WordPress (создаёт wp-config из env), затем chown для nginx/php-fpm (www-data), затем php-fpm и nginx
 ENTRYPOINT ["docker-entrypoint.sh"]
-CMD ["sh", "-c", "php-fpm & exec nginx -g 'daemon off;'"]
+CMD ["sh", "-c", "chown -R www-data:www-data /var/www/html 2>/dev/null; php-fpm & exec nginx -g 'daemon off;'"]
 
 EXPOSE 80
