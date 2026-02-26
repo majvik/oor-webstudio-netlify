@@ -31,17 +31,11 @@ RUN sed -i 's/^listen = .*/listen = \/tmp\/php-fpm.sock/' /usr/local/etc/php-fpm
 RUN printf '[www]\nlisten = /tmp/php-fpm.sock\nlisten.owner = www-data\nlisten.group = www-data\nlisten.mode = 0666\ncatch_workers_output = yes\n' > /usr/local/etc/php-fpm.d/zz-socket.conf
 RUN echo "log_errors = On" >> /usr/local/etc/php/conf.d/uploads.ini && echo "error_log = /dev/stderr" >> /usr/local/etc/php/conf.d/uploads.ini
 
-# Копируем ядро WordPress при сборке, чтобы entrypoint при запуске
-# НЕ затирал наш wp-content дефолтным (он видит index.php и пропускает копирование).
-RUN cp -a /usr/src/wordpress/. /var/www/html/
-
-# Наш wp-content поверх дефолтного (темы, плагины, mu-plugins, языки)
-COPY wp-content/ /var/www/html/wp-content/
-
-# Uploads хранятся в wordpress-uploads/ (в docker-compose монтируются отдельно)
-COPY wordpress-uploads/ /var/www/html/wp-content/uploads/
-
-RUN chown -R www-data:www-data /var/www/html
+# wp-content и uploads сохраняем ВНЕ /var/www/html — базовый образ
+# объявляет VOLUME /var/www/html, и всё, что туда пишется при сборке,
+# отбрасывается при запуске контейнера.
+COPY wp-content/ /usr/src/wp-content-custom/
+COPY wordpress-uploads/ /usr/src/wp-uploads/
 
 # Скрипт запуска: вызывает docker-entrypoint.sh php-fpm (инициализация WP + запуск FPM), затем nginx
 COPY start.sh /usr/local/bin/start.sh
