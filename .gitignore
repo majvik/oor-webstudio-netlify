@@ -82,8 +82,7 @@ wp-content/debug.log
 # Локальные mu-плагины для дев-среды
 wp-content/mu-plugins/local-https-url.php
 
-# Медиа темы (видео, аудио, картинки — не в репо, выкладывать отдельно/на CDN)
-wp-content/themes/oor-theme/public/
+# Медиа темы хранятся через Git LFS (mp4, webm, png, avif, woff2 и т.д.)
 
 # Локальные дампы и бэкапы (не в репо)
 local-wordpress.sql
