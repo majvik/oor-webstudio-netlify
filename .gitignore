@@ -71,9 +71,9 @@ certs/*.key
 certbot-webroot/
 docker-compose.override.yml
 
-# WordPress uploads and caches (не коммитим медиа и кэш)
-wordpress-uploads/
-wp-content/uploads/
+# WordPress: кэш и служебные (uploads и wordpress-uploads коммитим — полный слепок в Docker)
+# wordpress-uploads/
+# wp-content/uploads/
 wp-content/cache/
 wp-content/upgrade/
 wp-content/wflogs/
