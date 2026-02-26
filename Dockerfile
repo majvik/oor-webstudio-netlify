@@ -20,9 +20,14 @@ RUN echo "upload_max_filesize = 512M" >> /usr/local/etc/php/conf.d/uploads.ini \
     && echo "memory_limit = 512M" >> /usr/local/etc/php/conf.d/uploads.ini \
     && echo "max_execution_time = 600" >> /usr/local/etc/php/conf.d/uploads.ini
 
-# Конфиг Nginx (один контейнер) и PHP-FPM: сокет в /tmp + логи в stderr (видны в логах приложения на Timeweb)
+# Конфиг Nginx: один server block (убираем конфликт server_name "_" и лишние конфиги)
+RUN rm -f /etc/nginx/conf.d/*.conf /etc/nginx/sites-enabled/*
 COPY nginx.prod.conf /etc/nginx/conf.d/default.conf
-RUN printf '[www]\nlisten = /tmp/php-fpm.sock\nlisten.owner = www-data\nlisten.group = www-data\nlisten.mode = 0666\nerror_log = /dev/stderr\ncatch_workers_output = yes\n' > /usr/local/etc/php-fpm.d/zz-socket.conf
+RUN sed -i 's/^listen = .*/listen = \/tmp\/php-fpm.sock/' /usr/local/etc/php-fpm.d/www.conf \
+    && echo 'listen.owner = www-data' >> /usr/local/etc/php-fpm.d/www.conf \
+    && echo 'listen.group = www-data' >> /usr/local/etc/php-fpm.d/www.conf \
+    && echo 'listen.mode = 0666' >> /usr/local/etc/php-fpm.d/www.conf
+RUN printf '[www]\nlisten = /tmp/php-fpm.sock\nlisten.owner = www-data\nlisten.group = www-data\nlisten.mode = 0666\ncatch_workers_output = yes\n' > /usr/local/etc/php-fpm.d/zz-socket.conf
 RUN echo "log_errors = On" >> /usr/local/etc/php/conf.d/uploads.ini && echo "error_log = /dev/stderr" >> /usr/local/etc/php/conf.d/uploads.ini
 
 # Полный слепок wp-content из репозитория (темы, плагины, mu-plugins, uploads, языки и т.д.)

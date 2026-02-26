@@ -35,6 +35,9 @@ echo "📥 Односторонняя синхронизация PROD → LOCAL"
 echo "   Сервер: $REMOTE_SSH"
 echo "   Локальный URL после замены: $LOCAL_URL"
 echo ""
+echo "⚠️  ВНИМАНИЕ: локальная БД и (при FULL_UPLOADS_SYNC=1) uploads будут ПЕРЕЗАПИСАНЫ состоянием с сервера."
+echo "   Если локалка новее и нужно обновить сервер — не запускайте этот скрипт. См. SAFETY-SYNC.md."
+echo ""
 
 BACKUP_FILE="local_backup_$(date +%F_%H%M).sql"
 echo "🐘 1. Бэкап текущей локальной БД..."
@@ -57,9 +60,19 @@ docker compose exec -T wordpress wp search-replace "$PROD_URL" "$LOCAL_URL" --al
 echo "   ✅ Готово"
 
 echo ""
-echo "📸 4. Синхронизация Uploads (только недостающие файлы)..."
+echo "📸 4. Синхронизация Uploads..."
 mkdir -p "$PROJECT_ROOT/wordpress-uploads"
-if rsync -avzP --ignore-existing -e "ssh -o StrictHostKeyChecking=accept-new" "$REMOTE_UPLOADS_PATH/" "./wordpress-uploads/" 2>/dev/null; then
+# Полная пересинхронизация (перезапись): FULL_UPLOADS_SYNC=1 bash scripts/pull-prod.sh
+# По умолчанию подтягиваются только недостающие файлы (--ignore-existing).
+RSYNC_EXTRA=""
+if [ -n "${FULL_UPLOADS_SYNC:-}" ]; then
+  echo "   (режим: полная перезапись из прода)"
+  RSYNC_EXTRA=""
+else
+  echo "   (режим: только недостающие файлы; для перезаписи всех: FULL_UPLOADS_SYNC=1)"
+  RSYNC_EXTRA="--ignore-existing"
+fi
+if rsync -avzP $RSYNC_EXTRA -e "ssh -o StrictHostKeyChecking=accept-new" "$REMOTE_UPLOADS_PATH/" "./wordpress-uploads/" 2>/dev/null; then
   echo "   ✅ Uploads обновлены"
 else
   echo "   ⚠️ Не удалось rsync (проверьте REMOTE_UPLOADS_PATH и доступ по SSH). Путь: $REMOTE_UPLOADS_PATH"
