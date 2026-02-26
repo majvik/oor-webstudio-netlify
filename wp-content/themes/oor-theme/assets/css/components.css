@@ -8671,6 +8671,11 @@ body.oor-artist-page .oor-artist-tracks-container {
   opacity: 1;
 }
 
+/* Mobile-only thin progress bar at top of player card */
+.oor-artist-player-mobile-progress {
+  display: none;
+}
+
 .oor-artist-player-right {
   display: flex;
   align-items: center;
@@ -9047,6 +9052,7 @@ body.oor-studio-page .oor-header .oor-burger-menu .oor-burger-icon img {
     -webkit-backdrop-filter: blur(8.05px);
     border-top: 1px solid rgba(0, 0, 0, 0.1);
     z-index: 999 !important;
+    overflow: visible;
   }
 
   .oor-artist-player-left {
@@ -9080,7 +9086,61 @@ body.oor-studio-page .oor-header .oor-burger-menu .oor-burger-icon img {
   }
 
   .oor-artist-player-progress-bg {
+    display: none;
+  }
+
+  .oor-artist-player-mobile-progress {
     display: block;
+    position: absolute;
+    top: -10px;
+    left: 0;
+    right: 0;
+    height: 22px;
+    padding-top: 10px;
+    background: transparent;
+    z-index: 10;
+    cursor: pointer;
+    touch-action: none;
+  }
+
+  .oor-artist-player-mobile-progress::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 10px;
+    height: 2px;
+    background: rgba(0, 0, 0, 0.15);
+  }
+
+  .oor-artist-player-mobile-progress-fill {
+    position: absolute;
+    left: 0;
+    top: 10px;
+    height: 2px;
+    width: 0%;
+    background: #000;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .oor-artist-player-mobile-progress-handle {
+    position: absolute;
+    top: 11px;
+    left: 0%;
+    transform: translate(-50%, -50%);
+    width: 10px;
+    height: 10px;
+    background: #000;
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .oor-artist-player-mobile-progress.active .oor-artist-player-mobile-progress-handle {
+    opacity: 1;
   }
 
   .oor-artist-player-right {

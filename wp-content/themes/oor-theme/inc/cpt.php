@@ -21,7 +21,7 @@ function oor_register_artist_post_type() {
         'public' => true,
         'has_archive' => false,
         'rewrite' => ['slug' => 'artists'],
-        'supports' => ['title', 'thumbnail'],
+        'supports' => ['title', 'thumbnail', 'page-attributes'],
         'menu_icon' => 'dashicons-microphone',
         'show_in_rest' => false, // Отключаем Gutenberg
     ]);

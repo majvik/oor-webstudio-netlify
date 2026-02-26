@@ -311,6 +311,10 @@ if (empty(get_the_title())) {
     <!-- Player -->
     <?php $player_assets = oor_theme_base_uri() . '/public/assets'; ?>
     <div class="oor-artist-player">
+        <div class="oor-artist-player-mobile-progress" id="player-mobile-progress-bar">
+            <div class="oor-artist-player-mobile-progress-fill" id="player-mobile-progress-fill"></div>
+            <div class="oor-artist-player-mobile-progress-handle" id="player-mobile-handle"></div>
+        </div>
         <div class="oor-artist-player-progress-bg" id="player-progress-bg" aria-hidden="true"></div>
         <div class="oor-artist-player-left">
             <div class="oor-artist-player-controls">

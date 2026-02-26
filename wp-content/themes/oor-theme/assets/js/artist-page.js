@@ -211,6 +211,9 @@
     const playerHandle = document.getElementById('player-handle');
     const playerProgressBar = document.querySelector('.oor-artist-player-progress-bar') || (playerProgress ? playerProgress.parentElement : null);
     const playerProgressBg = document.getElementById('player-progress-bg');
+    const mobileProgressBar = document.getElementById('player-mobile-progress-bar');
+    const mobileProgressFill = document.getElementById('player-mobile-progress-fill');
+    const mobileHandle = document.getElementById('player-mobile-handle');
     const playerVolumeBtn = document.getElementById('player-volume-btn');
     const playerVolumeFill = document.getElementById('player-volume-fill');
     const playerVolumeHandle = document.getElementById('player-volume-handle');
@@ -533,6 +536,71 @@
       });
     }
 
+    // Mobile progress bar (thin 2px bar at top of player card)
+    if (mobileProgressBar) {
+      var mobileHideTimer = null;
+
+      function getMobilePercentage(clientX) {
+        var rect = mobileProgressBar.getBoundingClientRect();
+        if (rect.width === 0) return 0;
+        return Math.max(0, Math.min((clientX - rect.left) / rect.width, 1));
+      }
+
+      function updateMobileUI(pct) {
+        if (mobileProgressFill) mobileProgressFill.style.width = (pct * 100) + '%';
+        if (mobileHandle) mobileHandle.style.left = (pct * 100) + '%';
+      }
+
+      function showMobileHandle() {
+        if (mobileHideTimer) { clearTimeout(mobileHideTimer); mobileHideTimer = null; }
+        mobileProgressBar.classList.add('active');
+      }
+
+      function hideMobileHandle() {
+        mobileHideTimer = setTimeout(function() {
+          mobileProgressBar.classList.remove('active');
+        }, 400);
+      }
+
+      mobileProgressBar.addEventListener('click', function(e) {
+        var pct = getMobilePercentage(e.clientX);
+        showMobileHandle();
+        updateMobileUI(pct);
+        seekWhenReady(pct);
+        hideMobileHandle();
+      });
+
+      var isMobileDragging = false;
+
+      mobileProgressBar.addEventListener('touchstart', function(e) {
+        e.preventDefault();
+        isMobileDragging = true;
+        showMobileHandle();
+        var touch = e.touches[0];
+        var pct = getMobilePercentage(touch.clientX);
+        updateMobileUI(pct);
+      }, { passive: false });
+
+      document.addEventListener('touchmove', function(e) {
+        if (!isMobileDragging) return;
+        e.preventDefault();
+        var touch = e.touches[0];
+        var pct = getMobilePercentage(touch.clientX);
+        updateMobileUI(pct);
+        if (!audio.seeking) seekWhenReady(pct);
+      }, { passive: false });
+
+      document.addEventListener('touchend', function() {
+        if (!isMobileDragging) return;
+        isMobileDragging = false;
+        if (mobileProgressFill) {
+          var pct = parseFloat(mobileProgressFill.style.width) / 100;
+          seekWhenReady(pct);
+        }
+        hideMobileHandle();
+      });
+    }
+
     // Volume control
     if (playerVolumeBar) {
       playerVolumeBar.addEventListener('click', function(e) {
@@ -617,6 +685,12 @@
       }
       if (playerProgressBg) {
         playerProgressBg.style.width = percentage + '%';
+      }
+      if (mobileProgressFill) {
+        mobileProgressFill.style.width = percentage + '%';
+      }
+      if (mobileHandle) {
+        mobileHandle.style.left = percentage + '%';
       }
       if (playerHandle) {
         playerHandle.style.left = percentage + '%';

@@ -26,10 +26,9 @@ get_header();
             // Получаем всех артистов из CPT 'artist'
             $artists_query = new WP_Query([
                 'post_type' => 'artist',
-                'posts_per_page' => -1, // Все артисты
+                'posts_per_page' => -1,
                 'post_status' => 'publish',
-                'orderby' => 'title',
-                'order' => 'ASC'
+                'orderby' => ['menu_order' => 'ASC', 'title' => 'ASC'],
             ]);
             
             if ($artists_query->have_posts()) :
@@ -48,34 +47,29 @@ get_header();
                         $artist_image = [
                             'url' => wp_get_attachment_image_url($thumbnail_id, 'full'),
                             'sizes' => [
-                                'medium' => wp_get_attachment_image_url($thumbnail_id, 'medium'),
-                                'large' => wp_get_attachment_image_url($thumbnail_id, 'large'),
+                                'medium' => wp_get_attachment_image_url($thumbnail_id, 'large'),
+                                'large' => wp_get_attachment_image_url($thumbnail_id, 'full'),
                             ]
                         ];
                     }
                     
-                    // Если все еще нет изображения, используем fallback
                     if (!$artist_image) {
-                        // Можно использовать дефолтное изображение или пропустить артиста
-                        continue;
+                        $image_url = get_theme_file_uri('public/assets/artist-placeholder.svg');
+                        $image_medium = $image_url;
+                        $image_large = $image_url;
+                        $image_alt = esc_attr($artist_name);
+                    } else {
+                        $image_url = $artist_image['url'];
+                        $image_alt = isset($artist_image['alt']) ? $artist_image['alt'] : esc_attr($artist_name);
                     }
-                    
-                    $image_url = $artist_image['url'];
-                    $image_medium = isset($artist_image['sizes']['medium']) ? $artist_image['sizes']['medium'] : $image_url;
-                    $image_large = isset($artist_image['sizes']['large']) ? $artist_image['sizes']['large'] : $image_url;
-                    $image_alt = isset($artist_image['alt']) ? $artist_image['alt'] : esc_attr($artist_name);
                     ?>
                     
                     <a href="<?php echo esc_url($artist_url); ?>" class="oor-artist-card">
                         <div class="oor-artist-image">
-                            <picture>
-                                <source srcset="<?php echo esc_url($image_medium); ?> 1x, <?php echo esc_url($image_large); ?> 2x" type="image/avif">
-                                <source srcset="<?php echo esc_url($image_medium); ?> 1x, <?php echo esc_url($image_large); ?> 2x" type="image/webp">
-                                <img src="<?php echo esc_url($image_url); ?>" 
-                                     srcset="<?php echo esc_url($image_url); ?> 1x, <?php echo esc_url($image_large); ?> 2x" 
-                                     alt="<?php echo $image_alt; ?>" 
-                                     class="oor-media-cover no-parallax">
-                            </picture>
+                            <img src="<?php echo esc_url($image_url); ?>" 
+                                 alt="<?php echo $image_alt; ?>" 
+                                 class="oor-media-cover no-parallax"
+                                 loading="lazy">
                         </div>
                         <h3 class="oor-artist-name"><?php echo esc_html($artist_name); ?></h3>
                     </a>
