@@ -20,16 +20,17 @@ RUN echo "upload_max_filesize = 512M" >> /usr/local/etc/php/conf.d/uploads.ini \
     && echo "memory_limit = 512M" >> /usr/local/etc/php/conf.d/uploads.ini \
     && echo "max_execution_time = 600" >> /usr/local/etc/php/conf.d/uploads.ini
 
-# Конфиг Nginx (один контейнер) и PHP-FPM: сокет в /tmp (работает при запуске не от root)
+# Конфиг Nginx (один контейнер) и PHP-FPM: сокет в /tmp + логи в stderr (видны в логах приложения на Timeweb)
 COPY nginx.prod.conf /etc/nginx/conf.d/default.conf
-RUN printf '[www]\nlisten = /tmp/php-fpm.sock\nlisten.owner = www-data\nlisten.group = www-data\nlisten.mode = 0666\n' > /usr/local/etc/php-fpm.d/zz-socket.conf
+RUN printf '[www]\nlisten = /tmp/php-fpm.sock\nlisten.owner = www-data\nlisten.group = www-data\nlisten.mode = 0666\nerror_log = /dev/stderr\ncatch_workers_output = yes\n' > /usr/local/etc/php-fpm.d/zz-socket.conf
+RUN echo "log_errors = On" >> /usr/local/etc/php/conf.d/uploads.ini && echo "error_log = /dev/stderr" >> /usr/local/etc/php/conf.d/uploads.ini
 
 # Полный слепок wp-content из репозитория (темы, плагины, mu-plugins, uploads, языки и т.д.)
 COPY wp-content/ /var/www/html/wp-content/
 RUN chown -R www-data:www-data /var/www/html
 
-# Запуск: entrypoint WordPress (создаёт wp-config из env), chown + chmod (если контейнер не root — chown не сработает, chmod даст доступ), затем php-fpm и nginx
+# Запуск: entrypoint (wp-config из env), chown+chmod, затем php-fpm и nginx (логи nginx/php в stdout/stderr)
 ENTRYPOINT ["docker-entrypoint.sh"]
-CMD ["sh", "-c", "chown -R www-data:www-data /var/www/html 2>/dev/null; chmod -R a+rX /var/www/html; php-fpm & i=0; while [ ! -S /tmp/php-fpm.sock ]; do i=$((i+1)); [ $i -ge 30 ] && break; sleep 0.5; done; exec nginx -g 'daemon off;'"]
+CMD ["sh", "-c", "chown -R www-data:www-data /var/www/html 2>/dev/null; chmod -R a+rX /var/www/html; php-fpm & i=0; while [ ! -S /tmp/php-fpm.sock ]; do i=$((i+1)); [ $i -ge 30 ] && break; sleep 0.5; done; if [ ! -S /tmp/php-fpm.sock ]; then echo 'ERR: php-fpm socket not found' >&2; fi; exec nginx -g 'daemon off;'"]
 
 EXPOSE 80
