@@ -21,7 +21,8 @@ RUN echo "upload_max_filesize = 512M" >> /usr/local/etc/php/conf.d/uploads.ini \
     && echo "max_execution_time = 600" >> /usr/local/etc/php/conf.d/uploads.ini
 
 # Конфиг Nginx: один server block (убираем конфликт server_name "_" и лишние конфиги)
-RUN rm -f /etc/nginx/conf.d/*.conf /etc/nginx/sites-enabled/*
+RUN rm -f /etc/nginx/conf.d/*.conf /etc/nginx/sites-enabled/* \
+    && sed -i '/sites-enabled/s/^/# /' /etc/nginx/nginx.conf
 COPY nginx.prod.conf /etc/nginx/conf.d/default.conf
 RUN sed -i 's/^listen = .*/listen = \/tmp\/php-fpm.sock/' /usr/local/etc/php-fpm.d/www.conf \
     && echo 'listen.owner = www-data' >> /usr/local/etc/php-fpm.d/www.conf \
@@ -36,6 +37,6 @@ RUN chown -R www-data:www-data /var/www/html
 
 # Запуск: entrypoint (wp-config из env), chown+chmod, затем php-fpm и nginx (логи nginx/php в stdout/stderr)
 ENTRYPOINT ["docker-entrypoint.sh"]
-CMD ["sh", "-c", "chown -R www-data:www-data /var/www/html 2>/dev/null; chmod -R a+rX /var/www/html; php-fpm & i=0; while [ ! -S /tmp/php-fpm.sock ]; do i=$((i+1)); [ $i -ge 30 ] && break; sleep 0.5; done; if [ ! -S /tmp/php-fpm.sock ]; then echo 'ERR: php-fpm socket not found' >&2; fi; exec nginx -g 'daemon off;'"]
+CMD ["sh", "-c", "chown -R www-data:www-data /var/www/html 2>/dev/null; chmod -R a+rX /var/www/html; php-fpm & i=0; while [ ! -S /tmp/php-fpm.sock ]; do i=$((i+1)); [ $i -ge 30 ] && break; sleep 0.5; done; if [ ! -S /tmp/php-fpm.sock ]; then echo 'ERR: php-fpm socket not found' >&2; fi; sleep 1; exec nginx -g 'daemon off;'"]
 
 EXPOSE 80
