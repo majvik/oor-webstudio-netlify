@@ -32,10 +32,16 @@ if [ -d /usr/src/wp-uploads ]; then
     ln -sf /usr/src/wp-uploads /var/www/html/wp-content/uploads
 fi
 
-# 4. SSL для Managed MySQL на Timeweb
-if [ -f /var/www/html/wp-config.php ] && ! grep -q 'MYSQL_CLIENT_FLAGS' /var/www/html/wp-config.php; then
-    sed -i "/\/\* That's all/i define('MYSQL_CLIENT_FLAGS', MYSQLI_CLIENT_SSL);" /var/www/html/wp-config.php
+# 4. SSL для Managed MySQL + persistent connections (уменьшает TTFB)
+if [ -f /var/www/html/wp-config.php ]; then
+    if ! grep -q 'MYSQL_CLIENT_FLAGS' /var/www/html/wp-config.php; then
+        sed -i "/\/\* That's all/i define('MYSQL_CLIENT_FLAGS', MYSQLI_CLIENT_SSL);" /var/www/html/wp-config.php
+    fi
 fi
+
+# 5. Создаём каталог для nginx fastcgi кеша
+mkdir -p /tmp/nginx-cache
+chown www-data:www-data /tmp/nginx-cache
 
 # 5. Права (только на wp-config и корень, без рекурсии по всем файлам)
 chown www-data:www-data /var/www/html/wp-config.php 2>/dev/null || true
