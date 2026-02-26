@@ -14,11 +14,13 @@ RUN curl -sO https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cl
     && chmod +x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp \
     && echo '#!/bin/bash\nwp --allow-root "$@"' > /usr/local/bin/wp-cli && chmod +x /usr/local/bin/wp-cli
 
-# Лимиты PHP
+# Лимиты PHP + OPcache для ускорения
 RUN echo "upload_max_filesize = 512M" >> /usr/local/etc/php/conf.d/uploads.ini \
     && echo "post_max_size = 512M" >> /usr/local/etc/php/conf.d/uploads.ini \
     && echo "memory_limit = 512M" >> /usr/local/etc/php/conf.d/uploads.ini \
     && echo "max_execution_time = 600" >> /usr/local/etc/php/conf.d/uploads.ini
+RUN docker-php-ext-install opcache \
+    && printf 'opcache.enable=1\nopcache.memory_consumption=128\nopcache.max_accelerated_files=10000\nopcache.revalidate_freq=60\nopcache.interned_strings_buffer=16\n' > /usr/local/etc/php/conf.d/opcache.ini
 
 # Конфиг Nginx: один server block (убираем конфликт server_name "_" и лишние конфиги)
 RUN rm -f /etc/nginx/conf.d/*.conf /etc/nginx/sites-enabled/* \
@@ -36,6 +38,7 @@ RUN echo "log_errors = On" >> /usr/local/etc/php/conf.d/uploads.ini && echo "err
 # отбрасывается при запуске контейнера.
 COPY wp-content/ /usr/src/wp-content-custom/
 COPY wordpress-uploads/ /usr/src/wp-uploads/
+RUN chown -R www-data:www-data /usr/src/wp-content-custom /usr/src/wp-uploads
 
 # Скрипт запуска: вызывает docker-entrypoint.sh php-fpm (инициализация WP + запуск FPM), затем nginx
 COPY start.sh /usr/local/bin/start.sh
