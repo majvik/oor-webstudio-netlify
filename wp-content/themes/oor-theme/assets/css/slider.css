@@ -185,7 +185,7 @@ html{
   width: 100%;
   height: auto;          /* сохраняет пропорции на десктопе */
   object-fit: contain;
-  aspect-ratio: 3 / 2;   /* запасной вариант до загрузки, чтобы не было узкой полосы */
+  aspect-ratio: 163 / 199;   /* 652/796 упрощённо, до загрузки */
   user-select: none;
   -webkit-user-drag: none;
   -webkit-user-select: none;
