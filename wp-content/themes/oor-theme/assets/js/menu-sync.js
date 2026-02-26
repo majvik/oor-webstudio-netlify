@@ -290,8 +290,7 @@ class MenuSync {
     if (activeDesktopLink) {
       const menuItem = activeDesktopLink.getAttribute('data-menu-item');
       this.setActiveItem(menuItem);
-    } else {
-      // Если нет активного пункта, устанавливаем 'main' по умолчанию
+    } else if (!document.body.classList.contains('oor-become-artist-page')) {
       this.setActiveItem('main');
     }
   }
@@ -367,7 +366,6 @@ class MenuSync {
         menuItem = 'contacts';
       }
     } else if (path && path !== '/' && path !== '/index.html' && path !== '') {
-      // Если есть путь (не главная страница)
       if (path.includes('/manifest')) {
         menuItem = 'manifest';
       } else if (path.includes('/artists')) {
@@ -382,20 +380,53 @@ class MenuSync {
         menuItem = 'talk-show';
       } else if (path.includes('/events')) {
         menuItem = 'events';
-      } else if (path.includes('/merch') || path.includes('/shop')) {
+      } else if (path.includes('/merch') || path.includes('/shop') || path.includes('/cart') || path.includes('/checkout')) {
         menuItem = 'merch';
       } else if (path.includes('/contacts')) {
         menuItem = 'contacts';
+      } else if (path.includes('/become-artist')) {
+        menuItem = null;
       }
     }
-    // Если path === '/' или '/index.html' или '', остается 'main'
-    // Страница магазина WooCommerce (любой slug): подсветка «Мерч» на десктопе и в мобильном меню
-    if (document.body.classList.contains('oor-merch-page') && menuItem === 'main') {
+    // Страница магазина WooCommerce (любой slug): подсветка «Мерч»
+    const body = document.body.classList;
+    if ((body.contains('oor-merch-page') || body.contains('oor-cart-page') || body.contains('oor-checkout-page') || body.contains('oor-product-page')) && (!menuItem || menuItem === 'main')) {
       menuItem = 'merch';
     }
+    // Страница «Стать артистом» — ни один пункт не активен
+    if (body.contains('oor-become-artist-page')) {
+      menuItem = null;
+    }
 
-    // Устанавливаем активное состояние
-    this.setActiveItem(menuItem);
+    if (menuItem) {
+      this.setActiveItem(menuItem);
+    } else {
+      this.clearAllActive();
+    }
+  }
+  
+  clearAllActive() {
+    this.currentActiveItem = null;
+    if (this.desktopMenu) {
+      this.desktopMenu.querySelectorAll('.oor-nav-link--active').forEach(link => {
+        link.classList.remove('oor-nav-link--active');
+        const atom = link.querySelector('.tn-atom');
+        if (atom) {
+          atom.querySelectorAll('.block').forEach(block => {
+            const bs = block.querySelector('.bracket-start');
+            const be = block.querySelector('.bracket-end');
+            if (bs) bs.remove();
+            if (be) be.remove();
+          });
+          delete atom.dataset.bracketsAdded;
+        }
+      });
+    }
+    if (this.mobileMenu) {
+      this.mobileMenu.querySelectorAll('.oor-mobile-menu-link--active').forEach(link => {
+        link.classList.remove('oor-mobile-menu-link--active');
+      });
+    }
   }
 }
 

@@ -281,6 +281,18 @@ add_action('acf/init', function() {
 
 // Группы полей «Футер — email и соцсети» и «Главная страница» (включая hero-соцсети) хранятся в БД.
 
+// «Продолжить покупки» / «Return to shop» ведёт на мерч (каталог товаров)
+add_filter('woocommerce_return_to_shop_redirect', function() {
+    return function_exists('wc_get_page_id') && wc_get_page_id('shop') > 0
+        ? get_permalink(wc_get_page_id('shop'))
+        : home_url('/merch');
+});
+add_filter('woocommerce_continue_shopping_redirect', function() {
+    return function_exists('wc_get_page_id') && wc_get_page_id('shop') > 0
+        ? get_permalink(wc_get_page_id('shop'))
+        : home_url('/merch');
+});
+
 // Включение поддержки AVIF и WebP изображений
 add_filter('mime_types', function($mimes) {
     // Добавляем поддержку AVIF

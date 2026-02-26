@@ -73,14 +73,18 @@
                         $menu_items[] = ['url' => home_url('/become-artist'), 'text' => 'Стать артистом', 'slug' => 'become-artist'];
                     }
                     
+                    $is_become_artist = is_page('become-artist');
                     foreach ($menu_items as $index => $item) {
-                        $active = (is_page($item['slug']) || 
-                                  (is_front_page() && $item['slug'] === 'main') ||
+                        $active = (
+                                  (!$is_become_artist && is_page($item['slug'])) ||
+                                  (is_front_page() && !$is_become_artist && $item['slug'] === 'main') ||
                                   (is_post_type_archive('artist') && $item['slug'] === 'artists') ||
                                   (is_post_type_archive('event') && $item['slug'] === 'events') ||
                                   (function_exists('is_shop') && is_shop() && $item['slug'] === 'merch') ||
-                                  (function_exists('is_product') && is_product() && $item['slug'] === 'merch')) 
-                                  ? 'oor-nav-link--active' : '';
+                                  (function_exists('is_product') && is_product() && $item['slug'] === 'merch') ||
+                                  (function_exists('is_cart') && is_cart() && $item['slug'] === 'merch') ||
+                                  (function_exists('is_checkout') && is_checkout() && $item['slug'] === 'merch')
+                                  ) ? 'oor-nav-link--active' : '';
                         
                         echo sprintf(
                             '<div class="oor-nav-item">' .

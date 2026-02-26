@@ -10240,11 +10240,33 @@ body.oor-product-page .oor-product-section .oor-container > .product .woocommerc
   display: none; /* Chrome, Safari */
 }
 /* Первое изображение в галерее не показываем только на десктопе — на мобильном показываем всю галерею */
+/* Исключение: если галереи нет (класс --single), показываем всегда */
 @media (min-width: 769px) {
-  body.oor-product-page .woocommerce-product-gallery__wrapper .woocommerce-product-gallery__image:first-child {
+  body.oor-product-page .woocommerce-product-gallery__wrapper .woocommerce-product-gallery__image:first-child:not(.woocommerce-product-gallery__image--single) {
     display: none !important;
   }
 }
+
+/* Единственное изображение (без галереи) — заполняет всю область */
+.woocommerce-product-gallery__image--single {
+  width: 100% !important;
+  height: 100%;
+}
+
+.woocommerce-product-gallery__image--single a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.woocommerce-product-gallery__image--single img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+}
+
 /* Галерея: одно изображение под другим (не плитка), перебиваем WooCommerce columns */
 body.oor-product-page .woocommerce-product-gallery__wrapper .woocommerce-product-gallery__image,
 body.oor-product-page .woocommerce-product-gallery__wrapper .woocommerce-product-gallery__image:nth-child(n+2) {
@@ -10291,17 +10313,26 @@ body.oor-product-page .oor-product-section .oor-container > .product > .onsale {
   left: 4px;
   z-index: 1;
 }
-/* В цикле (похожие товары и т.п.): onsale внутри карточки изображения, отступ 4px */
+/* В цикле (похожие товары и т.п.): onsale внутри карточки изображения, отступ 8px, правый верхний угол */
 .woocommerce ul.products li a,
 .woocommerce .related.products li .woocommerce-loop-product__link {
   position: relative;
 }
 .woocommerce ul.products li .onsale,
-.woocommerce .related.products li .onsale {
-  position: absolute;
-  top: 4px;
-  left: 4px;
+.woocommerce .related.products li .onsale,
+body.oor-product-page .related.products li .onsale,
+body.oor-product-page .summary.entry-summary .related.products .onsale {
+  position: absolute !important;
+  top: 8px !important;
+  right: 8px !important;
+  left: auto !important;
+  bottom: auto !important;
   z-index: 1;
+  margin: 0 !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  border-radius: 0 !important;
+  line-height: normal !important;
 }
 
 /* Описание товара: перенос строк, не в одну строку */
@@ -11393,7 +11424,26 @@ body.oor-cart-page .woocommerce-error::before {
   display: none !important;
 }
 
-/* Панели сообщений на странице товара — без цветных полос и иконок */
+/* Корзина: убираем браузерный фокус с сообщений (tabindex="-1" + role="alert") */
+body.oor-cart-page .woocommerce-message:focus,
+body.oor-cart-page .woocommerce-notices-wrapper:focus,
+.oor-cart-section .woocommerce-message:focus,
+.oor-cart-section .woocommerce-notices-wrapper:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Панели сообщений на странице товара — скрываем (зона «Russia» и др.), убираем фокус и обводку */
+.oor-product-section .woocommerce-notices-wrapper {
+  display: none !important;
+}
+
+.oor-product-section .woocommerce-notices-wrapper:focus,
+.oor-product-section .woocommerce-message:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
 body.oor-product-page .woocommerce-info,
 body.oor-product-page .woocommerce-message,
 body.oor-product-page .woocommerce-error,
@@ -11431,6 +11481,15 @@ body.oor-checkout-page .woocommerce-error::before,
 .oor-checkout-section .woocommerce-message::before,
 .oor-checkout-section .woocommerce-error::before {
   display: none !important;
+}
+
+/* Чекаут: убираем браузерный фокус с сообщений */
+body.oor-checkout-page .woocommerce-message:focus,
+body.oor-checkout-page .woocommerce-notices-wrapper:focus,
+.oor-checkout-section .woocommerce-message:focus,
+.oor-checkout-section .woocommerce-notices-wrapper:focus {
+  outline: none !important;
+  box-shadow: none !important;
 }
 
 .oor-cart-header {

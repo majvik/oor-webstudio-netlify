@@ -19,6 +19,8 @@ global $product;
 
 $columns           = apply_filters( 'woocommerce_product_thumbnails_columns', 4 );
 $post_thumbnail_id = $product->get_image_id();
+$gallery_ids       = $product->get_gallery_image_ids();
+$has_gallery        = ! empty( $gallery_ids );
 $wrapper_classes   = apply_filters(
 	'woocommerce_single_product_image_gallery_classes',
 	array(
@@ -33,7 +35,20 @@ $wrapper_classes   = apply_filters(
 	<div class="woocommerce-product-gallery__wrapper">
 		<?php
 		if ( $post_thumbnail_id ) {
-			$html = wc_get_gallery_image_html( $post_thumbnail_id, true );
+			if ( $has_gallery ) {
+				$html = wc_get_gallery_image_html( $post_thumbnail_id, true );
+			} else {
+				$full_src = wp_get_attachment_image_url( $post_thumbnail_id, 'full' );
+				$full_img = wp_get_attachment_image( $post_thumbnail_id, 'full', false, array(
+					'class'           => 'wp-post-image',
+					'data-large_image' => $full_src,
+					'data-large_image_width'  => '',
+					'data-large_image_height' => '',
+				) );
+				$html = '<div class="woocommerce-product-gallery__image woocommerce-product-gallery__image--single">'
+					. '<a href="' . esc_url( $full_src ) . '">' . $full_img . '</a>'
+					. '</div>';
+			}
 		} else {
 			$wrapper_classname = $product->is_type( ProductType::VARIABLE ) && ! empty( $product->get_available_variations( 'image' ) ) ?
 				'woocommerce-product-gallery__image woocommerce-product-gallery__image--placeholder' :
@@ -45,7 +60,9 @@ $wrapper_classes   = apply_filters(
 
 		echo apply_filters( 'woocommerce_single_product_image_thumbnail_html', $html, $post_thumbnail_id ); // phpcs:disable WordPress.XSS.EscapeOutput.OutputNotEscaped
 
-		do_action( 'woocommerce_product_thumbnails' );
+		if ( $has_gallery ) {
+			do_action( 'woocommerce_product_thumbnails' );
+		}
 		?>
 	</div>
 </div>
