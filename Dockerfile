@@ -3,7 +3,7 @@
 FROM wordpress:php8.3-fpm
 
 # Nginx
-RUN apt-get update && apt-get install -y --no-install-recommends nginx \
+RUN apt-get update && apt-get install -y --no-install-recommends nginx netcat-openbsd \
     && rm -rf /var/lib/apt/lists/* \
     && rm -f /etc/nginx/sites-enabled/default \
     && ln -sf /dev/stdout /var/log/nginx/access.log \
@@ -27,8 +27,8 @@ COPY nginx.prod.conf /etc/nginx/conf.d/default.conf
 COPY wp-content/ /var/www/html/wp-content/
 RUN chown -R www-data:www-data /var/www/html
 
-# Запуск: entrypoint WordPress (создаёт wp-config из env), затем chown для nginx/php-fpm (www-data), затем php-fpm и nginx
+# Запуск: entrypoint WordPress (создаёт wp-config из env), chown, ждём готовности PHP-FPM, затем nginx
 ENTRYPOINT ["docker-entrypoint.sh"]
-CMD ["sh", "-c", "chown -R www-data:www-data /var/www/html 2>/dev/null; php-fpm & exec nginx -g 'daemon off;'"]
+CMD ["sh", "-c", "chown -R www-data:www-data /var/www/html 2>/dev/null; php-fpm & i=0; while ! nc -z 127.0.0.1 9000 2>/dev/null; do i=$((i+1)); [ $i -ge 30 ] && break; sleep 0.5; done; exec nginx -g 'daemon off;'"]
 
 EXPOSE 80
