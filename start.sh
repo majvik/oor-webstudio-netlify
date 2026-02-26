@@ -17,6 +17,11 @@ while [ ! -S /tmp/php-fpm.sock ]; do
     sleep 0.5
 done
 
+# Managed MySQL на Timeweb требует SSL (--require_secure_transport=ON)
+if [ -f /var/www/html/wp-config.php ] && ! grep -q 'MYSQL_CLIENT_FLAGS' /var/www/html/wp-config.php; then
+    sed -i "/\/\* That's all/i define('MYSQL_CLIENT_FLAGS', MYSQLI_CLIENT_SSL);" /var/www/html/wp-config.php
+fi
+
 # Права на файлы WP (entrypoint мог создать новые)
 chown -R www-data:www-data /var/www/html 2>/dev/null || true
 chmod -R a+rX /var/www/html
