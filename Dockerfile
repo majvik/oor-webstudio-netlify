@@ -27,8 +27,8 @@ COPY nginx.prod.conf /etc/nginx/conf.d/default.conf
 COPY wp-content/ /var/www/html/wp-content/
 RUN chown -R www-data:www-data /var/www/html
 
-# Запуск: entrypoint WordPress (создаёт wp-config из env), chown, ждём готовности PHP-FPM, затем nginx
+# Запуск: entrypoint WordPress (создаёт wp-config из env), chown + chmod (если контейнер не root — chown не сработает, chmod даст доступ), затем php-fpm и nginx
 ENTRYPOINT ["docker-entrypoint.sh"]
-CMD ["sh", "-c", "chown -R www-data:www-data /var/www/html 2>/dev/null; php-fpm & i=0; while ! nc -z 127.0.0.1 9000 2>/dev/null; do i=$((i+1)); [ $i -ge 30 ] && break; sleep 0.5; done; exec nginx -g 'daemon off;'"]
+CMD ["sh", "-c", "chown -R www-data:www-data /var/www/html 2>/dev/null; chmod -R a+rX /var/www/html; php-fpm & i=0; while ! nc -z 127.0.0.1 9000 2>/dev/null; do i=$((i+1)); [ $i -ge 30 ] && break; sleep 0.5; done; exec nginx -g 'daemon off;'"]
 
 EXPOSE 80
