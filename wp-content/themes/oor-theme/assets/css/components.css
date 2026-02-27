@@ -10704,7 +10704,7 @@ body.oor-shop-header select {
   accent-color: #000 !important;
 }
 
-/* Фокус на полях и блоках Woo — подсветка #fade55 */
+/* Фокус на полях и блоках Woo */
 body.oor-shop-header .woocommerce input:focus,
 body.oor-shop-header .woocommerce select:focus,
 body.oor-shop-header .woocommerce textarea:focus,
@@ -10713,9 +10713,9 @@ body.oor-shop-header .woocommerce input[type="text"]:focus,
 body.oor-shop-header .woocommerce input[type="email"]:focus,
 body.oor-shop-header .woocommerce input[type="tel"]:focus,
 body.oor-shop-header .woocommerce input[type="number"]:focus {
-  outline: 2px solid #fade55 !important;
+  outline: 2px solid #000 !important;
   outline-offset: 2px;
-  border-color: #fade55 !important;
+  border-color: #000 !important;
 }
 
 /* Старая цена — перечёркнутая (перебивает любые reset) */
@@ -11397,9 +11397,26 @@ body.oor-cart-page .woocommerce-notices-wrapper:focus,
   box-shadow: none !important;
 }
 
-/* Панели сообщений на странице товара — скрываем (зона «Russia» и др.), убираем фокус и обводку */
-.oor-product-section .woocommerce-notices-wrapper {
+/* Панели сообщений — скрываем (зона «Russia» и др.), убираем фокус и обводку */
+.oor-product-section .woocommerce-notices-wrapper,
+.oor-cart-section .woocommerce-notices-wrapper,
+.oor-checkout-section .woocommerce-notices-wrapper {
   display: none !important;
+}
+
+/* Чекаут: скрываем блок способов оплаты, privacy-текст и строку доставки */
+.oor-checkout-section #payment .wc_payment_methods_list,
+.oor-checkout-section #payment .payment_methods,
+.oor-checkout-section #payment .woocommerce-info,
+.oor-checkout-section #payment .woocommerce-privacy-policy-text,
+.oor-checkout-section .woocommerce-shipping-totals,
+.oor-cart-section .woocommerce-shipping-totals {
+  display: none !important;
+}
+
+/* Чекаут: отступ перед «Ваш заказ» */
+.oor-checkout-section #order_review_heading {
+  margin-top: 40px;
 }
 
 .oor-product-section .woocommerce-notices-wrapper:focus,
@@ -11488,6 +11505,211 @@ body.oor-checkout-page .woocommerce-notices-wrapper:focus,
   background: var(--color-black);
   margin: 24px 0;
   opacity: 0.2;
+}
+
+/* WooCommerce Cart Table (shop_table via [woocommerce_cart] shortcode) */
+.oor-cart-section .shop_table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.oor-cart-section .shop_table th,
+.oor-cart-section .shop_table td {
+  padding: 12px 16px;
+  vertical-align: middle;
+  text-align: left;
+  font-family: var(--font-pragmatica);
+  font-size: 14px;
+  letter-spacing: -0.28px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.oor-cart-section .shop_table th:first-child,
+.oor-cart-section .shop_table td:first-child {
+  padding-left: 24px;
+}
+
+.oor-cart-section .shop_table th:last-child,
+.oor-cart-section .shop_table td:last-child {
+  padding-right: 24px;
+}
+
+.oor-cart-section .shop_table th {
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: 13px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.oor-cart-section .shop_table td.product-remove {
+  width: 40px;
+  text-align: center;
+}
+
+.oor-cart-section .shop_table td.product-remove a {
+  color: #ff0000;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+.oor-cart-section .shop_table td.product-thumbnail {
+  width: 80px;
+  padding: 12px 8px;
+}
+
+.oor-cart-section .shop_table td.product-thumbnail a {
+  display: block;
+}
+
+.oor-cart-section .shop_table td.product-thumbnail img {
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  display: block;
+  max-width: none;
+}
+
+.oor-cart-section .shop_table td.product-name a {
+  color: var(--color-text);
+  text-decoration: none;
+  font-family: var(--font-ui);
+  font-size: 16px;
+  letter-spacing: -0.32px;
+}
+
+.oor-cart-section .shop_table td.product-quantity .quantity {
+  display: inline-flex;
+  align-items: center;
+}
+
+.oor-cart-section .shop_table td.product-quantity .qty {
+  width: 64px;
+  height: 44px;
+  padding: 8px 12px;
+  border: 1px solid #000;
+  background: transparent;
+  font-family: var(--font-pragmatica);
+  font-size: 14px;
+  text-align: center;
+  color: var(--color-text);
+  box-sizing: border-box;
+  -moz-appearance: textfield;
+}
+
+.oor-cart-section .shop_table td.product-quantity .qty::-webkit-outer-spin-button,
+.oor-cart-section .shop_table td.product-quantity .qty::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.oor-cart-section .shop_table td.product-price,
+.oor-cart-section .shop_table td.product-subtotal {
+  font-family: var(--font-ui);
+  font-size: 16px;
+  letter-spacing: -0.32px;
+}
+
+.oor-cart-section .shop_table .actions {
+  text-align: right;
+  padding: 16px 0;
+  border-bottom: none;
+}
+
+.oor-cart-section .shop_table .actions button {
+  font-family: var(--font-pragmatica);
+  font-size: 13px;
+  letter-spacing: -0.26px;
+  text-transform: uppercase;
+  background: #000;
+  color: #fff;
+  border: none;
+  padding: 14px 24px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.oor-cart-section .shop_table .actions button:hover {
+  opacity: 0.8;
+}
+
+.oor-cart-section .shop_table .actions button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+/* Cart Totals (cart-collaterals) */
+.oor-cart-section .cart-collaterals {
+  margin-top: 40px;
+}
+
+.oor-cart-section .cart-collaterals .cart_totals {
+  float: none;
+  width: 100%;
+  max-width: 480px;
+}
+
+.oor-cart-section .cart-collaterals .cart_totals h2 {
+  font-family: var(--font-ui);
+  font-size: 24px;
+  font-weight: 300;
+  letter-spacing: -0.48px;
+  margin: 0 0 16px 0;
+}
+
+.oor-cart-section .cart-collaterals .cart_totals table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.oor-cart-section .cart-collaterals .cart_totals th,
+.oor-cart-section .cart-collaterals .cart_totals td {
+  padding: 12px 16px;
+  font-family: var(--font-pragmatica);
+  font-size: 14px;
+  letter-spacing: -0.28px;
+  text-transform: uppercase;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.oor-cart-section .cart-collaterals .cart_totals td {
+  text-transform: none;
+}
+
+.oor-cart-section .cart-collaterals .cart_totals .order-total th,
+.oor-cart-section .cart-collaterals .cart_totals .order-total td {
+  font-family: var(--font-ui);
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -0.32px;
+}
+
+.oor-cart-section .cart-collaterals .wc-proceed-to-checkout {
+  padding: 16px 0 0;
+}
+
+.oor-cart-section .cart-collaterals .wc-proceed-to-checkout .checkout-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-pragmatica);
+  font-size: 13px;
+  letter-spacing: -0.26px;
+  text-transform: uppercase;
+  background: #000;
+  color: #fff;
+  border: none;
+  padding: 14px 32px;
+  min-height: 52px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity 0.2s;
+  box-sizing: border-box;
+}
+
+.oor-cart-section .cart-collaterals .wc-proceed-to-checkout .checkout-button:hover {
+  opacity: 0.8;
 }
 
 /* Cart Items */

@@ -247,7 +247,7 @@ function initParallaxImages() {
   if (window.innerWidth <= 460) return;
 
   // Отключаем параллакс на страницах магазина
-  if (document.body.classList.contains('oor-merch-page') || document.body.classList.contains('oor-product-page')) {
+  if (document.body.classList.contains('oor-merch-page') || document.body.classList.contains('oor-product-page') || document.body.classList.contains('oor-cart-page') || document.body.classList.contains('oor-checkout-page')) {
     return;
   }
 
