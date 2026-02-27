@@ -131,6 +131,58 @@ get_header();
         </div>
     </section>
 
+    <!-- Musical Association Section -->
+    <section class="oor-musical-association">
+        <div class="oor-grid">
+            <!-- Левая колонка - 6 колонок -->
+            <div class="oor-col-6 oor-musical-association-left">
+                <div class="oor-section-number">[02]</div>
+                
+                <h2 class="oor-musical-association-title">
+          Независимое музыкальное объединение, созданное во имя смелых идей
+                </h2>
+                
+                <div class="oor-line-divider">
+                    <img src="<?php echo get_template_directory_uri(); ?>/public/assets/line-large.svg" alt="" width="18" height="0">
+            </div>
+                
+                <p class="oor-musical-association-text">
+                    Действуем в обход пыльных правил — продвигаем артистов, которые отличаются, экспериментируют и рискуют. Работаем на 360° и по отдельным проектам. Хотим, чтобы талант звучал громче мейнстрима
+                </p>
+                
+                <div class="oor-line-divider">
+                    <img src="<?php echo get_template_directory_uri(); ?>/public/assets/line-large.svg" alt="" width="18" height="0">
+        </div>
+                
+                <p class="oor-musical-association-text">
+                    Основали лейбл, агентство дистрибуции и премиальную студию, а еще серию городских культурных событий и музыкальное talk-шоу
+        </p>
+                
+                <div class="oor-line-divider">
+                    <img src="<?php echo get_template_directory_uri(); ?>/public/assets/line-large.svg" alt="" width="18" height="0">
+                </div>
+      </div>
+            
+            <!-- Правая колонка - 6 колонок -->
+            <div class="oor-col-6 oor-musical-association-right">
+                <div class="oor-musical-association-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="156" height="567" viewBox="0 0 156 567" fill="none">
+                        <g style="mix-blend-mode:difference">
+                            <path d="M0.00935997 55.8977C0.00936175 15.1822 35.2141 -5.27972e-06 78.2286 -3.39949e-06C121.243 -1.51927e-06 156 15.1822 156 55.8978L156 128.25C156 168.956 121.234 184.147 78.2286 184.147C35.2234 184.147 0.00935502 168.956 0.0093568 128.25L0.00935997 55.8977ZM24.969 128.25C24.969 148.501 48.5943 154.198 78.0047 154.198C107.415 154.198 131.04 148.501 131.04 128.25L131.04 55.8978C131.04 35.646 107.191 29.9582 78.0047 29.9582C48.8183 29.9582 24.969 35.6548 24.969 55.8978L24.969 128.25Z" fill="white"/>
+                            <path d="M0.00935125 255.229C0.00935303 214.523 35.2234 199.332 78.2286 199.332C121.234 199.332 156 214.514 156 255.229L156 327.581C156 368.288 121.234 383.479 78.2286 383.479C35.2234 383.479 0.00934631 368.288 0.00934809 327.581L0.00935125 255.229ZM24.969 327.581C24.969 347.833 48.5943 353.53 78.0047 353.53C107.415 353.53 131.04 347.833 131.04 327.581L131.04 255.229C131.04 234.978 107.191 229.29 78.0047 229.29C48.8182 229.29 24.969 234.986 24.969 255.229L24.969 327.581Z" fill="white"/>
+                            <path d="M156 406.893L156 514.264C156 550.97 133.718 563.202 105.857 563.202C84.0136 563.202 66.192 553.505 59.5019 533.041L9.54792e-06 567L1.09864e-05 534.092L55.2657 503.931L55.2657 436.225L1.52643e-05 436.225L1.6546e-05 406.902L156 406.902L156 406.893ZM131.04 436.216L80.4493 436.216L80.4493 513.84C80.4493 529.022 92.262 534.092 105.633 534.092C119.004 534.092 131.04 529.031 131.04 513.84L131.04 436.216Z" fill="white"/>
+            </g>
+          </svg>
+        </div>
+                
+                <!-- Plus Large иконка -->
+                <div class="oor-musical-association-plus">
+                    <img src="<?php echo get_template_directory_uri(); ?>/public/assets/plus-large.svg" alt="" width="17" height="17">
+      </div>
+    </div>
+          </div>
+    </section>
+
     <!-- Artists Slider Section -->
     <div id="wsls">
     <section class="slider-section">
@@ -239,58 +291,6 @@ get_header();
           <a class="slider-all-link rolling-button" href="<?php echo esc_url(home_url('/artists')); ?>"><span class="tn-atom">Все артисты</span></a>
         </section>
     </div>
-
-    <!-- Musical Association Section -->
-    <section class="oor-musical-association">
-        <div class="oor-grid">
-            <!-- Левая колонка - 6 колонок -->
-            <div class="oor-col-6 oor-musical-association-left">
-                <div class="oor-section-number">[02]</div>
-                
-                <h2 class="oor-musical-association-title">
-          Независимое музыкальное объединение, созданное во имя смелых идей
-                </h2>
-                
-                <div class="oor-line-divider">
-                    <img src="<?php echo get_template_directory_uri(); ?>/public/assets/line-large.svg" alt="" width="18" height="0">
-            </div>
-                
-                <p class="oor-musical-association-text">
-                    Действуем в обход пыльных правил — продвигаем артистов, которые отличаются, экспериментируют и рискуют. Работаем на 360° и по отдельным проектам. Хотим, чтобы талант звучал громче мейнстрима
-                </p>
-                
-                <div class="oor-line-divider">
-                    <img src="<?php echo get_template_directory_uri(); ?>/public/assets/line-large.svg" alt="" width="18" height="0">
-        </div>
-                
-                <p class="oor-musical-association-text">
-                    Основали лейбл, агентство дистрибуции и премиальную студию, а еще серию городских культурных событий и музыкальное talk-шоу
-        </p>
-                
-                <div class="oor-line-divider">
-                    <img src="<?php echo get_template_directory_uri(); ?>/public/assets/line-large.svg" alt="" width="18" height="0">
-                </div>
-      </div>
-            
-            <!-- Правая колонка - 6 колонок -->
-            <div class="oor-col-6 oor-musical-association-right">
-                <div class="oor-musical-association-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="156" height="567" viewBox="0 0 156 567" fill="none">
-                        <g style="mix-blend-mode:difference">
-                            <path d="M0.00935997 55.8977C0.00936175 15.1822 35.2141 -5.27972e-06 78.2286 -3.39949e-06C121.243 -1.51927e-06 156 15.1822 156 55.8978L156 128.25C156 168.956 121.234 184.147 78.2286 184.147C35.2234 184.147 0.00935502 168.956 0.0093568 128.25L0.00935997 55.8977ZM24.969 128.25C24.969 148.501 48.5943 154.198 78.0047 154.198C107.415 154.198 131.04 148.501 131.04 128.25L131.04 55.8978C131.04 35.646 107.191 29.9582 78.0047 29.9582C48.8183 29.9582 24.969 35.6548 24.969 55.8978L24.969 128.25Z" fill="white"/>
-                            <path d="M0.00935125 255.229C0.00935303 214.523 35.2234 199.332 78.2286 199.332C121.234 199.332 156 214.514 156 255.229L156 327.581C156 368.288 121.234 383.479 78.2286 383.479C35.2234 383.479 0.00934631 368.288 0.00934809 327.581L0.00935125 255.229ZM24.969 327.581C24.969 347.833 48.5943 353.53 78.0047 353.53C107.415 353.53 131.04 347.833 131.04 327.581L131.04 255.229C131.04 234.978 107.191 229.29 78.0047 229.29C48.8182 229.29 24.969 234.986 24.969 255.229L24.969 327.581Z" fill="white"/>
-                            <path d="M156 406.893L156 514.264C156 550.97 133.718 563.202 105.857 563.202C84.0136 563.202 66.192 553.505 59.5019 533.041L9.54792e-06 567L1.09864e-05 534.092L55.2657 503.931L55.2657 436.225L1.52643e-05 436.225L1.6546e-05 406.902L156 406.902L156 406.893ZM131.04 436.216L80.4493 436.216L80.4493 513.84C80.4493 529.022 92.262 534.092 105.633 534.092C119.004 534.092 131.04 529.031 131.04 513.84L131.04 436.216Z" fill="white"/>
-            </g>
-          </svg>
-        </div>
-                
-                <!-- Plus Large иконка -->
-                <div class="oor-musical-association-plus">
-                    <img src="<?php echo get_template_directory_uri(); ?>/public/assets/plus-large.svg" alt="" width="17" height="17">
-      </div>
-    </div>
-          </div>
-    </section>
 
     <section class="oor-challenge-section">
         <div class="oor-challenge-left">
