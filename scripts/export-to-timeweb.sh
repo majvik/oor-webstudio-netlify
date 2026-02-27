@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Экспорт локальной БД и импорт в Managed MySQL на Timeweb.
-# Заменяет локальные URL на продовый перед импортом.
+# Заменяет локальные URL на продовые через wp-cli (корректно обрабатывает сериализованные данные).
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -37,8 +37,28 @@ echo "  Продовый URL:   $PROD_URL"
 echo "  Прод БД:        $PROD_DB_USER@$PROD_DB_HOST:$PROD_DB_PORT/$PROD_DB_NAME"
 echo ""
 
-# 1. Дамп локальной БД
-echo "→ [1/4] Дамп локальной БД..."
+# 1. Замена URL через wp-cli search-replace (корректно обрабатывает сериализованные данные)
+echo "→ [1/5] Замена URL в локальной БД через wp-cli..."
+LOCAL_URL_NO_SLASH="${LOCAL_URL%/}"
+PROD_URL_NO_SLASH="${PROD_URL%/}"
+
+ALL_LOCAL_URLS=("$LOCAL_URL_NO_SLASH")
+for EXTRA in "https://localhost:8443" "http://localhost:8080" "https://45.141.102.187.nip.io"; do
+  if [ "$EXTRA" != "$LOCAL_URL_NO_SLASH" ]; then
+    ALL_LOCAL_URLS+=("$EXTRA")
+  fi
+done
+
+for OLD_URL in "${ALL_LOCAL_URLS[@]}"; do
+  echo "  $OLD_URL → $PROD_URL_NO_SLASH"
+  docker compose exec -T wordpress wp search-replace \
+    "$OLD_URL" "$PROD_URL_NO_SLASH" \
+    --all-tables --precise --allow-root --quiet 2>/dev/null || true
+done
+echo "  Замена завершена"
+
+# 2. Дамп БД (уже с продовыми URL)
+echo "→ [2/5] Дамп локальной БД..."
 docker compose exec -T db mysqldump \
   -u root -p"${DB_ROOT_PASSWORD:?DB_ROOT_PASSWORD не задан}" \
   "${DB_NAME:-wordpress}" \
@@ -53,28 +73,18 @@ if [ "$DUMP_SIZE" -lt 1000 ]; then
   exit 1
 fi
 
-# 2. Замена URL (все варианты: с/без trailing slash, http/https)
-echo "→ [2/4] Замена URL: $LOCAL_URL → $PROD_URL"
-
-LOCAL_URL_NO_SLASH="${LOCAL_URL%/}"
-PROD_URL_NO_SLASH="${PROD_URL%/}"
-
-sed -i.bak \
-  -e "s|${LOCAL_URL_NO_SLASH}|${PROD_URL_NO_SLASH}|g" \
-  "$DUMP"
-
-# Дополнительно: если в БД есть https://localhost:8443 или другие варианты
-for OLD_URL in "https://localhost:8443" "http://localhost:8080" "https://45.141.102.187.nip.io"; do
-  if grep -q "$OLD_URL" "$DUMP" 2>/dev/null; then
-    echo "  Также заменяю: $OLD_URL → $PROD_URL_NO_SLASH"
-    sed -i -e "s|${OLD_URL}|${PROD_URL_NO_SLASH}|g" "$DUMP"
-  fi
+# 3. Откат URL в локальной БД обратно на локальные
+echo "→ [3/5] Откат URL в локальной БД..."
+for OLD_URL in "${ALL_LOCAL_URLS[@]}"; do
+  docker compose exec -T wordpress wp search-replace \
+    "$PROD_URL_NO_SLASH" "$OLD_URL" \
+    --all-tables --precise --allow-root --quiet 2>/dev/null || true
+  break  # откатываем только на основной LOCAL_URL
 done
+echo "  Откат завершён"
 
-rm -f "${DUMP}.bak"
-
-# 3. Проверка подключения к Timeweb
-echo "→ [3/4] Проверка подключения к Managed MySQL на Timeweb..."
+# 4. Проверка подключения к Timeweb
+echo "→ [4/5] Проверка подключения к Managed MySQL на Timeweb..."
 if ! docker run --rm mysql:8.0 \
   mysql -h "$PROD_DB_HOST" -P "$PROD_DB_PORT" -u "$PROD_DB_USER" -p"$PROD_DB_PASS" \
   --ssl-mode=REQUIRED -e "SELECT 1" "$PROD_DB_NAME" > /dev/null 2>&1; then
@@ -84,8 +94,8 @@ if ! docker run --rm mysql:8.0 \
 fi
 echo "  Подключение OK"
 
-# 4. Импорт
-echo "→ [4/4] Импорт дампа в Managed MySQL..."
+# 5. Импорт
+echo "→ [5/5] Импорт дампа в Managed MySQL..."
 echo ""
 read -p "⚠️  Это ПЕРЕЗАПИШЕТ данные в $PROD_DB_NAME на $PROD_DB_HOST. Продолжить? (y/N) " CONFIRM
 if [ "$CONFIRM" != "y" ] && [ "$CONFIRM" != "Y" ]; then
