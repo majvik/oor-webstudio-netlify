@@ -7534,6 +7534,7 @@ body.oor-talk-show-page .oor-btn-small-icon img {
   width: 50%;
   padding-top: 0;
   padding-right: 64px;
+  align-self: center;
 }
 
 .oor-talk-show-rules-title {
