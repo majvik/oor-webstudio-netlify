@@ -2840,6 +2840,8 @@ body:has(.oor-mobile-menu.active) {
 
   .oor-musical-association {
     padding-left: var(--container-x);
+    padding-top: 48px;
+    min-height: auto;
   }
 
   .oor-challenge-section {
@@ -10702,6 +10704,11 @@ body.oor-checkout-page .woocommerce .button {
 body.oor-shop-header .woocommerce select,
 body.oor-shop-header select {
   accent-color: #000 !important;
+}
+
+/* Скрываем ссылку «Все события» — страница ещё не заполнена */
+.oor-events-photo-link {
+  display: none !important;
 }
 
 /* Фокус на полях и блоках Woo */
