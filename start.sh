@@ -32,10 +32,13 @@ if [ -d /usr/src/wp-uploads ]; then
     ln -sf /usr/src/wp-uploads /var/www/html/wp-content/uploads
 fi
 
-# 4. SSL для Managed MySQL + persistent connections (уменьшает TTFB)
+# 4. SSL для Managed MySQL + отключение WP-Cron на каждый запрос (вместо этого — системный cron)
 if [ -f /var/www/html/wp-config.php ]; then
     if ! grep -q 'MYSQL_CLIENT_FLAGS' /var/www/html/wp-config.php; then
         sed -i "/\/\* That's all/i define('MYSQL_CLIENT_FLAGS', MYSQLI_CLIENT_SSL);" /var/www/html/wp-config.php
+    fi
+    if ! grep -q 'DISABLE_WP_CRON' /var/www/html/wp-config.php; then
+        sed -i "/\/\* That's all/i define('DISABLE_WP_CRON', true);" /var/www/html/wp-config.php
     fi
 fi
 
@@ -43,8 +46,14 @@ fi
 mkdir -p /tmp/nginx-cache
 chown www-data:www-data /tmp/nginx-cache
 
-# 5. Права (только на wp-config и корень, без рекурсии по всем файлам)
+# 6. Права (только на wp-config и корень, без рекурсии по всем файлам)
 chown www-data:www-data /var/www/html/wp-config.php 2>/dev/null || true
 chown -R www-data:www-data /var/www/html/wp-content/cache 2>/dev/null || true
+
+# 7. Фоновый wp-cron каждые 5 минут (заменяет встроенный pseudo-cron)
+(while true; do
+    sleep 300
+    php /var/www/html/wp-cron.php >/dev/null 2>&1 || true
+done) &
 
 exec nginx -g 'daemon off;'
