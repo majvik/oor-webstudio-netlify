@@ -10,6 +10,9 @@ html::-webkit-scrollbar {
 }
 
 body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   overflow-x: hidden;
   scrollbar-width: none; /* Firefox */
   -ms-overflow-style: none; /* IE and Edge */
@@ -17,6 +20,14 @@ body {
 
 body::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Edge */
+}
+
+#main-content {
+  flex: 1 0 auto;
+}
+
+.oor-footer {
+  flex-shrink: 0;
 }
 
 /* Стили скроллбара и анимаций вынесены в отдельные модули:
@@ -408,18 +419,6 @@ body.oor-studio-page .oor-header .oor-burger-menu .oor-burger-icon img {
   letter-spacing: -0.630rem;
   text-transform:uppercase;
   margin:0 0 24px 0;
-}
-
-.oor-hero-year{
-  color:var(--color-black);
-  text-align:right;
-  font-family:var(--font-ui);
-  font-size: 1.000rem;
-  font-style:normal;
-  font-weight:300;
-  line-height:normal;
-  letter-spacing: -0.020rem;
-  display:block;
 }
 
 .oor-hero-main{
@@ -2360,6 +2359,7 @@ a.oor-merch-button {
 
 .oor-footer-privacy-link:hover {
   color: #FA4144;
+  opacity: 1;
 }
 
 .oor-footer-copyright {
@@ -2522,7 +2522,7 @@ body:has(.oor-mobile-menu.active) {
 }
 
 .oor-mobile-menu-link {
-  color: var(--color-white);
+  color: rgba(255, 255, 255, 0.6);
   font-family: var(--font-ui);
   font-size: 1.5rem;
   font-weight: 300;
@@ -2531,17 +2531,14 @@ body:has(.oor-mobile-menu.active) {
   letter-spacing: -0.02rem;
   transition: all 0.3s ease;
   padding: 8px 0;
-  opacity: 0.8;
 }
 
 .oor-mobile-menu-link:hover {
-  color: var(--color-white);
-  opacity: 1;
+  color: rgba(255, 255, 255, 1);
 }
 
 .oor-mobile-menu-link--active {
-  color: rgba(255, 255, 255, 0.6);
-  opacity: 1;
+  color: rgba(255, 255, 255, 1);
 }
 
 .oor-mobile-menu-bottom {
@@ -2746,15 +2743,6 @@ body:has(.oor-mobile-menu.active) {
   .oor-footer-copyright {
     text-align: left;
     font-size: 2.5rem;
-  }
-  
-  /* Hero секция - выравниваем year по низу title с отступом 8px */
-  .oor-hero-title-block {
-    align-items: flex-end;
-  }
-  
-  .oor-hero-year {
-    margin-bottom: 16px;
   }
   
   /* Скрываем десктопное меню на планшетах и мобильных */
@@ -3008,8 +2996,8 @@ body:has(.oor-mobile-menu.active) {
   }
   
   .oor-footer-email {
-    font-size: 2.250rem;
-    letter-spacing: -0.090rem;
+    font-size: 2.250rem !important;
+    letter-spacing: -0.090rem !important;
   }
 
   .oor-events-hero-title {
@@ -3040,7 +3028,7 @@ body:has(.oor-mobile-menu.active) {
   .oor-merch-images-grid { padding: 32px var(--container-x) 0 var(--container-x) !important; }
   .oor-merch-content { gap: 32px !important; }
   .oor-footer { padding: 60px 0 24px 0 !important; padding-left: 0 !important; padding-right: 0 !important; }
-  .oor-footer-email { font-size: 3.120rem !important; }
+  .oor-footer-email { font-size: 2.750rem !important; letter-spacing: -0.090rem !important; }
   .oor-footer-content { gap: 80px !important; }
   .oor-footer-links-top { gap: 24px !important; }
   .oor-footer-links-bottom { gap: 24px !important; }
@@ -5309,40 +5297,17 @@ body.oor-manifest-page .oor-header .oor-header-right .oor-burger-menu * {
   }
 }
 
-/* Мобильное меню должно оставаться с белым текстом на черном фоне на всех страницах */
-/* Исключаем мобильное меню из всех стилей header на странице манифеста */
-body.oor-manifest-page .oor-header .oor-mobile-menu,
-body.oor-manifest-page .oor-header .oor-mobile-menu * {
-  color: #fff !important;
+/* Мобильное меню — чёрный фон, белый текст на всех страницах */
+body.oor-manifest-page .oor-mobile-menu {
+  background: #000 !important;
   mix-blend-mode: normal !important;
 }
 
-body.oor-manifest-page .oor-mobile-menu {
-  background: #000 !important;
-}
-
-body.oor-manifest-page .oor-mobile-menu a,
 body.oor-manifest-page .oor-mobile-menu button,
-body.oor-manifest-page .oor-mobile-menu span,
-body.oor-manifest-page .oor-mobile-menu div {
+body.oor-manifest-page .oor-mobile-menu .oor-mobile-menu-btn,
+body.oor-manifest-page .oor-mobile-menu .oor-mobile-menu-btn-text {
   color: #fff !important;
-}
-
-body.oor-manifest-page .oor-mobile-menu-link,
-body.oor-manifest-page .oor-mobile-menu-link.rolling-button {
-  color: #fff !important;
-  opacity: 0.8;
-}
-
-body.oor-manifest-page .oor-mobile-menu-link:hover,
-body.oor-manifest-page .oor-mobile-menu-link.rolling-button:hover {
-  color: #fff !important;
-  opacity: 1;
-}
-
-body.oor-manifest-page .oor-mobile-menu-link--active {
-  color: rgba(255, 255, 255, 0.6) !important;
-  opacity: 1;
+  mix-blend-mode: normal !important;
 }
 
 body.oor-manifest-page .oor-mobile-menu-btn {
@@ -5361,21 +5326,6 @@ body.oor-manifest-page .oor-mobile-menu-btn:hover {
 
 body.oor-manifest-page .oor-mobile-menu-btn:hover .oor-mobile-menu-btn-text {
   color: #000 !important;
-}
-
-/* Дополнительная защита - переопределяем все возможные стили для мобильного меню */
-body.oor-manifest-page .oor-mobile-menu *,
-body.oor-manifest-page .oor-mobile-menu a.rolling-button,
-body.oor-manifest-page .oor-mobile-menu a.rolling-button span,
-body.oor-manifest-page .oor-mobile-menu .oor-mobile-menu-link,
-body.oor-manifest-page .oor-mobile-menu .oor-mobile-menu-link.rolling-button {
-  color: #fff !important;
-}
-
-/* Убеждаемся, что текст внутри ссылок тоже белый */
-body.oor-manifest-page .oor-mobile-menu .oor-mobile-menu-main a,
-body.oor-manifest-page .oor-mobile-menu .oor-mobile-menu-main a.rolling-button {
-  color: #fff !important;
 }
 
 /* Hero */
@@ -5791,11 +5741,11 @@ body.oor-manifest-page .oor-mobile-menu .oor-mobile-menu-main a.rolling-button {
   }
 
   .oor-manifest-hero-col-left {
-    padding: 0;
-    width: 227px;
-    height: 225px;
+    padding: 0 var(--container-x);
+    width: 100%;
     position: relative;
     z-index: 3;
+    justify-content: flex-start;
   }
 
   .oor-manifest-hero-card img {
@@ -7036,26 +6986,6 @@ body.oor-services-page .oor-btn-small-icon img {
   }
 
   /* Мобильное меню на странице услуг */
-  body.oor-services-page .oor-mobile-menu *,
-  body.oor-services-page .oor-mobile-menu a.rolling-button,
-  body.oor-services-page .oor-mobile-menu a.rolling-button span,
-  body.oor-services-page .oor-mobile-menu .oor-mobile-menu-link,
-  body.oor-services-page .oor-mobile-menu .oor-mobile-menu-link.rolling-button {
-    color: #fff !important;
-  }
-
-  body.oor-services-page .oor-mobile-menu-link,
-  body.oor-services-page .oor-mobile-menu-link.rolling-button {
-    color: #fff !important;
-    opacity: 0.8;
-  }
-
-  body.oor-services-page .oor-mobile-menu-link:hover,
-  body.oor-services-page .oor-mobile-menu-link.rolling-button:hover {
-    color: #fff !important;
-    opacity: 1;
-  }
-
   body.oor-services-page .oor-mobile-menu-btn {
     color: #fff !important;
     border-color: #fff !important;
@@ -7225,26 +7155,6 @@ body.oor-services-page .oor-btn-small-icon img {
   }
 
   /* Мобильное меню на странице артистов */
-  body.oor-artists-page .oor-mobile-menu *,
-  body.oor-artists-page .oor-mobile-menu a.rolling-button,
-  body.oor-artists-page .oor-mobile-menu a.rolling-button span,
-  body.oor-artists-page .oor-mobile-menu .oor-mobile-menu-link,
-  body.oor-artists-page .oor-mobile-menu .oor-mobile-menu-link.rolling-button {
-    color: #fff !important;
-  }
-
-  body.oor-artists-page .oor-mobile-menu-link,
-  body.oor-artists-page .oor-mobile-menu-link.rolling-button {
-    color: #fff !important;
-    opacity: 0.8;
-  }
-
-  body.oor-artists-page .oor-mobile-menu-link:hover,
-  body.oor-artists-page .oor-mobile-menu-link.rolling-button:hover {
-    color: #fff !important;
-    opacity: 1;
-  }
-
   body.oor-artists-page .oor-mobile-menu-btn {
     color: #fff !important;
     border-color: #fff !important;
@@ -8025,26 +7935,6 @@ body.oor-talk-show-page .oor-btn-small-icon img {
   }
 
   /* Мобильное меню на странице talk-show */
-  body.oor-talk-show-page .oor-mobile-menu *,
-  body.oor-talk-show-page .oor-mobile-menu a.rolling-button,
-  body.oor-talk-show-page .oor-mobile-menu a.rolling-button span,
-  body.oor-talk-show-page .oor-mobile-menu .oor-mobile-menu-link,
-  body.oor-talk-show-page .oor-mobile-menu .oor-mobile-menu-link.rolling-button {
-    color: #fff !important;
-  }
-
-  body.oor-talk-show-page .oor-mobile-menu-link,
-  body.oor-talk-show-page .oor-mobile-menu-link.rolling-button {
-    color: #fff !important;
-    opacity: 0.8;
-  }
-
-  body.oor-talk-show-page .oor-mobile-menu-link:hover,
-  body.oor-talk-show-page .oor-mobile-menu-link.rolling-button:hover {
-    color: #fff !important;
-    opacity: 1;
-  }
-
   body.oor-talk-show-page .oor-mobile-menu-btn {
     color: #fff !important;
     border-color: #fff !important;
@@ -13447,4 +13337,15 @@ body.oor-product-page .price:has(.amount + .amount) .amount:first-of-type {
   }
 }
 
+/* Mobile menu link states — unified rule, must be last to override all page-specific rules */
+.oor-mobile-menu .oor-mobile-menu-main a.oor-mobile-menu-link {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
 
+.oor-mobile-menu .oor-mobile-menu-main a.oor-mobile-menu-link:hover {
+  color: rgba(255, 255, 255, 1) !important;
+}
+
+.oor-mobile-menu .oor-mobile-menu-main a.oor-mobile-menu-link.oor-mobile-menu-link--active {
+  color: rgba(255, 255, 255, 1) !important;
+}

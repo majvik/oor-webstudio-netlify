@@ -43,7 +43,7 @@
                                 ['url' => home_url('/services'), 'text' => 'Услуги', 'slug' => 'services'],
                                 ['url' => home_url('/dawgs'), 'text' => 'DAWGS', 'slug' => 'dawgs'],
                                 ['url' => home_url('/talk-show'), 'text' => 'Talk-шоу', 'slug' => 'talk-show'],
-                                ['url' => home_url('/events'), 'text' => 'События', 'slug' => 'events'],
+                                // ['url' => home_url('/events'), 'text' => 'События', 'slug' => 'events'],
                                 ['url' => $footer_merch_url, 'text' => 'Мерч', 'slug' => 'merch'],
                                 ['url' => home_url('/contacts'), 'text' => 'Контакты', 'slug' => 'contacts'],
                             ];

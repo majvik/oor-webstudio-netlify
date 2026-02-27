@@ -117,7 +117,6 @@ window.addEventListener('load', function() {
   initProductPriceStrikethrough();
   try {
     initNavigation();
-    initDynamicYear();
     initHeroVideo();
     initFullscreenVideo();
     initMagneticElements();
@@ -787,15 +786,6 @@ function initRevealOnScroll() {
 // function initNavigation() {
 //   // Navigation logic moved to menu-sync.js
 // }
-
-// Динамическая дата
-function initDynamicYear() {
-  const yearElement = document.querySelector('.oor-hero-year');
-  if (yearElement) {
-    const currentYear = new Date().getFullYear();
-    yearElement.textContent = `©${currentYear}`;
-  }
-}
 
 // Глобальный флаг для отслеживания разрешений на автоплей
 let videoAutoplayUnlocked = false;

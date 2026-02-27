@@ -308,24 +308,23 @@ a.slide-media:hover {
   #wsls .slider-overlay { display: none; }
   #wsls .slider-heading { display: block; margin: 0 24px 32px 24px; }
   #wsls .slider-all-link { 
-    display: inline-block; 
+    display: inline-flex; 
+    align-items: center;
     margin: 32px 24px 0 24px; 
     text-transform: uppercase;
-    align-content: center;
     position: relative;
     line-height: 24px;
   }
   
   #wsls .slider-all-link::after {
     content: '';
-    display: inline-block;
+    flex-shrink: 0;
     width: 24px;
     height: 24px;
     margin-left: 8px;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 17 17' fill='none'%3E%3Cpath d='M11.7909 11.0826L13.6659 9.20837H2.125V8.50004H13.6659L11.7909 6.62579L12.2917 6.125L15.0216 8.85421L12.2917 11.5841L11.7909 11.0826Z' fill='black'/%3E%3C/svg%3E");
     background-size: contain;
     background-repeat: no-repeat;
-    vertical-align: middle;
   }
 
   #wsls .slider {
@@ -410,7 +409,8 @@ a.slide-media:hover {
     margin: 0 16px 24px 16px;
   }
   #wsls .slider-all-link { 
-    display: inline-block; 
+    display: inline-flex; 
+    align-items: center;
     margin: 24px 16px 0 16px; 
   }
   

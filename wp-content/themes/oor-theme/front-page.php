@@ -16,7 +16,6 @@ get_header();
         </div>
                 <div class="oor-col-1"></div>
                 <div class="oor-col-1">
-                    <span class="oor-hero-year">©<?php echo date("Y"); ?></span>
       </div>
     </div>
     </div>

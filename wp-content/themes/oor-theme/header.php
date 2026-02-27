@@ -63,7 +63,7 @@
                         ['url' => home_url('/services'), 'text' => 'Услуги', 'slug' => 'services'],
                         ['url' => '#', 'text' => 'DAWGS', 'slug' => 'dawgs'],
                         ['url' => home_url('/talk-show'), 'text' => 'Talk-шоу', 'slug' => 'talk-show'],
-                        ['url' => home_url('/events'), 'text' => 'События', 'slug' => 'events'],
+                        // ['url' => home_url('/events'), 'text' => 'События', 'slug' => 'events'],
                         ['url' => $merch_url, 'text' => 'Мерч', 'slug' => 'merch'],
                         ['url' => home_url('/contacts'), 'text' => 'Контакты', 'slug' => 'contacts'],
                     ];
@@ -79,6 +79,7 @@
                                   (!$is_become_artist && is_page($item['slug'])) ||
                                   (is_front_page() && !$is_become_artist && $item['slug'] === 'main') ||
                                   (is_post_type_archive('artist') && $item['slug'] === 'artists') ||
+                                  (is_singular('artist') && $item['slug'] === 'artists') ||
                                   (is_post_type_archive('event') && $item['slug'] === 'events') ||
                                   (function_exists('is_shop') && is_shop() && $item['slug'] === 'merch') ||
                                   (function_exists('is_product') && is_product() && $item['slug'] === 'merch') ||
@@ -154,9 +155,21 @@
                 <div class="oor-mobile-menu-main">
                     <?php
                     foreach ($menu_items as $item) {
+                        $mobile_active = (
+                            (!$is_become_artist && is_page($item['slug'])) ||
+                            (is_front_page() && !$is_become_artist && $item['slug'] === 'main') ||
+                            (is_post_type_archive('artist') && $item['slug'] === 'artists') ||
+                            (is_post_type_archive('event') && $item['slug'] === 'events') ||
+                            (is_singular('artist') && $item['slug'] === 'artists') ||
+                            (function_exists('is_shop') && is_shop() && $item['slug'] === 'merch') ||
+                            (function_exists('is_product') && is_product() && $item['slug'] === 'merch') ||
+                            (function_exists('is_cart') && is_cart() && $item['slug'] === 'merch') ||
+                            (function_exists('is_checkout') && is_checkout() && $item['slug'] === 'merch')
+                        ) ? ' oor-mobile-menu-link--active' : '';
                         echo sprintf(
-                            '<a href="%s" class="oor-mobile-menu-link rolling-button" data-menu-item="%s">%s</a>',
+                            '<a href="%s" class="oor-mobile-menu-link rolling-button%s" data-menu-item="%s">%s</a>',
                             esc_url($item['url']),
+                            $mobile_active,
                             esc_attr($item['slug']),
                             esc_html($item['text'])
                         );
