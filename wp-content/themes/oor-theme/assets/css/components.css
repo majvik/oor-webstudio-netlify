@@ -2608,9 +2608,9 @@ body:has(.oor-mobile-menu.active) {
     display: flex;
   }
 
-  /* Musical Association: desktop/tablet — без верхнего отступа у [02], снизу 80px */
+  /* Musical Association: desktop/tablet — верхний и нижний отступ */
   .oor-musical-association-left {
-    padding-top: 0;
+    padding-top: 40px;
     padding-bottom: 80px;
   }
 }
