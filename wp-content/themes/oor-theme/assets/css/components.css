@@ -9092,11 +9092,11 @@ body.oor-studio-page .oor-header .oor-burger-menu .oor-burger-icon img {
   .oor-artist-player-mobile-progress {
     display: block;
     position: absolute;
-    top: -10px;
+    top: -22px;
     left: 0;
     right: 0;
-    height: 22px;
-    padding-top: 10px;
+    height: 44px;
+    padding-top: 21px;
     background: transparent;
     z-index: 10;
     cursor: pointer;
@@ -9108,29 +9108,41 @@ body.oor-studio-page .oor-header .oor-burger-menu .oor-burger-icon img {
     position: absolute;
     left: 0;
     right: 0;
-    top: 10px;
+    top: 21px;
     height: 2px;
     background: rgba(0, 0, 0, 0.15);
+    transition: height 0.15s ease, top 0.15s ease;
+  }
+
+  .oor-artist-player-mobile-progress.active::after {
+    top: 20px;
+    height: 4px;
   }
 
   .oor-artist-player-mobile-progress-fill {
     position: absolute;
     left: 0;
-    top: 10px;
+    top: 21px;
     height: 2px;
     width: 0%;
     background: #000;
     pointer-events: none;
     z-index: 1;
+    transition: height 0.15s ease, top 0.15s ease;
+  }
+
+  .oor-artist-player-mobile-progress.active .oor-artist-player-mobile-progress-fill {
+    top: 20px;
+    height: 4px;
   }
 
   .oor-artist-player-mobile-progress-handle {
     position: absolute;
-    top: 11px;
+    top: 22px;
     left: 0%;
     transform: translate(-50%, -50%);
-    width: 10px;
-    height: 10px;
+    width: 18px;
+    height: 18px;
     background: #000;
     border-radius: 50%;
     opacity: 0;

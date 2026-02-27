@@ -536,9 +536,12 @@
       });
     }
 
-    // Mobile progress bar (thin 2px bar at top of player card)
+    // Mobile progress bar (thin bar at top of player card with touch drag)
     if (mobileProgressBar) {
       var mobileHideTimer = null;
+      var isMobileDragging = false;
+      var lastMobileSeekTime = 0;
+      var MOBILE_SEEK_THROTTLE = 80;
 
       function getMobilePercentage(clientX) {
         var rect = mobileProgressBar.getBoundingClientRect();
@@ -547,8 +550,9 @@
       }
 
       function updateMobileUI(pct) {
-        if (mobileProgressFill) mobileProgressFill.style.width = (pct * 100) + '%';
-        if (mobileHandle) mobileHandle.style.left = (pct * 100) + '%';
+        var pctStr = (pct * 100) + '%';
+        if (mobileProgressFill) mobileProgressFill.style.width = pctStr;
+        if (mobileHandle) mobileHandle.style.left = pctStr;
       }
 
       function showMobileHandle() {
@@ -559,10 +563,11 @@
       function hideMobileHandle() {
         mobileHideTimer = setTimeout(function() {
           mobileProgressBar.classList.remove('active');
-        }, 400);
+        }, 800);
       }
 
       mobileProgressBar.addEventListener('click', function(e) {
+        if (isMobileDragging) return;
         var pct = getMobilePercentage(e.clientX);
         showMobileHandle();
         updateMobileUI(pct);
@@ -570,15 +575,15 @@
         hideMobileHandle();
       });
 
-      var isMobileDragging = false;
-
       mobileProgressBar.addEventListener('touchstart', function(e) {
         e.preventDefault();
+        e.stopPropagation();
         isMobileDragging = true;
         showMobileHandle();
         var touch = e.touches[0];
         var pct = getMobilePercentage(touch.clientX);
         updateMobileUI(pct);
+        seekWhenReady(pct);
       }, { passive: false });
 
       document.addEventListener('touchmove', function(e) {
@@ -587,7 +592,11 @@
         var touch = e.touches[0];
         var pct = getMobilePercentage(touch.clientX);
         updateMobileUI(pct);
-        if (!audio.seeking) seekWhenReady(pct);
+        var now = Date.now();
+        if (now - lastMobileSeekTime > MOBILE_SEEK_THROTTLE && !audio.seeking) {
+          lastMobileSeekTime = now;
+          seekWhenReady(pct);
+        }
       }, { passive: false });
 
       document.addEventListener('touchend', function() {
@@ -595,8 +604,14 @@
         isMobileDragging = false;
         if (mobileProgressFill) {
           var pct = parseFloat(mobileProgressFill.style.width) / 100;
-          seekWhenReady(pct);
+          if (!isNaN(pct)) seekWhenReady(pct);
         }
+        hideMobileHandle();
+      });
+
+      document.addEventListener('touchcancel', function() {
+        if (!isMobileDragging) return;
+        isMobileDragging = false;
         hideMobileHandle();
       });
     }
