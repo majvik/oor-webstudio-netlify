@@ -16,7 +16,6 @@ get_header();
         <div class="oor-container">
             <div class="oor-checkout-header">
                 <h1 class="oor-checkout-title"><?php esc_html_e('ОПЛАТА', 'oor-theme'); ?></h1>
-                <div class="oor-checkout-copyright">2025©</div>
             </div>
 
             <div class="oor-checkout-divider"></div>

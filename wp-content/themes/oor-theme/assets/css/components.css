@@ -13052,6 +13052,11 @@ body.oor-become-artist-page .oor-become-artist-container {
   box-sizing: border-box !important;
 }
 
+.wpcf7-form textarea[data-converted-from-input] {
+  height: auto !important;
+  min-height: 0 !important;
+}
+
 /* Показываем скролл только когда достигли max-height */
 .wpcf7-form textarea[style*="height: 300px"] {
   overflow-y: auto;

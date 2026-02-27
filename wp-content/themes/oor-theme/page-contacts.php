@@ -12,7 +12,6 @@ get_header();
     <div class="oor-container">
         <div class="oor-contacts-hero-header">
             <h1 class="oor-contacts-hero-title">КОНТАКТЫ</h1>
-            <p class="oor-contacts-hero-copyright"><?php echo date('Y'); ?>©</p>
         </div>
     </div>
 </section>

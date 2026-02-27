@@ -17,7 +17,6 @@ get_header();
         <div class="oor-container">
             <div class="oor-merch-hero-header">
                 <h1 class="oor-merch-hero-title"><?php esc_html_e('МЕРЧ OOR', 'oor-theme'); ?></h1>
-                <div class="oor-merch-hero-copyright">2025©</div>
             </div>
         </div>
     </section>

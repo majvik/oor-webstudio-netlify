@@ -111,8 +111,50 @@
     });
   }
 
+  function convertInputsToTextareas() {
+    if (window.innerWidth > 768) return;
+
+    const form = document.querySelector('.wpcf7-form');
+    if (!form) return;
+
+    const inputs = form.querySelectorAll('input[type="text"], input[type="url"]');
+    inputs.forEach(input => {
+      if (input.dataset.convertedToTextarea === 'true') return;
+
+      const textarea = document.createElement('textarea');
+      textarea.name = input.name;
+      textarea.placeholder = input.placeholder;
+      textarea.className = input.className;
+      textarea.value = input.value;
+      textarea.rows = 1;
+      if (input.getAttribute('aria-required')) textarea.setAttribute('aria-required', input.getAttribute('aria-required'));
+      if (input.getAttribute('aria-invalid')) textarea.setAttribute('aria-invalid', input.getAttribute('aria-invalid'));
+      textarea.dataset.convertedFromInput = 'true';
+
+      input.parentNode.replaceChild(textarea, input);
+
+      const maxHeight = 300;
+
+      function setHeight() {
+        textarea.style.setProperty('height', 'auto', 'important');
+        const sh = textarea.scrollHeight;
+        if (sh <= maxHeight) {
+          textarea.style.setProperty('height', sh + 'px', 'important');
+          textarea.style.setProperty('overflow-y', 'hidden', 'important');
+        } else {
+          textarea.style.setProperty('height', maxHeight + 'px', 'important');
+          textarea.style.setProperty('overflow-y', 'auto', 'important');
+        }
+      }
+
+      textarea.addEventListener('input', setHeight);
+      setHeight();
+    });
+  }
+
   function init() {
     hideTextLabels();
+    convertInputsToTextareas();
     initAutoExpandTextarea();
   }
 

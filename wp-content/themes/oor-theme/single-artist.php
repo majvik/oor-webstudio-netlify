@@ -27,7 +27,7 @@ if (empty(get_the_title())) {
     <div class="oor-artist-breadcrumbs">
         <a href="<?php echo esc_url(home_url('/artists')); ?>" class="oor-artist-breadcrumb-link">артисты</a>
         <span class="oor-artist-breadcrumb-dot"></span>
-        <span class="oor-artist-breadcrumb-current"><?php echo esc_html(get_post_field('post_name', get_the_ID())); ?></span>
+        <span class="oor-artist-breadcrumb-current"><?php echo esc_html(get_the_title()); ?></span>
     </div>
 
     <!-- Main Content -->

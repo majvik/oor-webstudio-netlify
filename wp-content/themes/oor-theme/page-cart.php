@@ -16,7 +16,6 @@ get_header();
         <div class="oor-container">
             <div class="oor-cart-header">
                 <h1 class="oor-cart-title"><?php esc_html_e('КОРЗИНА', 'oor-theme'); ?></h1>
-                <div class="oor-cart-copyright">2025©</div>
             </div>
 
             <div class="oor-cart-divider"></div>

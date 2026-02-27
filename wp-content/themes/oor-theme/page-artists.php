@@ -13,7 +13,6 @@ get_header();
     <div class="oor-container">
         <div class="oor-artists-hero-header">
             <h1 class="oor-artists-hero-title">АРТИСТЫ</h1>
-            <p class="oor-artists-hero-copyright"><?php echo date('Y'); ?>©</p>
         </div>
     </div>
 </section>
