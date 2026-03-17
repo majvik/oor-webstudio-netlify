@@ -61,7 +61,7 @@
                         ['url' => home_url('/artists'), 'text' => 'Артисты', 'slug' => 'artists'],
                         ['url' => home_url('/studio'), 'text' => 'Студия', 'slug' => 'studio'],
                         ['url' => home_url('/services'), 'text' => 'Услуги', 'slug' => 'services'],
-                        ['url' => '#', 'text' => 'DAWGS', 'slug' => 'dawgs'],
+                        ['url' => home_url('/dawgs'), 'text' => 'DAWGS', 'slug' => 'dawgs'],
                         ['url' => home_url('/talk-show'), 'text' => 'Talk-шоу', 'slug' => 'talk-show'],
                         // ['url' => home_url('/events'), 'text' => 'События', 'slug' => 'events'],
                         ['url' => $merch_url, 'text' => 'Мерч', 'slug' => 'merch'],

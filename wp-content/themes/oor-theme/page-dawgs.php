@@ -5,6 +5,7 @@
  */
 
 get_header();
+$t = get_template_directory_uri();
 ?>
 
 <!-- HERO Section -->
@@ -25,7 +26,7 @@ get_header();
                 </div>
                 <div class="oor-col-1 oor-dawgs-hero-plus-wrapper">
                     <div class="oor-dawgs-hero-plus">
-                        <img src="<?php echo get_template_directory_uri(); ?>/public/assets/plus-large.svg" alt="" width="18" height="18">
+                        <img src="<?php echo $t; ?>/public/assets/plus-large.svg" alt="" width="18" height="18">
                     </div>
                 </div>
             </div>
@@ -33,19 +34,19 @@ get_header();
         
         <div class="oor-dawgs-hero-gallery">
             <div class="oor-dawgs-hero-gallery-item oor-dawgs-gallery-1">
-                <img src="<?php echo get_template_directory_uri(); ?>/public/assets/dawgs-gallery-1.svg" alt="DAWGS" class="oor-media-cover">
+                <img src="<?php echo $t; ?>/public/assets/dawgs-gallery-1.png" alt="DAWGS">
             </div>
             <div class="oor-dawgs-hero-gallery-item oor-dawgs-gallery-2">
-                <img src="<?php echo get_template_directory_uri(); ?>/public/assets/dawgs-gallery-2.svg" alt="DAWGS" class="oor-media-cover">
+                <img src="<?php echo $t; ?>/public/assets/dawgs-gallery-2.png" alt="DAWGS">
             </div>
             <div class="oor-dawgs-hero-gallery-item oor-dawgs-gallery-3">
-                <img src="<?php echo get_template_directory_uri(); ?>/public/assets/dawgs-gallery-3.svg" alt="DAWGS" class="oor-media-cover">
+                <img src="<?php echo $t; ?>/public/assets/dawgs-gallery-3.png" alt="DAWGS">
             </div>
             <div class="oor-dawgs-hero-gallery-item oor-dawgs-gallery-4">
-                <img src="<?php echo get_template_directory_uri(); ?>/public/assets/dawgs-gallery-4.svg" alt="DAWGS" class="oor-media-cover">
+                <img src="<?php echo $t; ?>/public/assets/dawgs-gallery-4.png" alt="DAWGS">
             </div>
             <div class="oor-dawgs-hero-gallery-item oor-dawgs-gallery-5">
-                <img src="<?php echo get_template_directory_uri(); ?>/public/assets/dawgs-gallery-5.svg" alt="DAWGS" class="oor-media-cover">
+                <img src="<?php echo $t; ?>/public/assets/dawgs-gallery-5.png" alt="DAWGS">
             </div>
         </div>
         
@@ -60,156 +61,200 @@ get_header();
                 <div class="oor-dawgs-hero-footer-right">
                     <div class="oor-dawgs-hero-sponsors">
                         <div class="oor-dawgs-sponsor-1">
-                            <img src="<?php echo get_template_directory_uri(); ?>/public/assets/dawgs-sponsor-1.svg" alt="Спонсор 1">
+                            <img src="<?php echo $t; ?>/public/assets/hero-logo-1.svg" alt="Кириленко — детям">
                         </div>
                         <div class="oor-dawgs-sponsor-2">
-                            <img src="<?php echo get_template_directory_uri(); ?>/public/assets/dawgs-sponsor-2.svg" alt="Спонсор 2">
+                            <img src="<?php echo $t; ?>/public/assets/hero-logo-2.svg" alt="Дари Надежду">
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="oor-dawgs-hero-line oor-dawgs-hero-line-left"></div>
+        <div class="oor-dawgs-hero-line oor-dawgs-hero-line-right"></div>
+    </section>
+
+    <!-- Team Photo Section -->
+    <section class="oor-dawgs-team-photo">
+        <div class="oor-dawgs-team-photo-img">
+            <img src="<?php echo $t; ?>/public/assets/dawgs-team-photo.png" alt="DAWGS Team" class="oor-media-cover">
+        </div>
+    </section>
+
+    <!-- Coach & Ambassador Section -->
+    <section class="oor-dawgs-coach">
+        <div class="oor-container">
+            <div class="oor-dawgs-coach-header">
+                <h2 class="oor-dawgs-coach-title">Главный тренер и Амбасадор команды</h2>
+            </div>
+            
+            <div class="oor-dawgs-coach-cards">
+                <!-- Понкрашов: image + text to the right at bottom -->
+                <div class="oor-dawgs-coach-card oor-dawgs-coach-card--horizontal">
+                    <div class="oor-dawgs-coach-card-image" style="width:448px;height:686px;">
+                        <img src="<?php echo $t; ?>/public/assets/dawgs-coach-1.png" alt="Понкрашов Антон" class="oor-media-cover">
+                    </div>
+                    <div class="oor-dawgs-coach-card-info">
+                        <h3 class="oor-dawgs-player-name">Понкрашов Антон Александрович</h3>
+                        <p class="oor-dawgs-player-role">Профессиональный баскетболист. Играет на всех позициях и создает шоу</p>
+                    </div>
+                </div>
+                
+                <!-- Меркулова: image + text below -->
+                <div class="oor-dawgs-coach-card oor-dawgs-coach-card--vertical">
+                    <div class="oor-dawgs-coach-card-image" style="width:336px;height:504px;">
+                        <img src="<?php echo $t; ?>/public/assets/dawgs-coach-2.png" alt="Меркулова Наталья" class="oor-media-cover">
+                    </div>
+                    <div class="oor-dawgs-coach-card-info">
+                        <h3 class="oor-dawgs-player-name">Меркулова Наталья Сергеевна</h3>
+                        <p class="oor-dawgs-player-role">Представитель международного проекта «Her world, her rules». Совместно с ФИБА и РФБ. Чемпионка Golf Gold Conference национального чемпионата США</p>
+                        <p class="oor-dawgs-player-role">Участница и призер всероссийских и европейских чемпионатов. Первая девушка тренер в медиабаскете!</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Quote -->
+            <div class="oor-dawgs-quote">
+                <blockquote class="oor-dawgs-quote-text">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean suscipit felis in tellus volutpat sodales in sed erat"</blockquote>
+                <p class="oor-dawgs-quote-author">Цитата для лояльности</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Players Section (asymmetric grid) -->
+    <section class="oor-dawgs-players">
+        <div class="oor-container">
+            <!-- Row 1: SK, DIMMA URIH, CHELAK -->
+            <div class="oor-dawgs-players-row oor-dawgs-row-1">
+                <div class="oor-dawgs-player-card oor-dawgs-player--below" style="width:303px;">
+                    <div class="oor-dawgs-player-img" style="height:420px;">
+                        <img src="<?php echo $t; ?>/public/assets/dawgs-player-sk.png" alt="Крайнов Станислав" class="oor-media-cover">
+                    </div>
+                    <div class="oor-dawgs-player-info">
+                        <h3 class="oor-dawgs-player-name">Крайнов Станислав (SK)</h3>
+                        <p class="oor-dawgs-player-role">Трехкратный чемпион и лучший игрок первого десятилетия чемпионата АСБ. Ведущий канала Взял Мяч. Баскетбольный комментатор Окко и Старт</p>
+                    </div>
+                </div>
+                
+                <div class="oor-dawgs-player-card oor-dawgs-player--below" style="width:362px;">
+                    <div class="oor-dawgs-player-img" style="height:557px;">
+                        <img src="<?php echo $t; ?>/public/assets/dawgs-player-dimma.png" alt="Урих Дмитрий" class="oor-media-cover">
+                    </div>
+                    <div class="oor-dawgs-player-info">
+                        <h3 class="oor-dawgs-player-name">Урих Дмитрий Александрович (DIMMA URIH)</h3>
+                        <p class="oor-dawgs-player-role">Артист лейбла Out Of Records</p>
+                    </div>
+                </div>
+                
+                <div class="oor-dawgs-player-card oor-dawgs-player--below" style="width:303px;">
+                    <div class="oor-dawgs-player-img" style="height:420px;">
+                        <img src="<?php echo $t; ?>/public/assets/dawgs-player-chelak.png" alt="Челак Илья" class="oor-media-cover">
+                    </div>
+                    <div class="oor-dawgs-player-info">
+                        <h3 class="oor-dawgs-player-name">Челак Илья (CHELAK)</h3>
+                        <p class="oor-dawgs-player-role">Семейный блогер, резидент Insight People, обладатель MVP и ММР</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Row 2: KIRILENKO (img+text right), KEKS (text left + img right) -->
+            <div class="oor-dawgs-players-row oor-dawgs-row-2">
+                <div class="oor-dawgs-player-card oor-dawgs-player--right">
+                    <div class="oor-dawgs-player-img" style="width:340px;height:497px;">
+                        <img src="<?php echo $t; ?>/public/assets/dawgs-player-kirilenko.png" alt="Кириленко Андрей" class="oor-media-cover">
+                    </div>
+                    <div class="oor-dawgs-player-info">
+                        <h3 class="oor-dawgs-player-name">Кириленко Андрей (KIRILENKO)</h3>
+                        <p class="oor-dawgs-player-role">Российский баскетболист и спортивный функционер. Заслуженный мастер спорта России. Президент Российской федерации баскетбола. Основатель фонда "Кириленко - детям!"</p>
+                    </div>
+                </div>
+                
+                <div class="oor-dawgs-player-card oor-dawgs-player--left">
+                    <div class="oor-dawgs-player-info oor-dawgs-player-info--right-align">
+                        <h3 class="oor-dawgs-player-name">Ильменков Павел (KEKS)</h3>
+                        <p class="oor-dawgs-player-role">Бывший профессиональный баскетболист. Полуфиналист 2-ого сезона Медиа-Лиги ЛИГА СТАВОК. Блогер Keks Life</p>
+                    </div>
+                    <div class="oor-dawgs-player-img" style="width:303px;height:420px;">
+                        <img src="<?php echo $t; ?>/public/assets/dawgs-player-keks.png" alt="Ильменков Павел" class="oor-media-cover">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Row 3: GUBANOV, BABAN (img+text right), FLIP (text left + img right) -->
+            <div class="oor-dawgs-players-row oor-dawgs-row-3">
+                <div class="oor-dawgs-player-card oor-dawgs-player--below" style="width:303px;">
+                    <div class="oor-dawgs-player-img" style="width:303px;height:342px;">
+                        <img src="<?php echo $t; ?>/public/assets/dawgs-player-gubanov.png" alt="Губанов Петр">
+                    </div>
+                    <div class="oor-dawgs-player-info">
+                        <h3 class="oor-dawgs-player-name">Губанов Петр (GUBANOV)</h3>
+                        <p class="oor-dawgs-player-role">Бывший профессиональный баскетболист. Участник Матча</p>
+                    </div>
+                </div>
+                
+                <div class="oor-dawgs-player-card oor-dawgs-player--right-compact">
+                    <div class="oor-dawgs-player-img" style="width:303px;height:420px;">
+                        <img src="<?php echo $t; ?>/public/assets/dawgs-player-baban.png" alt="Бабинцев Михаил">
+                    </div>
+                    <div class="oor-dawgs-player-info">
+                        <h3 class="oor-dawgs-player-name">Бабинцев Михаил (BABAN)</h3>
+                        <p class="oor-dawgs-player-role">Баскетболист, баскетбольный блогер</p>
+                    </div>
+                </div>
+                
+                <div class="oor-dawgs-player-card oor-dawgs-player--left">
+                    <div class="oor-dawgs-player-info oor-dawgs-player-info--right-align">
+                        <h3 class="oor-dawgs-player-name">Рытенко Дмитрий (FLIP)</h3>
+                        <p class="oor-dawgs-player-role">Профессиональный баскетболист по баскетболу 3х3. Чемпион России 3х3 2012. Неоднократный призер соревнований по баскетболу 3x3. Хороший человек и просто машина своего дела</p>
+                    </div>
+                    <div class="oor-dawgs-player-img" style="width:298px;height:459px;">
+                        <img src="<?php echo $t; ?>/public/assets/dawgs-player-flip.png" alt="Рытенко Дмитрий">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Row 4: STOCK, Red_flag, MIKHON -->
+            <div class="oor-dawgs-players-row oor-dawgs-row-4">
+                <div class="oor-dawgs-player-card oor-dawgs-player--below" style="width:303px;">
+                    <div class="oor-dawgs-player-img" style="height:530px;">
+                        <img src="<?php echo $t; ?>/public/assets/dawgs-player-stock.png" alt="Гребельный Ярослав" class="oor-media-cover">
+                    </div>
+                    <div class="oor-dawgs-player-info">
+                        <h3 class="oor-dawgs-player-name">Гребельный Ярослав (STOCK)</h3>
+                        <p class="oor-dawgs-player-role">Бывший профессиональный баскетболист</p>
+                    </div>
+                </div>
+                
+                <div class="oor-dawgs-player-card oor-dawgs-player--below" style="width:303px;">
+                    <div class="oor-dawgs-player-img" style="height:341px;">
+                        <img src="<?php echo $t; ?>/public/assets/dawgs-player-redflag.png" alt="Алексеев Иван" class="oor-media-cover">
+                    </div>
+                    <div class="oor-dawgs-player-info">
+                        <h3 class="oor-dawgs-player-name">Алексеев Иван (Red_flag)</h3>
+                        <p class="oor-dawgs-player-role">Я ругаю, фолю, бешу соперника, выражаю характер. Покажу, чего стою</p>
+                    </div>
+                </div>
+                
+                <div class="oor-dawgs-player-card oor-dawgs-player--below" style="width:303px;">
+                    <div class="oor-dawgs-player-img" style="height:420px;">
+                        <img src="<?php echo $t; ?>/public/assets/dawgs-player-mikhon.png" alt="Лагутин Михаил" class="oor-media-cover">
+                    </div>
+                    <div class="oor-dawgs-player-info">
+                        <h3 class="oor-dawgs-player-name">Лагутин Михаил (MIKHON)</h3>
+                        <p class="oor-dawgs-player-role">Многократный чемпион и MVP МЛБЛ дивизион Волгоград и АСБ дивизион Волгоград. Худая легенда</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Team Section -->
-    <section class="oor-dawgs-team-section">
-        <div class="oor-container">
-            <div class="oor-dawgs-team-header">
-                <h2 class="oor-dawgs-team-title">Кто в команде</h2>
-                <div class="oor-dawgs-team-plus">
-                    <img src="<?php echo get_template_directory_uri(); ?>/public/assets/plus-large.svg" alt="" width="18" height="18">
-                </div>
-            </div>
-            
-            <div class="oor-dawgs-team-grid">
-                <!-- Row 1 -->
-                <div class="oor-dawgs-team-row">
-                    <div class="oor-dawgs-team-member">
-                        <div class="oor-dawgs-team-member-image">
-                            <img src="<?php echo get_template_directory_uri(); ?>/public/assets/dawgs-member-1.svg" alt="Дмитрий Урих" class="oor-media-cover">
-                        </div>
-                        <div class="oor-dawgs-team-member-info">
-                            <h3 class="oor-dawgs-team-member-name">Дмитрий Урих (DIMMA URIH)</h3>
-                            <p class="oor-dawgs-team-member-role">Музыкант, резидент Out Of Records</p>
-                        </div>
-                    </div>
-                    
-                    <div class="oor-dawgs-team-member">
-                        <div class="oor-dawgs-team-member-image">
-                            <img src="<?php echo get_template_directory_uri(); ?>/public/assets/dawgs-member-2.svg" alt="Илья Челак" class="oor-media-cover">
-                        </div>
-                        <div class="oor-dawgs-team-member-info">
-                            <h3 class="oor-dawgs-team-member-name">Илья Челак (CHELAK)</h3>
-                            <p class="oor-dawgs-team-member-role">Семейный блогер, обладатель MVP и MMP Лиги Ставок Media Basket</p>
-                        </div>
-                    </div>
-                    
-                    <div class="oor-dawgs-team-member">
-                        <div class="oor-dawgs-team-member-image">
-                            <img src="<?php echo get_template_directory_uri(); ?>/public/assets/dawgs-member-3.svg" alt="Егор Климов" class="oor-media-cover">
-                        </div>
-                        <div class="oor-dawgs-team-member-info">
-                            <h3 class="oor-dawgs-team-member-name">Егор Климов (MR.HOLLYWOOD)</h3>
-                            <p class="oor-dawgs-team-member-role">Актер, режиссер</p>
-                        </div>
-                    </div>
-                    
-                    <div class="oor-dawgs-team-member">
-                        <div class="oor-dawgs-team-member-image">
-                            <img src="<?php echo get_template_directory_uri(); ?>/public/assets/dawgs-member-4.svg" alt="Андрей Кириленко" class="oor-media-cover">
-                        </div>
-                        <div class="oor-dawgs-team-member-info">
-                            <h3 class="oor-dawgs-team-member-name">Андрей Кириленко (KIRILENKO)</h3>
-                            <p class="oor-dawgs-team-member-role">Президент РФБ, заслуженный мастер спорта</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Row 2 -->
-                <div class="oor-dawgs-team-row">
-                    <div class="oor-dawgs-team-member">
-                        <div class="oor-dawgs-team-member-image">
-                            <img src="<?php echo get_template_directory_uri(); ?>/public/assets/dawgs-member-5.svg" alt="Артем Поздняков" class="oor-media-cover">
-                        </div>
-                        <div class="oor-dawgs-team-member-info">
-                            <h3 class="oor-dawgs-team-member-name">Артем Поздняков (TEMPOZFIT)</h3>
-                            <p class="oor-dawgs-team-member-role">Тренер по баскетбольному атлетизму, блогер</p>
-                        </div>
-                    </div>
-                    
-                    <div class="oor-dawgs-team-member">
-                        <div class="oor-dawgs-team-member-image">
-                            <img src="<?php echo get_template_directory_uri(); ?>/public/assets/dawgs-member-6.svg" alt="Владислав Мелешкин" class="oor-media-cover">
-                        </div>
-                        <div class="oor-dawgs-team-member-info">
-                            <h3 class="oor-dawgs-team-member-name">Владислав Мелешкин (MELESHKIN)</h3>
-                            <p class="oor-dawgs-team-member-role">3-х кратный чемпион России по баскетболу 3х3, чемпион Единой лиги Европы 3х3 и Кубка России 3х3</p>
-                        </div>
-                    </div>
-                    
-                    <div class="oor-dawgs-team-member">
-                        <div class="oor-dawgs-team-member-image">
-                            <img src="<?php echo get_template_directory_uri(); ?>/public/assets/dawgs-member-7.svg" alt="Владимир Веремеенко" class="oor-media-cover">
-                        </div>
-                        <div class="oor-dawgs-team-member-info">
-                            <h3 class="oor-dawgs-team-member-name">Владимир Веремеенко (VEREMEY)</h3>
-                            <p class="oor-dawgs-team-member-role">Обладатель Еврокубка, Кубка Германии и трижды — Кубка России</p>
-                        </div>
-                    </div>
-                    
-                    <div class="oor-dawgs-team-member">
-                        <div class="oor-dawgs-team-member-image">
-                            <img src="<?php echo get_template_directory_uri(); ?>/public/assets/dawgs-member-8.svg" alt="Станислав Крайнов" class="oor-media-cover">
-                        </div>
-                        <div class="oor-dawgs-team-member-info">
-                            <h3 class="oor-dawgs-team-member-name">Станислав Крайнов (SK)</h3>
-                            <p class="oor-dawgs-team-member-role">Комментатор и ведущий баскетбольных игр</p>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Row 3 -->
-                <div class="oor-dawgs-team-row">
-                    <div class="oor-dawgs-team-member">
-                        <div class="oor-dawgs-team-member-image">
-                            <img src="<?php echo get_template_directory_uri(); ?>/public/assets/dawgs-member-9.svg" alt="Павел Ильменко" class="oor-media-cover">
-                        </div>
-                        <div class="oor-dawgs-team-member-info">
-                            <h3 class="oor-dawgs-team-member-name">Павел Ильменко (KEKS)</h3>
-                            <p class="oor-dawgs-team-member-role">Профессиональный баскетболист, помощник тренера</p>
-                        </div>
-                    </div>
-                    
-                    <div class="oor-dawgs-team-member">
-                        <div class="oor-dawgs-team-member-image">
-                            <img src="<?php echo get_template_directory_uri(); ?>/public/assets/dawgs-member-10.svg" alt="Юрий Беспалов" class="oor-media-cover">
-                        </div>
-                        <div class="oor-dawgs-team-member-info">
-                            <h3 class="oor-dawgs-team-member-name">Юрий Беспалов (MAESTRO)</h3>
-                            <p class="oor-dawgs-team-member-role">Игрок сборной России по баскетбольному двоеборью; 4-x кратный Чемпион России 3x3</p>
-                        </div>
-                    </div>
-                    
-                    <div class="oor-dawgs-team-member">
-                        <div class="oor-dawgs-team-member-image">
-                            <img src="<?php echo get_template_directory_uri(); ?>/public/assets/dawgs-member-11.svg" alt="Дмитрий Рытенко" class="oor-media-cover">
-                        </div>
-                        <div class="oor-dawgs-team-member-info">
-                            <h3 class="oor-dawgs-team-member-name"> Дмитрий Рытенко (FLIP)</h3>
-                            <p class="oor-dawgs-team-member-role">Профессиональный игрок 3х3</p>
-                        </div>
-                    </div>
-                    
-                    <div class="oor-dawgs-team-member">
-                        <div class="oor-dawgs-team-member-image">
-                            <img src="<?php echo get_template_directory_uri(); ?>/public/assets/dawgs-member-12.svg" alt="Михаил Лагутин" class="oor-media-cover">
-                        </div>
-                        <div class="oor-dawgs-team-member-info">
-                            <h3 class="oor-dawgs-team-member-name">Михаил Лагутин (MIKHON)</h3>
-                            <p class="oor-dawgs-team-member-role">Спортсмен, главный врач команды</p>
-                        </div>
-                    </div>
-                </div>
+    <!-- Timeline Section -->
+    <section class="oor-dawgs-timeline">
+        <div class="oor-dawgs-timeline-scroll">
+            <div class="oor-dawgs-timeline-inner">
+                <img src="<?php echo $t; ?>/public/assets/dawgs-timeline-1.svg" alt="Timeline - Main" class="oor-dawgs-timeline-img" width="2977" height="850">
+                <img src="<?php echo $t; ?>/public/assets/dawgs-timeline-2.svg" alt="Timeline - Межсезонье" class="oor-dawgs-timeline-img" width="2977" height="850">
             </div>
         </div>
     </section>

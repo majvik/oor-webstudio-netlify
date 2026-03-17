@@ -469,13 +469,14 @@
 let cursorInstance = null;
 
 function initCursor() {
-  // Отключить курсор на страницах магазина
+  // Отключить курсор на страницах магазина и DAWGS
   const IS_MERCH_PAGE = document.body.classList.contains('oor-merch-page');
   const IS_PRODUCT_PAGE = document.body.classList.contains('oor-product-page');
   const IS_CART_PAGE = document.body.classList.contains('oor-cart-page');
   const IS_CHECKOUT_PAGE = document.body.classList.contains('oor-checkout-page');
+  const IS_DAWGS_PAGE = document.body.classList.contains('oor-dawgs-page');
   
-  if (IS_MERCH_PAGE || IS_PRODUCT_PAGE || IS_CART_PAGE || IS_CHECKOUT_PAGE) {
+  if (IS_MERCH_PAGE || IS_PRODUCT_PAGE || IS_CART_PAGE || IS_CHECKOUT_PAGE || IS_DAWGS_PAGE) {
     if (cursorInstance) {
       cursorInstance.destroy();
       cursorInstance = null;
