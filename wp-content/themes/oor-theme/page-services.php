@@ -61,6 +61,20 @@ get_header();
                         <h3 class="oor-services-recording-item-title">Сессии с продюсером, консультации</h3>
                         <p class="oor-services-recording-item-text">Индивидуальное продюсирование, помощь с подбором материала, обучение</p>
                     </div>
+                    <div class="oor-services-recording-item-divider"></div>
+                    
+                    <!-- Услуга 7 -->
+                    <div class="oor-services-recording-item">
+                        <h3 class="oor-services-recording-item-title">Продакшн</h3>
+                        <p class="oor-services-recording-item-text">Клипы, визуал, упаковка релиза</p>
+                    </div>
+                    <div class="oor-services-recording-item-divider"></div>
+                    
+                    <!-- Услуга 8 -->
+                    <div class="oor-services-recording-item">
+                        <h3 class="oor-services-recording-item-title">Маркетинг</h3>
+                        <p class="oor-services-recording-item-text">Продвижение и персональная стратегия на год</p>
+                    </div>
                     
                     <!-- Recording Image (mobile: between list and contact) -->
                     <div class="oor-services-recording-image">

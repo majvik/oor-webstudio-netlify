@@ -7061,6 +7061,7 @@ body.oor-services-page .oor-btn-small-icon img {
   flex-direction: column;
   gap: 24px;
   margin-top: auto;
+  padding-top: 40px;
 }
 
 .oor-services-contact-text {
@@ -7263,6 +7264,7 @@ body.oor-services-page .oor-btn-small-icon img {
   /* Contact Block */
   .oor-services-contact {
     margin-top: 0;
+    padding-top: 0;
     gap: 24px;
     padding-bottom: 0;
   }
@@ -8044,7 +8046,7 @@ body.oor-talk-show-page .oor-btn-small-icon img {
 .oor-talk-show-rules {
   background: #fff;
   position: relative;
-  height: 100vh;
+  height: 120vh;
   overflow: hidden;
 }
 
@@ -8073,7 +8075,7 @@ body.oor-talk-show-page .oor-btn-small-icon img {
   display: flex;
   gap: 64px;
   align-items: flex-start;
-  height: calc(100vh - 64px - 14px - 64px);
+  height: calc(120vh - 64px - 14px - 64px);
 }
 
 .oor-talk-show-rules-left {
@@ -8108,14 +8110,22 @@ body.oor-talk-show-page .oor-btn-small-icon img {
 }
 
 .oor-talk-show-rules-description {
+  margin: 0 0 64px;
+  max-width: 439px;
+}
+
+.oor-talk-show-rules-description p {
   font-family: var(--font-ui);
   font-size: 14px;
   line-height: 140%;
   font-weight: 300;
   letter-spacing: -0.28px;
   color: #000;
-  margin: 0 0 64px;
-  max-width: 439px;
+  margin: 0 0 1em;
+}
+
+.oor-talk-show-rules-description p:last-child {
+  margin-bottom: 0;
 }
 
 .oor-talk-show-rules-participants {
@@ -8394,10 +8404,13 @@ body.oor-talk-show-page .oor-btn-small-icon img {
   }
 
   .oor-talk-show-rules-description {
+    margin: 0 0 24px;
+  }
+
+  .oor-talk-show-rules-description p {
     font-size: 14px;
     line-height: 140%;
     letter-spacing: -0.28px;
-    margin: 0 0 24px;
   }
 
   .oor-talk-show-rules-participants {

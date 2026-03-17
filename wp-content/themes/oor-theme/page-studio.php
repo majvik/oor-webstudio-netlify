@@ -375,7 +375,7 @@ get_header();
                             <div class="oor-studio-recording-item-divider"></div>
                         </div>
                         <div class="oor-studio-recording-item">
-                            <h3 class="oor-studio-recording-item-title">ПЕСЕН, ХИП-ХОПА И РЭПА</h3>
+                            <h3 class="oor-studio-recording-item-title">Треков любого жанра</h3>
                             <div class="oor-studio-recording-item-divider"></div>
                         </div>
                         <div class="oor-studio-recording-item">

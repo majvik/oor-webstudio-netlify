@@ -5,6 +5,14 @@
  */
 
 get_header();
+
+$theme_uri = get_template_directory_uri();
+$acf_video_1 = get_field('video_1');
+$acf_video_2 = get_field('video_2');
+$video_1_url = !empty($acf_video_1['url']) ? $acf_video_1['url'] : $theme_uri . '/public/assets/OUTOFREC_reel_v4_nologo.mp4';
+$video_1_type = !empty($acf_video_1['mime_type']) ? $acf_video_1['mime_type'] : 'video/mp4';
+$video_2_url = !empty($acf_video_2['url']) ? $acf_video_2['url'] : $theme_uri . '/public/assets/OUTOFREC_reel_v4_nologo.mp4';
+$video_2_type = !empty($acf_video_2['mime_type']) ? $acf_video_2['mime_type'] : 'video/mp4';
 ?>
 
 <!-- HERO Section -->
@@ -16,9 +24,8 @@ get_header();
                 </div>
                 <div class="oor-talk-show-hero-right">
                     <div class="oor-talk-show-hero-video-small">
-                        <video class="oor-talk-show-hero-video" autoplay muted loop playsinline preload="metadata" poster="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-episode-4.png">
-                            <source src="<?php echo get_template_directory_uri(); ?>/public/assets/OUTOFREC_reel_v4_nologo.webm" type="video/webm">
-                            <source src="<?php echo get_template_directory_uri(); ?>/public/assets/OUTOFREC_reel_v4_nologo.mp4" type="video/mp4">
+                        <video class="oor-talk-show-hero-video" autoplay muted loop playsinline preload="metadata" poster="<?php echo $theme_uri; ?>/public/assets/talk-show-episode-4.png">
+                            <source src="<?php echo esc_url($video_1_url); ?>" type="<?php echo esc_attr($video_1_type); ?>">
                         </video>
                     </div>
                     <p class="oor-talk-show-hero-description">Обсуждаем музыкальную индустрию во всех ракурсах</p>
@@ -27,9 +34,8 @@ get_header();
             
             <div class="oor-talk-show-hero-bottom">
                 <div class="oor-talk-show-hero-video-large">
-                    <video class="oor-talk-show-hero-video" autoplay muted loop playsinline preload="metadata" poster="<?php echo get_template_directory_uri(); ?>/public/assets/talk-show-hero-large.png">
-                        <source src="<?php echo get_template_directory_uri(); ?>/public/assets/OUTOFREC_reel_v4_nologo.webm" type="video/webm">
-                        <source src="<?php echo get_template_directory_uri(); ?>/public/assets/OUTOFREC_reel_v4_nologo.mp4" type="video/mp4">
+                    <video class="oor-talk-show-hero-video" autoplay muted loop playsinline preload="metadata" poster="<?php echo $theme_uri; ?>/public/assets/talk-show-hero-large.png">
+                        <source src="<?php echo esc_url($video_2_url); ?>" type="<?php echo esc_attr($video_2_type); ?>">
                     </video>
                 </div>
             </div>
@@ -57,7 +63,6 @@ get_header();
                 <?php
                 $episodes = get_field('talk_show_episodes');
                 $default_url = 'https://www.youtube.com';
-                $theme_uri = get_template_directory_uri();
                 if (!is_array($episodes)) {
                     $episodes = [];
                 }
@@ -128,13 +133,17 @@ get_header();
                         <div class="oor-talk-show-rules-line">
                             <img src="<?php echo get_template_directory_uri(); ?>/public/assets/line-large.svg" alt="" width="18" height="1">
                         </div>
-                        <p class="oor-talk-show-rules-description">Честные разговоры о разном — со звездами, которым есть что сказать. Взлеты и провалы, правда и вымыслы, романы и конфликты, истории успеха и просто истории</p>
+                        <div class="oor-talk-show-rules-description">
+                            <p>Шоу Out of Talk. Честные разговоры о разном — со звездами, которым есть что сказать. Взлеты и провалы, правда и вымыслы, романы и конфликты, истории успеха и просто истории.</p>
+                            <p>LIVE-рубрика — артисты Out of Talk исполняют свои треки. Формат живого звука без монтажа и постановки.</p>
+                            <p>Шоу «Слуханём». Приходим в студии, где рождаются треки. Говорим с артистами о музыке, смыслах и том, что остаётся за кадром.</p>
+                        </div>
                         <div class="oor-talk-show-rules-line-2">
                             <img src="<?php echo get_template_directory_uri(); ?>/public/assets/line-large.svg" alt="" width="18" height="1">
                         </div>
                         <div class="oor-talk-show-rules-participants">
                             <p class="oor-talk-show-rules-participants-title">Принимали участие:</p>
-                            <p class="oor-talk-show-rules-participants-list">Александр Шепс, Сюзанна, LYRIQ, Чипинкос, CAPTOWN, BOOKER, Фогель, JANAGA, Жак Энтони, DASHI, Murovei, Отар Кушанашвили и другие</p>
+                            <p class="oor-talk-show-rules-participants-list">Александр Шепс, Сюзанна, LYRIQ, Чипинкос, CAPTOWN, BOOKER, Фогель, JANAGA, Жак Энтони, DASHI, Murovei, Отар Кушанашвили, J. ROUH, Loqiemean, КУОК, Кассета, Антон Севидов (Tesla Boy), Mary Gu, 10Age x Анет Сай, Ксения Минаева, Даник, Ray!, МУККА и NEMIGA, 5sta family и другие.</p>
                         </div>
                     </div>
                     
