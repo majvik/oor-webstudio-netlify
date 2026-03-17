@@ -4630,6 +4630,7 @@ body.oor-dawgs-page .oor-header .oor-burger-menu .oor-burger-icon img {
   position: relative;
   overflow: hidden;
   flex-shrink: 0;
+  aspect-ratio: 2 / 3;
 }
 
 .oor-dawgs-coach-card-image img {
@@ -4720,12 +4721,14 @@ body.oor-dawgs-page .oor-header .oor-burger-menu .oor-burger-icon img {
   display: flex;
   flex-direction: column;
   gap: 12px;
+  width: 303px;
 }
 
 .oor-dawgs-player-img {
   position: relative;
   overflow: hidden;
   flex-shrink: 0;
+  aspect-ratio: 3 / 4;
 }
 
 .oor-dawgs-player-img img {
