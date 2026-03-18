@@ -50,14 +50,35 @@ chown www-data:www-data /tmp/nginx-cache
 chown www-data:www-data /var/www/html/wp-config.php 2>/dev/null || true
 chown -R www-data:www-data /var/www/html/wp-content/cache 2>/dev/null || true
 
-# 7. WooCommerce + переводы (не в git/Docker — ставятся при каждом старте)
-WC_VERSION="${WC_VERSION:-10.6.1}"
-echo "Installing WooCommerce $WC_VERSION..."
-wp plugin install woocommerce --version="$WC_VERSION" --activate --allow-root 2>/dev/null || \
-    echo "WooCommerce install skipped (already installed or no DB yet)"
-echo "Installing translations..."
-wp language core install ru_RU --allow-root 2>/dev/null || true
-wp language plugin install --all ru_RU --allow-root 2>/dev/null || true
+# 7. WooCommerce + переводы в фоне (ждём готовности WP, не блокируем nginx)
+(
+    WC_VERSION="${WC_VERSION:-10.6.1}"
+
+    # Ждём wp-config.php (docker-entrypoint создаёт его асинхронно)
+    for _i in $(seq 1 30); do
+        [ -f /var/www/html/wp-config.php ] && break
+        sleep 1
+    done
+
+    # Ждём доступности БД
+    for _i in $(seq 1 30); do
+        wp db check --allow-root >/dev/null 2>&1 && break
+        sleep 2
+    done
+
+    echo "Installing WooCommerce $WC_VERSION..."
+    if wp plugin is-installed woocommerce --allow-root 2>/dev/null; then
+        wp plugin activate woocommerce --allow-root 2>/dev/null || true
+    else
+        wp plugin install woocommerce --version="$WC_VERSION" --activate --allow-root 2>&1 || \
+            echo "WooCommerce install failed" >&2
+    fi
+
+    echo "Installing translations..."
+    wp language core install ru_RU --allow-root 2>/dev/null || true
+    wp language plugin install --all ru_RU --allow-root 2>/dev/null || true
+    echo "Plugin setup complete."
+) &
 
 # 8. Фоновый wp-cron каждые 5 минут (заменяет встроенный pseudo-cron)
 (while true; do
