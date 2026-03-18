@@ -94,6 +94,7 @@ wp-content/mu-plugins/local-https-url.php
 # Локальные дампы и бэкапы (не в репо)
 local-wordpress.sql
 local_backup_*.sql
+data/
 wp-content/ai1wm-backups/
 
 # Временные архивы синхронизации
