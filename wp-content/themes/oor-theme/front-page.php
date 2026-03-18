@@ -515,7 +515,7 @@ get_header();
                         $image_alt = is_array($image) && isset($image['alt']) ? $image['alt'] : 'Out of Talk ' . ($index + 1);
                         $image_class = isset($image_classes[$index]) ? $image_classes[$index] : 'oor-out-of-talk-image-' . ($index + 1);
                         ?>
-                        <a href="<?php echo esc_url(home_url('/talk-show')); ?>" class="<?php echo esc_attr($image_class); ?> text-cuberto-cursor-1" data-text="Все выпуски<br>ток-шоу">
+                        <div class="<?php echo esc_attr($image_class); ?>">
                             <picture>
                                 <source srcset="<?php echo esc_url($image_medium); ?> 1x, <?php echo esc_url($image_large); ?> 2x" type="image/avif">
                                 <source srcset="<?php echo esc_url($image_medium); ?> 1x, <?php echo esc_url($image_large); ?> 2x" type="image/webp">
@@ -523,7 +523,7 @@ get_header();
                                      srcset="<?php echo esc_url($image_url); ?> 1x, <?php echo esc_url($image_large); ?> 2x" 
                                      alt="<?php echo esc_attr($image_alt); ?>">
                             </picture>
-                        </a>
+                        </div>
                         <?php
                         $index++;
                     }

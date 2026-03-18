@@ -30,15 +30,18 @@ get_header();
         'order'      => 'ASC',
     ]);
     ?>
+    <?php $active_cat = isset($_GET['product_cat']) ? sanitize_text_field(wp_unslash($_GET['product_cat'])) : ''; ?>
     <section class="oor-merch-filters-section">
         <div class="oor-container">
             <div class="oor-merch-filters">
-                <button type="button" class="oor-merch-filter-btn oor-merch-filter-btn--active" data-filter="all"><?php esc_html_e('Всё', 'oor-theme'); ?></button>
+                <button type="button" class="oor-merch-filter-btn<?php echo $active_cat === '' ? ' oor-merch-filter-btn--active' : ''; ?>" data-filter="all"><?php esc_html_e('Всё', 'oor-theme'); ?></button>
                 <?php
                 if (!is_wp_error($product_cats) && !empty($product_cats)) {
                     foreach ($product_cats as $term) {
+                        $is_active = ($active_cat === $term->slug);
                         printf(
-                            '<button type="button" class="oor-merch-filter-btn" data-filter="%s">%s</button>',
+                            '<button type="button" class="oor-merch-filter-btn%s" data-filter="%s">%s</button>',
+                            $is_active ? ' oor-merch-filter-btn--active' : '',
                             esc_attr($term->slug),
                             esc_html($term->name)
                         );

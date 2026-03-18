@@ -136,12 +136,15 @@ function oor_enqueue_scripts() {
         'oor-talk-show-parallax' => 'talk-show-parallax.js',
     ];
     
+    $theme_dir = get_template_directory();
     foreach ($additional_scripts as $handle => $file) {
+        $file_path = $theme_dir . '/assets/js/' . $file;
+        $file_ver = file_exists($file_path) ? $version . '.' . filemtime($file_path) : $version;
         wp_enqueue_script(
             $handle,
             $theme_uri . '/assets/js/' . $file,
             ['gsap'],
-            $version,
+            $file_ver,
             true
         );
     }
