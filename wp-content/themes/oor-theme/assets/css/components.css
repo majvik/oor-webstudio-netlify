@@ -3093,7 +3093,8 @@ body:has(.oor-mobile-menu.active) {
   .oor-hero-main {
     padding: 0;
     height: 100vh;
-    height: 100dvh;
+    /* Use small viewport height to prevent jumps when browser UI hides/shows */
+    height: 100svh;
   }
 
   .oor-hero-main .oor-container {
