@@ -22,7 +22,7 @@ REMOTE_DB_CONTAINER="${REMOTE_DB_CONTAINER:-oor-mysql}"
 REMOTE_PROJECT_PATH="${REMOTE_PROJECT_PATH:-/opt/oor-webstudio}"
 REMOTE_UPLOADS_PATH="${REMOTE_UPLOADS_PATH:-$REMOTE_SSH:$REMOTE_PROJECT_PATH/wordpress-uploads}"
 LOCAL_URL="${LOCAL_URL:-https://localhost:8443}"
-PROD_URL="${PROD_URL:-https://45.141.102.187.nip.io}"
+PROD_URL="${PROD_URL:-https://outofrec.com}"
 DB_NAME="${DB_NAME:-wordpress}"
 DB_ROOT_PASSWORD="${DB_ROOT_PASSWORD:-rootpassword}"
 

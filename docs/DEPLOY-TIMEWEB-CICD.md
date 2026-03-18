@@ -57,7 +57,7 @@ Managed MySQL создаётся **пустой**. Контент (посты, �
 
 2. В дампе заменить старый URL на продовый (чтобы ссылки и редиректы работали):
    ```bash
-   sed -i '' 's|https://localhost:8443|https://majvik-oor-webstudio-netlify-b925.twc1.net|g' wordpress-dump.sql
+   sed -i '' 's|https://localhost:8443|https://outofrec.com|g' wordpress-dump.sql
    ```
    Или вручную в редакторе.
 

@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - Akismet Anti-spam: Spam Protection - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2025-11-13 11:55:37+0000\n"
+"PO-Revision-Date: 2026-03-03 05:53:29+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -10,6 +10,23 @@ msgstr ""
 "X-Generator: GlotPress/4.0.3\n"
 "Language: ru\n"
 "Project-Id-Version: Plugins - Akismet Anti-spam: Spam Protection - Stable (latest release)\n"
+
+#. translators: The placeholder is a URL.
+#: views/setup-jetpack.php:83
+msgid "Want to use a different account? <a href=\"%s\" class=\"akismet-external-link\">Visit akismet.com</a> to set it up and get your API key."
+msgstr "Хотите использовать другой аккаунт? <a href=\"%s\" class=\"akismet-external-link\">Зайдите на сайт akismet.com</a>, чтобы настроить его и получить ключ API."
+
+#: views/setup-jetpack.php:62
+msgid "Contact support"
+msgstr "Связаться со службой поддержки"
+
+#: views/setup-jetpack.php:58
+msgid "Your Akismet account appears to be suspended. This sometimes happens if there's a billing or verification issue. Please contact our support team so we can help you get it sorted."
+msgstr "Ваш аккаунт Akismet, похоже, заблокирован. Иногда это происходит из-за проблем с оплатой или верификацией. Пожалуйста, свяжитесь с нашей службой поддержки, чтобы мы могли помочь вам решить эту проблему."
+
+#: views/setup-jetpack.php:49
+msgid "Choose a plan on Akismet.com"
+msgstr "Выберите тарифный план на Akismet.com"
 
 #: views/notice.php:364
 msgid "Increase your limit"
