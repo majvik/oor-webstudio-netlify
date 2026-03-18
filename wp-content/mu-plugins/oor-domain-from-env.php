@@ -17,6 +17,19 @@ $site_url = getenv( 'WP_SITEURL' );
 // (or when multiple domains point to the same app during migration).
 $request_host = isset( $_SERVER['HTTP_HOST'] ) ? strtolower( trim( $_SERVER['HTTP_HOST'] ) ) : '';
 
+$force_hosts = array( 'outofrec.com', 'www.outofrec.com' );
+if ( $request_host !== '' && in_array( $request_host, $force_hosts, true ) ) {
+	$scheme = ( ! empty( $_SERVER['HTTPS'] ) && $_SERVER['HTTPS'] !== 'off' )
+		|| ( ! empty( $_SERVER['HTTP_X_FORWARDED_PROTO'] ) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https' )
+		? 'https'
+		: 'http';
+	$forced_url = $scheme . '://' . $request_host;
+
+	add_filter( 'pre_option_home', function () use ( $forced_url ) { return $forced_url; } );
+	add_filter( 'pre_option_siteurl', function () use ( $forced_url ) { return $forced_url; } );
+	return;
+}
+
 $home_host = '';
 if ( $home_url !== false && $home_url !== '' ) {
 	$parsed = wp_parse_url( $home_url );
