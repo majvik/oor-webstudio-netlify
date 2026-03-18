@@ -1416,6 +1416,16 @@ a.text-cuberto-cursor-2:not([href^="mailto:"]):hover {
   width: 100%;
 }
 
+.oor-challenge-studio-image{
+  color: inherit;
+  text-decoration: none;
+}
+
+.oor-challenge-studio-image:hover{
+  color: inherit;
+  text-decoration: none;
+}
+
 .oor-challenge-studio-image picture {
   display: block;
   width: 100%;
@@ -1514,6 +1524,27 @@ a.text-cuberto-cursor-2:not([href^="mailto:"]):hover {
   align-items: flex-end;
   gap: 24px;
   flex-shrink: 0;
+}
+
+.oor-challenge-2-good-works-link{
+  display: flex;
+  flex-direction: column;
+  align-items: inherit;
+  gap: inherit;
+  width: 100%;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.oor-challenge-2-good-works-link:hover{
+  color: inherit;
+  text-decoration: none;
+}
+
+.oor-challenge-2-good-works-link:focus-visible{
+  outline: 2px solid rgba(255,255,255,0.7);
+  outline-offset: 6px;
 }
 
 .oor-challenge-2-good-works-image {
