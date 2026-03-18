@@ -70,6 +70,7 @@ chown -R www-data:www-data /var/www/html/wp-content/cache 2>/dev/null || true
     if wp plugin is-installed woocommerce --allow-root 2>/dev/null; then
         wp plugin activate woocommerce --allow-root 2>/dev/null || true
     else
+        rm -rf /var/www/html/wp-content/plugins/woocommerce 2>/dev/null
         wp plugin install woocommerce --version="$WC_VERSION" --activate --allow-root 2>&1 || \
             echo "WooCommerce install failed" >&2
     fi
