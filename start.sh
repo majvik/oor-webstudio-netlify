@@ -50,7 +50,16 @@ chown www-data:www-data /tmp/nginx-cache
 chown www-data:www-data /var/www/html/wp-config.php 2>/dev/null || true
 chown -R www-data:www-data /var/www/html/wp-content/cache 2>/dev/null || true
 
-# 7. Фоновый wp-cron каждые 5 минут (заменяет встроенный pseudo-cron)
+# 7. WooCommerce + переводы (не в git/Docker — ставятся при каждом старте)
+WC_VERSION="${WC_VERSION:-10.6.1}"
+echo "Installing WooCommerce $WC_VERSION..."
+wp plugin install woocommerce --version="$WC_VERSION" --activate --allow-root 2>/dev/null || \
+    echo "WooCommerce install skipped (already installed or no DB yet)"
+echo "Installing translations..."
+wp language core install ru_RU --allow-root 2>/dev/null || true
+wp language plugin install --all ru_RU --allow-root 2>/dev/null || true
+
+# 8. Фоновый wp-cron каждые 5 минут (заменяет встроенный pseudo-cron)
 (while true; do
     sleep 300
     php /var/www/html/wp-cron.php >/dev/null 2>&1 || true

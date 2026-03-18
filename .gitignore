@@ -54,6 +54,13 @@ temp/
 # Разрешаем тему
 !wp-content/themes/oor-theme/
 
+# WooCommerce: слишком большой для git (~65 MB, 1000+ файлов при обновлении).
+# Устанавливается через wp-cli при старте контейнера (см. start.sh).
+wp-content/plugins/woocommerce/
+
+# Переводы: устанавливаются через wp-cli при старте контейнера.
+wp-content/languages/
+
 # Always Works Guide (internal documentation)
 ALWAYS_WORKS_GUIDE.md
 
@@ -88,3 +95,15 @@ wp-content/mu-plugins/local-https-url.php
 local-wordpress.sql
 local_backup_*.sql
 wp-content/ai1wm-backups/
+
+# Временные архивы синхронизации
+_sync-export.tar.gz
+uploads-march.tar.gz
+uploads-diff.tar.gz
+scripts/_sync-export.php
+scripts/_sync-uploads-diff.php
+
+# Временные/рабочие файлы в корне
+*.tar.gz
+dawgs-gallery-*.png
+timeline-*.svg

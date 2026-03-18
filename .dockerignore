@@ -28,6 +28,9 @@ wp-content/cache/
 wp-content/upgrade/
 wp-content/wflogs/
 
+# WooCommerce: installed via wp-cli at container startup (see start.sh)
+wp-content/plugins/woocommerce/
+
 # IDE
 .vscode
 .idea
