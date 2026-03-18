@@ -74,6 +74,11 @@
     }
     
     window.oorZoom = zoom;
+    
+    // Notify slider to recalculate maxScroll with the new layout
+    if (typeof window.oorUpdateMaxScroll === 'function') {
+      window.oorUpdateMaxScroll();
+    }
   }
   
   function init() {

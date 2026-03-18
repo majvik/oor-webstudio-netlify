@@ -318,6 +318,9 @@ if (document.readyState === 'loading') {
   boot();
 }
 
+// scale-container.js applies zoom via rAF after slider init — expose recalculation hook
+window.oorUpdateMaxScroll = function() { updateMaxScroll(); };
+
 function disableStaticSnapCSS() { /* noop in embed */ }
 
 function initSlider() {
@@ -357,6 +360,7 @@ function initSlider() {
 // === ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ ===
 function clamp(v, a, b){ return Math.max(a, Math.min(b, v)); } // ограничивает значение v между a и b
 function lerp(a, b, t){ return a + (b - a) * t; }               // линейная интерполяция между a и b с коэффициентом t
+function getZoom(){ return window.oorZoom || parseFloat(document.documentElement.style.zoom) || 1; }
 
 // === ФУНКЦИИ ДЛЯ УПРАВЛЕНИЯ МЕТАДАННЫМИ СЛАЙДОВ ===
 function setMetaActive(index) {
@@ -434,7 +438,7 @@ function visibilityInfo() {
 
 function updateMaxScroll() {
   if (!sliderWrapper) return;
-  let viewportWidth = window.innerWidth;
+  let viewportWidth;
 
   if (!isMobile) {
     const slider = $in('.slider');
@@ -442,8 +446,16 @@ function updateMaxScroll() {
       const cs = getComputedStyle(slider);
       const paddingLeft = parseFloat(cs.paddingLeft) || 0;
       const paddingRight = parseFloat(cs.paddingRight) || 0;
-      viewportWidth = Math.max(0, viewportWidth - paddingLeft - paddingRight);
+      const zoom = window.oorZoom || 1;
+      // Use the smaller value to handle browsers where clientWidth
+      // is not adjusted by root CSS zoom
+      const effectiveWidth = Math.min(slider.clientWidth, window.innerWidth / zoom);
+      viewportWidth = Math.max(0, effectiveWidth - paddingLeft - paddingRight);
+    } else {
+      viewportWidth = window.innerWidth;
     }
+  } else {
+    viewportWidth = window.innerWidth;
   }
   maxScroll = Math.max(0, sliderWrapper.scrollWidth - viewportWidth);
 }
