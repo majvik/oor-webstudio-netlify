@@ -4748,34 +4748,40 @@ body.oor-dawgs-page .oor-header .oor-burger-menu .oor-burger-icon img {
 /* Card layout: text to the right, aligned to bottom */
 .oor-dawgs-player--right {
   flex-direction: row;
+  width: auto;
   gap: 12px;
   align-items: flex-end;
 }
 
 .oor-dawgs-player--right .oor-dawgs-player-info {
   flex: 1;
+  min-width: 180px;
 }
 
 /* Card layout: text to the right, compact */
 .oor-dawgs-player--right-compact {
   flex-direction: row;
+  width: auto;
   gap: 12px;
   align-items: flex-start;
 }
 
 .oor-dawgs-player--right-compact .oor-dawgs-player-info {
   flex: 1;
+  min-width: 180px;
 }
 
 /* Card layout: text on the left (right-aligned text), image on right */
 .oor-dawgs-player--left {
   flex-direction: row;
+  width: auto;
   gap: 12px;
   align-items: flex-start;
 }
 
 .oor-dawgs-player--left .oor-dawgs-player-info {
   flex: 1;
+  min-width: 180px;
 }
 
 .oor-dawgs-player-info--right-align {
@@ -4793,26 +4799,28 @@ body.oor-dawgs-page .oor-header .oor-burger-menu .oor-burger-icon img {
 }
 
 .oor-dawgs-row-2 {
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 
 .oor-dawgs-row-2 .oor-dawgs-player--right {
-  max-width: 580px;
+  width: 580px;
 }
 
 .oor-dawgs-row-2 .oor-dawgs-player--left {
-  max-width: 620px;
+  width: 620px;
+  margin-left: auto;
 }
 
 .oor-dawgs-row-3 {
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: flex-start;
 }
 
 .oor-dawgs-row-3 .oor-dawgs-player--left {
-  max-width: 607px;
+  width: 607px;
   align-items: flex-end;
   justify-content: flex-end;
+  margin-left: auto;
 }
 
 .oor-dawgs-row-4 {
