@@ -190,13 +190,10 @@ get_header();
           <div class="slider-overlay">
             <div class="overlay-inner">
               <div class="overlay-top">Артисты</div>
-              <div class="overlay-center" aria-hidden="true">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="2" viewBox="0 0 18 2" fill="none">
-                  <g style="mix-blend-mode:difference">
-                    <path d="M0 1L18 1" stroke="black"/>
-            </g>
-          </svg>
-        </div>
+              <div class="overlay-center oor-drag-hint" aria-hidden="true">
+                <span class="oor-drag-hint-track"><span class="oor-drag-hint-square"></span></span>
+                <span class="oor-drag-hint-text">Больше артистов доступно<br>перетягиванием</span>
+              </div>
               <a class="overlay-bottom rolling-button" href="<?php echo esc_url(home_url('/artists')); ?>"><span class="tn-atom">Все артисты</span></a>
       </div>
     </div>
