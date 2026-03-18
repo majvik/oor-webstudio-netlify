@@ -18,7 +18,7 @@ set -a
 set +a
 
 LOCAL_URL="${WP_URL:-http://localhost:8080}"
-PROD_URL="${PROD_WP_URL:-https://majvik-oor-webstudio-netlify-b925.twc1.net}"
+PROD_URL="${PROD_WP_URL:-https://outofrec.com}"
 
 PROD_DB_HOST="${WORDPRESS_DB_PUBLIC_HOST:-${WORDPRESS_DB_HOST:?Задайте WORDPRESS_DB_HOST в .env}}"
 PROD_DB_NAME="${WORDPRESS_DB_NAME:?Задайте WORDPRESS_DB_NAME в .env}"
@@ -43,7 +43,7 @@ LOCAL_URL_NO_SLASH="${LOCAL_URL%/}"
 PROD_URL_NO_SLASH="${PROD_URL%/}"
 
 ALL_LOCAL_URLS=("$LOCAL_URL_NO_SLASH")
-for EXTRA in "https://localhost:8443" "http://localhost:8080" "https://45.141.102.187.nip.io"; do
+for EXTRA in "https://localhost:8443" "http://localhost:8080" "https://45.141.102.187.nip.io" "https://majvik-oor-webstudio-netlify-b925.twc1.net"; do
   if [ "$EXTRA" != "$LOCAL_URL_NO_SLASH" ]; then
     ALL_LOCAL_URLS+=("$EXTRA")
   fi

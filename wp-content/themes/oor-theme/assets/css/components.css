@@ -1416,6 +1416,16 @@ a.text-cuberto-cursor-2:not([href^="mailto:"]):hover {
   width: 100%;
 }
 
+.oor-challenge-studio-image{
+  color: inherit;
+  text-decoration: none;
+}
+
+.oor-challenge-studio-image:hover{
+  color: inherit;
+  text-decoration: none;
+}
+
 .oor-challenge-studio-image picture {
   display: block;
   width: 100%;
@@ -1514,6 +1524,27 @@ a.text-cuberto-cursor-2:not([href^="mailto:"]):hover {
   align-items: flex-end;
   gap: 24px;
   flex-shrink: 0;
+}
+
+.oor-challenge-2-good-works-link{
+  display: flex;
+  flex-direction: column;
+  align-items: inherit;
+  gap: inherit;
+  width: 100%;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.oor-challenge-2-good-works-link:hover{
+  color: inherit;
+  text-decoration: none;
+}
+
+.oor-challenge-2-good-works-link:focus-visible{
+  outline: 2px solid rgba(255,255,255,0.7);
+  outline-offset: 6px;
 }
 
 .oor-challenge-2-good-works-image {
@@ -2608,9 +2639,9 @@ body:has(.oor-mobile-menu.active) {
     display: flex;
   }
 
-  /* Musical Association: desktop/tablet — без верхнего отступа у [02], снизу 80px */
+  /* Musical Association: desktop/tablet — верхний и нижний отступ */
   .oor-musical-association-left {
-    padding-top: 0;
+    padding-top: 40px;
     padding-bottom: 80px;
   }
 }
@@ -2840,6 +2871,8 @@ body:has(.oor-mobile-menu.active) {
 
   .oor-musical-association {
     padding-left: var(--container-x);
+    padding-top: 48px;
+    min-height: auto;
   }
 
   .oor-challenge-section {
@@ -3035,8 +3068,64 @@ body:has(.oor-mobile-menu.active) {
   .oor-footer-links { padding-bottom: 32px !important; }
   .oor-col-3.oor-challenge-2-good-works { gap: 32px !important; }
 
+  .oor-section-hero {
+    position: relative;
+  }
+
+  .oor-section-hero > .oor-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 5;
+    pointer-events: none;
+  }
+
+  .oor-section-hero .oor-hero-title-block {
+    padding-top: 200px;
+  }
+
+  .oor-section-hero .oor-hero-title,
+  .oor-section-hero .oor-hero-title-block * {
+    color: #fff !important;
+  }
+
   .oor-hero-main {
-    padding: 380px 0 160px 0;
+    padding: 0;
+    height: 100vh;
+    height: 100dvh;
+  }
+
+  .oor-hero-main .oor-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 4;
+    padding-bottom: 48px;
+  }
+
+  body.home .oor-header {
+    position: absolute !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: transparent !important;
+    mix-blend-mode: normal !important;
+    z-index: 100;
+  }
+
+  body.home .oor-logo img {
+    filter: brightness(0) invert(1) !important;
+    mix-blend-mode: normal !important;
+  }
+
+  body.home .oor-header .oor-burger-menu .oor-burger-icon,
+  body.home .oor-header .oor-burger-menu .oor-burger-icon *,
+  body.home .oor-header .oor-burger-menu .oor-burger-icon img {
+    filter: brightness(0) invert(1) !important;
+    mix-blend-mode: normal !important;
+    opacity: 1 !important;
   }
   .oor-mobile-menu {
     width: 100%;
@@ -4423,36 +4512,42 @@ body.oor-dawgs-page .oor-header .oor-burger-menu .oor-burger-icon img {
   flex-grow: 0;
 }
 
+.oor-dawgs-hero-gallery-item img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  border: none;
+  outline: none;
+  vertical-align: bottom;
+}
+
 .oor-dawgs-gallery-1 {
   flex-basis: calc((100% - 96px) * 0.22);
-  aspect-ratio: 400 / 455;
+  aspect-ratio: 495 / 910;
 }
 
 .oor-dawgs-gallery-2 {
   flex-basis: calc((100% - 96px) * 0.18);
-  aspect-ratio: 350 / 324;
+  aspect-ratio: 495 / 648;
 }
 
 .oor-dawgs-gallery-3 {
   flex-basis: calc((100% - 96px) * 0.25);
-  aspect-ratio: 472 / 487;
+  aspect-ratio: 708 / 974;
 }
 
 .oor-dawgs-gallery-4 {
   flex-basis: calc((100% - 96px) * 0.18);
-  aspect-ratio: 350 / 255;
+  aspect-ratio: 495 / 462;
 }
 
 .oor-dawgs-gallery-5 {
   flex-basis: calc((100% - 96px) * 0.17);
-  aspect-ratio: 300 / 205;
-}
-
-.oor-dawgs-hero-gallery-item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
+  aspect-ratio: 495 / 602;
 }
 
 /* DAWGS Hero Footer */
@@ -4517,20 +4612,62 @@ body.oor-dawgs-page .oor-header .oor-burger-menu .oor-burger-icon img {
   width: auto;
 }
 
-/* DAWGS Team Section */
-.oor-dawgs-team-section {
+/* DAWGS Hero extra decorative lines */
+.oor-dawgs-hero-line {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+}
+
+.oor-dawgs-hero-line img {
+  width: 100%;
+  height: 100%;
+  filter: brightness(0) invert(1);
+}
+
+.oor-dawgs-hero-line-left {
+  left: var(--container-x);
+  bottom: 120px;
+}
+
+.oor-dawgs-hero-line-right {
+  right: var(--container-x);
+  bottom: 120px;
+}
+
+/* ===== DAWGS Team Photo Section ===== */
+.oor-dawgs-team-photo {
+  background: #fff;
+  padding: 64px var(--container-x) 0;
+}
+
+.oor-dawgs-team-photo-img {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1344 / 800;
+}
+
+.oor-dawgs-team-photo-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}
+
+/* ===== DAWGS Coach & Ambassador Section ===== */
+.oor-dawgs-coach {
   background: #fff;
   padding: 80px 0;
 }
 
-.oor-dawgs-team-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 48px;
+.oor-dawgs-coach-header {
+  padding: 16px 0;
+  margin-bottom: 0;
 }
 
-.oor-dawgs-team-title {
+.oor-dawgs-coach-title {
   font-family: var(--font-ui);
   font-size: 30px;
   line-height: 120%;
@@ -4539,58 +4676,66 @@ body.oor-dawgs-page .oor-header .oor-burger-menu .oor-burger-icon img {
   text-transform: uppercase;
   color: #000;
   margin: 0;
+  mix-blend-mode: luminosity;
 }
 
-.oor-dawgs-team-plus {
-  width: 18px;
-  height: 18px;
+.oor-dawgs-coach-cards {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+  margin-top: 10px;
 }
 
-.oor-dawgs-team-plus img {
-  width: 100%;
-  height: 100%;
-  filter: brightness(0);
+.oor-dawgs-coach-card--horizontal {
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
 }
 
-/* DAWGS Team Grid */
-.oor-dawgs-team-grid {
+.oor-dawgs-coach-card--horizontal .oor-dawgs-coach-card-info {
+  width: 293px;
+}
+
+.oor-dawgs-coach-card--vertical {
   display: flex;
   flex-direction: column;
-  gap: 48px;
+  gap: 12px;
+  align-items: flex-start;
+  justify-content: center;
+  width: 336px;
+  margin-left: auto;
 }
 
-.oor-dawgs-team-row {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 44px;
-}
-
-.oor-dawgs-team-member {
-  display: flex;
-  flex-direction: column;
-  gap: 11px;
-}
-
-.oor-dawgs-team-member-image {
+.oor-dawgs-coach-card--vertical .oor-dawgs-coach-card-info {
   width: 100%;
-  height: 273px;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.oor-dawgs-coach-card-image {
   position: relative;
   overflow: hidden;
+  flex-shrink: 0;
+  aspect-ratio: 2 / 3;
 }
 
-.oor-dawgs-team-member-image img {
+.oor-dawgs-coach-card-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: top center;
+  display: block;
 }
 
-.oor-dawgs-team-member-info {
+.oor-dawgs-coach-card-info {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-.oor-dawgs-team-member-name {
+/* Shared player name/role typography */
+.oor-dawgs-player-name {
   font-family: var(--font-ui);
   font-size: 14px;
   line-height: 140%;
@@ -4600,7 +4745,7 @@ body.oor-dawgs-page .oor-header .oor-burger-menu .oor-burger-icon img {
   margin: 0;
 }
 
-.oor-dawgs-team-member-role {
+.oor-dawgs-player-role {
   font-family: var(--font-ui);
   font-size: 14px;
   line-height: 140%;
@@ -4608,6 +4753,290 @@ body.oor-dawgs-page .oor-header .oor-burger-menu .oor-burger-icon img {
   letter-spacing: -0.28px;
   color: #000;
   margin: 0;
+}
+
+/* DAWGS Quote */
+.oor-dawgs-quote {
+  margin-top: 160px;
+  max-width: 1214px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.oor-dawgs-quote-text {
+  font-family: var(--font-ui);
+  font-size: 48px;
+  line-height: 100%;
+  font-weight: 300;
+  letter-spacing: -1.92px;
+  text-transform: uppercase;
+  color: #000;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.oor-dawgs-quote-author {
+  font-family: var(--font-ui);
+  font-size: 24px;
+  line-height: 120%;
+  font-weight: 300;
+  letter-spacing: -0.96px;
+  color: #000;
+  margin: 0;
+}
+
+/* ===== DAWGS Players Section (asymmetric grid) ===== */
+.oor-dawgs-players {
+  background: #fff;
+  padding-bottom: 80px;
+}
+
+.oor-dawgs-players-row {
+  display: flex;
+  gap: 44px;
+  align-items: flex-start;
+  margin-bottom: 80px;
+}
+
+.oor-dawgs-players-row:last-child {
+  margin-bottom: 0;
+}
+
+.oor-dawgs-player-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 303px;
+}
+
+.oor-dawgs-player-img {
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+  aspect-ratio: 3 / 4;
+}
+
+.oor-dawgs-player-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}
+
+.oor-dawgs-player-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Card layout: text to the right, aligned to bottom */
+.oor-dawgs-player--right {
+  flex-direction: row;
+  width: auto;
+  gap: 12px;
+  align-items: flex-end;
+}
+
+.oor-dawgs-player--right .oor-dawgs-player-info {
+  flex: 1;
+  min-width: 180px;
+}
+
+/* Card layout: text to the right, compact */
+.oor-dawgs-player--right-compact {
+  flex-direction: row;
+  width: auto;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.oor-dawgs-player--right-compact .oor-dawgs-player-info {
+  flex: 1;
+  min-width: 180px;
+}
+
+/* Card layout: text on the left (right-aligned text), image on right */
+.oor-dawgs-player--left {
+  flex-direction: row;
+  width: auto;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.oor-dawgs-player--left .oor-dawgs-player-info {
+  flex: 1;
+  min-width: 180px;
+}
+
+.oor-dawgs-player-info--right-align {
+  text-align: right;
+}
+
+/* Row-specific asymmetric positioning */
+.oor-dawgs-row-1 {
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.oor-dawgs-row-1 .oor-dawgs-player-card:last-child {
+  margin-left: auto;
+}
+
+.oor-dawgs-row-2 {
+  justify-content: flex-start;
+}
+
+.oor-dawgs-row-2 .oor-dawgs-player--right {
+  width: 580px;
+}
+
+.oor-dawgs-row-2 .oor-dawgs-player--left {
+  width: 620px;
+  margin-left: auto;
+}
+
+.oor-dawgs-row-3 {
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.oor-dawgs-row-3 .oor-dawgs-player--left {
+  width: 607px;
+  align-items: flex-end;
+  justify-content: flex-end;
+  margin-left: auto;
+}
+
+.oor-dawgs-row-4 {
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.oor-dawgs-row-4 .oor-dawgs-player-card:nth-child(2) {
+  margin-left: auto;
+}
+
+/* ===== DAWGS Timeline Section ===== */
+.oor-dawgs-timeline {
+  background: #fff;
+  overflow: hidden;
+  position: relative;
+}
+
+.oor-dawgs-timeline-scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.oor-dawgs-timeline-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.oor-dawgs-timeline-inner {
+  display: flex;
+  gap: 0;
+  min-width: max-content;
+}
+
+.oor-dawgs-timeline-img {
+  display: block;
+  height: 850px;
+  width: auto;
+  flex-shrink: 0;
+}
+
+/* ===== DAWGS Players — tile grid at <=1439px ===== */
+@media (max-width: 1439px) {
+  .oor-dawgs-players-row {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px 24px !important;
+    margin-bottom: 32px !important;
+  }
+
+  .oor-dawgs-players-row:last-child {
+    margin-bottom: 0 !important;
+  }
+
+  .oor-dawgs-player-card {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    width: auto !important;
+    max-width: none !important;
+    margin-left: 0 !important;
+  }
+
+  .oor-dawgs-player-card .oor-dawgs-player-img {
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 1 / 1;
+    flex: none !important;
+  }
+
+  .oor-dawgs-player-card .oor-dawgs-player-info {
+    order: 2;
+    text-align: left !important;
+    width: auto !important;
+  }
+
+  .oor-dawgs-player-info--right-align {
+    text-align: left !important;
+  }
+}
+
+/* ===== DAWGS Hero Gallery — grid at <=1280px ===== */
+@media (max-width: 1280px) {
+  .oor-dawgs-hero-gallery {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    align-items: stretch;
+  }
+
+  .oor-dawgs-hero-gallery-item {
+    flex-basis: auto !important;
+    aspect-ratio: 1 / 1 !important;
+  }
+}
+
+/* ===== DAWGS Coaches — tile grid at <=1280px ===== */
+@media (max-width: 1280px) {
+  .oor-dawgs-coach-cards {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px 24px;
+  }
+
+  .oor-dawgs-coach-card--horizontal,
+  .oor-dawgs-coach-card--vertical {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    width: auto !important;
+    max-width: none !important;
+    margin-left: 0 !important;
+    align-items: flex-start !important;
+  }
+
+  .oor-dawgs-coach-card-image {
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 1 / 1;
+    flex-shrink: 0;
+  }
+
+  .oor-dawgs-coach-card--horizontal .oor-dawgs-coach-card-info,
+  .oor-dawgs-coach-card--vertical .oor-dawgs-coach-card-info {
+    width: auto !important;
+    max-width: none !important;
+  }
 }
 
 /* ===== EVENTS PAGE STYLES ===== */
@@ -6727,6 +7156,7 @@ body.oor-services-page .oor-btn-small-icon img {
   flex-direction: column;
   gap: 24px;
   margin-top: auto;
+  padding-top: 40px;
 }
 
 .oor-services-contact-text {
@@ -6929,6 +7359,7 @@ body.oor-services-page .oor-btn-small-icon img {
   /* Contact Block */
   .oor-services-contact {
     margin-top: 0;
+    padding-top: 0;
     gap: 24px;
     padding-bottom: 0;
   }
@@ -7019,28 +7450,239 @@ body.oor-services-page .oor-btn-small-icon img {
 
 /* ===== DAWGS PAGE MOBILE STYLES ===== */
 
-/* Мобильная версия для страницы DAWGS (≤768px) */
 @media (max-width: 768px) {
-  /* Hero секция */
+  /* --- Hero --- */
   .oor-dawgs-hero {
     padding-top: 0;
-    padding-bottom: 0;
+    padding-bottom: 48px;
   }
 
   .oor-dawgs-hero .oor-container {
-    padding: 0;
+    padding: 0 var(--container-x);
   }
 
   .oor-dawgs-hero-grid {
+    display: block;
+    margin-bottom: 32px;
     padding: 0;
+  }
+
+  .oor-dawgs-hero-grid .oor-col-7,
+  .oor-dawgs-hero-grid .oor-col-4,
+  .oor-dawgs-hero-grid .oor-col-1 {
+    width: 100%;
+    max-width: none;
+    flex: none;
   }
 
   .oor-dawgs-hero-title {
     font-size: 56px;
     letter-spacing: -5.6px;
     line-height: 100%;
-    padding: 76px 0 0 12px;
+    padding: 76px 0 24px 0;
     margin: 0;
+  }
+
+  .oor-dawgs-hero-description-wrapper {
+    justify-content: flex-start;
+  }
+
+  .oor-dawgs-hero-description {
+    gap: 32px;
+  }
+
+  .oor-dawgs-hero-subtitle {
+    font-size: 22px;
+    letter-spacing: -2.2px;
+  }
+
+  .oor-dawgs-hero-plus-wrapper {
+    display: none;
+  }
+
+  .oor-dawgs-hero-line {
+    display: none;
+  }
+
+  /* Hero gallery — 2 колонки, первая картинка охватывает 2 строки */
+  .oor-dawgs-hero-gallery {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto auto;
+    gap: 8px;
+    margin-bottom: 32px;
+    align-items: stretch;
+  }
+
+  .oor-dawgs-hero-gallery-item {
+    flex-basis: auto !important;
+    aspect-ratio: 1 / 1 !important;
+  }
+
+  .oor-dawgs-gallery-1 {
+    grid-row: span 2;
+    aspect-ratio: auto !important;
+  }
+
+  /* Hero footer — в столбик */
+  .oor-dawgs-hero-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+  }
+
+  .oor-dawgs-hero-stats {
+    gap: 16px;
+  }
+
+  .oor-dawgs-hero-stats-number {
+    font-size: 40px;
+    letter-spacing: -4px;
+  }
+
+  .oor-dawgs-hero-stats-text {
+    max-width: none;
+  }
+
+  .oor-dawgs-hero-sponsors {
+    gap: 32px;
+  }
+
+  /* --- Team Photo --- */
+  .oor-dawgs-team-photo {
+    padding: 16px 16px 0;
+  }
+
+  .oor-dawgs-team-photo-img {
+    aspect-ratio: 4 / 3;
+  }
+
+  /* --- Coach section --- */
+  .oor-dawgs-coach {
+    padding: 48px 0;
+  }
+
+  .oor-dawgs-coach-title {
+    font-size: 22px;
+    letter-spacing: -0.88px;
+  }
+
+  .oor-dawgs-coach-cards {
+    display: flex !important;
+    flex-direction: column !important;
+    grid-template-columns: none !important;
+    gap: 32px !important;
+  }
+
+  .oor-dawgs-coach-card--horizontal,
+  .oor-dawgs-coach-card--vertical {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin-left: 0 !important;
+    align-items: flex-start !important;
+  }
+
+  .oor-dawgs-coach-card-image {
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 3 / 4;
+  }
+
+  .oor-dawgs-coach-card--horizontal .oor-dawgs-coach-card-info,
+  .oor-dawgs-coach-card--vertical .oor-dawgs-coach-card-info {
+    width: 100% !important;
+    max-width: none !important;
+  }
+
+  /* --- Quote --- */
+  .oor-dawgs-quote {
+    margin-top: 48px;
+    gap: 16px;
+  }
+
+  .oor-dawgs-quote-text {
+    font-size: 28px;
+    letter-spacing: -1.12px;
+  }
+
+  .oor-dawgs-quote-author {
+    font-size: 16px;
+    letter-spacing: -0.64px;
+  }
+
+  /* --- Players --- */
+  .oor-dawgs-players {
+    padding-bottom: 48px;
+  }
+
+  .oor-dawgs-players-row {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+    margin-bottom: 24px !important;
+  }
+
+  .oor-dawgs-players-row:last-child {
+    margin-bottom: 0 !important;
+  }
+
+  .oor-dawgs-player-card {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+    width: auto !important;
+    max-width: none !important;
+    margin-left: 0 !important;
+  }
+
+  .oor-dawgs-player-card .oor-dawgs-player-img {
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 1 / 1 !important;
+    flex: none !important;
+  }
+
+  .oor-dawgs-player-card .oor-dawgs-player-info {
+    order: 2;
+    text-align: left !important;
+    width: auto !important;
+  }
+
+  .oor-dawgs-player-info--right-align {
+    text-align: left !important;
+  }
+
+  /* --- Timeline --- */
+  .oor-dawgs-timeline-img {
+    height: 880px;
+  }
+}
+
+@media (max-width: 460px) {
+  .oor-dawgs-hero-title {
+    font-size: 48px;
+    letter-spacing: -4.8px;
+  }
+
+  .oor-dawgs-hero-gallery {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 6px !important;
+  }
+
+  .oor-dawgs-players-row {
+    gap: 16px !important;
+  }
+
+  .oor-dawgs-quote-text {
+    font-size: 22px;
+    letter-spacing: -0.88px;
+  }
+
+  .oor-dawgs-timeline-img {
+    height: 560px;
   }
 }
 
@@ -7499,7 +8141,7 @@ body.oor-talk-show-page .oor-btn-small-icon img {
 .oor-talk-show-rules {
   background: #fff;
   position: relative;
-  height: 100vh;
+  height: 120vh;
   overflow: hidden;
 }
 
@@ -7528,7 +8170,7 @@ body.oor-talk-show-page .oor-btn-small-icon img {
   display: flex;
   gap: 64px;
   align-items: flex-start;
-  height: calc(100vh - 64px - 14px - 64px);
+  height: calc(120vh - 64px - 14px - 64px);
 }
 
 .oor-talk-show-rules-left {
@@ -7563,14 +8205,22 @@ body.oor-talk-show-page .oor-btn-small-icon img {
 }
 
 .oor-talk-show-rules-description {
+  margin: 0 0 64px;
+  max-width: 439px;
+}
+
+.oor-talk-show-rules-description p {
   font-family: var(--font-ui);
   font-size: 14px;
   line-height: 140%;
   font-weight: 300;
   letter-spacing: -0.28px;
   color: #000;
-  margin: 0 0 64px;
-  max-width: 439px;
+  margin: 0 0 1em;
+}
+
+.oor-talk-show-rules-description p:last-child {
+  margin-bottom: 0;
 }
 
 .oor-talk-show-rules-participants {
@@ -7849,10 +8499,13 @@ body.oor-talk-show-page .oor-btn-small-icon img {
   }
 
   .oor-talk-show-rules-description {
+    margin: 0 0 24px;
+  }
+
+  .oor-talk-show-rules-description p {
     font-size: 14px;
     line-height: 140%;
     letter-spacing: -0.28px;
-    margin: 0 0 24px;
   }
 
   .oor-talk-show-rules-participants {
@@ -10704,7 +11357,12 @@ body.oor-shop-header select {
   accent-color: #000 !important;
 }
 
-/* Фокус на полях и блоках Woo — подсветка #fade55 */
+/* Скрываем ссылку «Все события» — страница ещё не заполнена */
+.oor-events-photo-link {
+  display: none !important;
+}
+
+/* Фокус на полях и блоках Woo */
 body.oor-shop-header .woocommerce input:focus,
 body.oor-shop-header .woocommerce select:focus,
 body.oor-shop-header .woocommerce textarea:focus,
@@ -10713,9 +11371,9 @@ body.oor-shop-header .woocommerce input[type="text"]:focus,
 body.oor-shop-header .woocommerce input[type="email"]:focus,
 body.oor-shop-header .woocommerce input[type="tel"]:focus,
 body.oor-shop-header .woocommerce input[type="number"]:focus {
-  outline: 2px solid #fade55 !important;
+  outline: 2px solid #000 !important;
   outline-offset: 2px;
-  border-color: #fade55 !important;
+  border-color: #000 !important;
 }
 
 /* Старая цена — перечёркнутая (перебивает любые reset) */
@@ -11397,9 +12055,26 @@ body.oor-cart-page .woocommerce-notices-wrapper:focus,
   box-shadow: none !important;
 }
 
-/* Панели сообщений на странице товара — скрываем (зона «Russia» и др.), убираем фокус и обводку */
-.oor-product-section .woocommerce-notices-wrapper {
+/* Панели сообщений — скрываем (зона «Russia» и др.), убираем фокус и обводку */
+.oor-product-section .woocommerce-notices-wrapper,
+.oor-cart-section .woocommerce-notices-wrapper,
+.oor-checkout-section .woocommerce-notices-wrapper {
   display: none !important;
+}
+
+/* Чекаут: скрываем блок способов оплаты, privacy-текст и строку доставки */
+.oor-checkout-section #payment .wc_payment_methods_list,
+.oor-checkout-section #payment .payment_methods,
+.oor-checkout-section #payment .woocommerce-info,
+.oor-checkout-section #payment .woocommerce-privacy-policy-text,
+.oor-checkout-section .woocommerce-shipping-totals,
+.oor-cart-section .woocommerce-shipping-totals {
+  display: none !important;
+}
+
+/* Чекаут: отступ перед «Ваш заказ» */
+.oor-checkout-section #order_review_heading {
+  margin-top: 40px;
 }
 
 .oor-product-section .woocommerce-notices-wrapper:focus,
@@ -11488,6 +12163,211 @@ body.oor-checkout-page .woocommerce-notices-wrapper:focus,
   background: var(--color-black);
   margin: 24px 0;
   opacity: 0.2;
+}
+
+/* WooCommerce Cart Table (shop_table via [woocommerce_cart] shortcode) */
+.oor-cart-section .shop_table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.oor-cart-section .shop_table th,
+.oor-cart-section .shop_table td {
+  padding: 12px 16px;
+  vertical-align: middle;
+  text-align: left;
+  font-family: var(--font-pragmatica);
+  font-size: 14px;
+  letter-spacing: -0.28px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.oor-cart-section .shop_table th:first-child,
+.oor-cart-section .shop_table td:first-child {
+  padding-left: 24px;
+}
+
+.oor-cart-section .shop_table th:last-child,
+.oor-cart-section .shop_table td:last-child {
+  padding-right: 24px;
+}
+
+.oor-cart-section .shop_table th {
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: 13px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.oor-cart-section .shop_table td.product-remove {
+  width: 40px;
+  text-align: center;
+}
+
+.oor-cart-section .shop_table td.product-remove a {
+  color: #ff0000;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+.oor-cart-section .shop_table td.product-thumbnail {
+  width: 80px;
+  padding: 12px 8px;
+}
+
+.oor-cart-section .shop_table td.product-thumbnail a {
+  display: block;
+}
+
+.oor-cart-section .shop_table td.product-thumbnail img {
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  display: block;
+  max-width: none;
+}
+
+.oor-cart-section .shop_table td.product-name a {
+  color: var(--color-text);
+  text-decoration: none;
+  font-family: var(--font-ui);
+  font-size: 16px;
+  letter-spacing: -0.32px;
+}
+
+.oor-cart-section .shop_table td.product-quantity .quantity {
+  display: inline-flex;
+  align-items: center;
+}
+
+.oor-cart-section .shop_table td.product-quantity .qty {
+  width: 64px;
+  height: 44px;
+  padding: 8px 12px;
+  border: 1px solid #000;
+  background: transparent;
+  font-family: var(--font-pragmatica);
+  font-size: 14px;
+  text-align: center;
+  color: var(--color-text);
+  box-sizing: border-box;
+  -moz-appearance: textfield;
+}
+
+.oor-cart-section .shop_table td.product-quantity .qty::-webkit-outer-spin-button,
+.oor-cart-section .shop_table td.product-quantity .qty::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.oor-cart-section .shop_table td.product-price,
+.oor-cart-section .shop_table td.product-subtotal {
+  font-family: var(--font-ui);
+  font-size: 16px;
+  letter-spacing: -0.32px;
+}
+
+.oor-cart-section .shop_table .actions {
+  text-align: right;
+  padding: 16px 0;
+  border-bottom: none;
+}
+
+.oor-cart-section .shop_table .actions button {
+  font-family: var(--font-pragmatica);
+  font-size: 13px;
+  letter-spacing: -0.26px;
+  text-transform: uppercase;
+  background: #000;
+  color: #fff;
+  border: none;
+  padding: 14px 24px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.oor-cart-section .shop_table .actions button:hover {
+  opacity: 0.8;
+}
+
+.oor-cart-section .shop_table .actions button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+/* Cart Totals (cart-collaterals) */
+.oor-cart-section .cart-collaterals {
+  margin-top: 40px;
+}
+
+.oor-cart-section .cart-collaterals .cart_totals {
+  float: none;
+  width: 100%;
+  max-width: 480px;
+}
+
+.oor-cart-section .cart-collaterals .cart_totals h2 {
+  font-family: var(--font-ui);
+  font-size: 24px;
+  font-weight: 300;
+  letter-spacing: -0.48px;
+  margin: 0 0 16px 0;
+}
+
+.oor-cart-section .cart-collaterals .cart_totals table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.oor-cart-section .cart-collaterals .cart_totals th,
+.oor-cart-section .cart-collaterals .cart_totals td {
+  padding: 12px 16px;
+  font-family: var(--font-pragmatica);
+  font-size: 14px;
+  letter-spacing: -0.28px;
+  text-transform: uppercase;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.oor-cart-section .cart-collaterals .cart_totals td {
+  text-transform: none;
+}
+
+.oor-cart-section .cart-collaterals .cart_totals .order-total th,
+.oor-cart-section .cart-collaterals .cart_totals .order-total td {
+  font-family: var(--font-ui);
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -0.32px;
+}
+
+.oor-cart-section .cart-collaterals .wc-proceed-to-checkout {
+  padding: 16px 0 0;
+}
+
+.oor-cart-section .cart-collaterals .wc-proceed-to-checkout .checkout-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-pragmatica);
+  font-size: 13px;
+  letter-spacing: -0.26px;
+  text-transform: uppercase;
+  background: #000;
+  color: #fff;
+  border: none;
+  padding: 14px 32px;
+  min-height: 52px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity 0.2s;
+  box-sizing: border-box;
+}
+
+.oor-cart-section .cart-collaterals .wc-proceed-to-checkout .checkout-button:hover {
+  opacity: 0.8;
 }
 
 /* Cart Items */

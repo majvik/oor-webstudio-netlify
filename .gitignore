@@ -4,9 +4,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Production builds
-dist/
-build/
+# Production builds (only project root, not plugin subdirectories)
+/dist/
+/build/
 
 # Environment variables
 .env

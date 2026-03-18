@@ -187,6 +187,7 @@ function initRetinaSupport() {
       if (/splash-last-frame/i.test(src)) continue; // нет @2x версии, не запрашивать
       if (/events-gallery/i.test(src)) continue;
       if (/events-card/i.test(src)) continue;
+      if (/dawgs-/i.test(src)) continue;
       const hi = build2xUrl(src);
       if (!hi) continue;
       const ok = await imageExists(hi);
@@ -247,7 +248,7 @@ function initParallaxImages() {
   if (window.innerWidth <= 460) return;
 
   // Отключаем параллакс на страницах магазина
-  if (document.body.classList.contains('oor-merch-page') || document.body.classList.contains('oor-product-page')) {
+  if (document.body.classList.contains('oor-merch-page') || document.body.classList.contains('oor-product-page') || document.body.classList.contains('oor-cart-page') || document.body.classList.contains('oor-checkout-page')) {
     return;
   }
 
@@ -280,6 +281,7 @@ function initParallaxImages() {
     if (img.closest('.oor-talk-show-hero')) return false;
     if (img.closest('.oor-talk-show-episodes')) return false;
     if (img.closest('.oor-talk-show-rules')) return false;
+    if (document.body.classList.contains('oor-dawgs-page')) return false;
     if (img.classList.contains('no-parallax')) return false;
     return true;
   });
@@ -314,6 +316,7 @@ function initParallaxImages() {
     if (img.closest('.oor-talk-show-hero')) return false;
     if (img.closest('.oor-talk-show-episodes')) return false;
     if (img.closest('.oor-talk-show-rules')) return false;
+    if (document.body.classList.contains('oor-dawgs-page')) return false;
     if (picture.closest('.oor-parallax-wrap')) return false;
     if (img.classList.contains('no-parallax')) return false;
     return true;
@@ -1446,7 +1449,6 @@ function initMerchNavigation() {
     buyBtn.addEventListener('click', function(e) {
       e.preventDefault();
       e.stopPropagation();
-      // Предотвращаем отправку формы
       const form = document.getElementById('checkout-form');
       if (form) {
         form.addEventListener('submit', function(ev) {
@@ -1456,4 +1458,30 @@ function initMerchNavigation() {
       window.location.href = '/index.html';
     });
   }
+
+  // DAWGS timeline drag-to-scroll
+  (function() {
+    var el = document.querySelector('.oor-dawgs-timeline-scroll');
+    if (!el) return;
+    var down = false, sx, sl;
+    el.style.cursor = 'grab';
+    el.addEventListener('mousedown', function(e) {
+      if (e.button !== 0) return;
+      down = true;
+      sx = e.clientX;
+      sl = el.scrollLeft;
+      el.style.cursor = 'grabbing';
+      e.preventDefault();
+    });
+    window.addEventListener('mousemove', function(e) {
+      if (!down) return;
+      el.scrollLeft = sl - (e.clientX - sx);
+    });
+    window.addEventListener('mouseup', function() {
+      if (!down) return;
+      down = false;
+      el.style.cursor = 'grab';
+    });
+  })();
+
 }

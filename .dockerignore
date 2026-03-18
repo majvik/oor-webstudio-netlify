@@ -16,11 +16,25 @@ scripts/
 # HTML файлы (старые, не нужны в WP)
 *.html
 
+# Local DB dumps / exports (never needed in image)
+data/
+local_backup_*.sql
+*.sql
+
+# WordPress back-ups / caches (not needed in image)
+wp-content/ai1wm-backups/
+wp-content/languages/
+wp-content/cache/
+wp-content/upgrade/
+wp-content/wflogs/
+
 # IDE
 .vscode
 .idea
 *.swp
 *.swo
+.cursor/
+.shared/
 
 # OS
 .DS_Store

@@ -2087,3 +2087,43 @@ window.addEventListener('resize', () => {
 if (window.location.search.includes('debug')) {
   // Отладочная информация включена
 }
+
+// === DRAG HINT ===
+(function() {
+  var hint = document.querySelector('#wsls .oor-drag-hint');
+  if (!hint || window.innerWidth <= 768) return;
+
+  var hintText = hint.querySelector('.oor-drag-hint-text');
+  if (hintText) {
+    hint.style.setProperty('--hint-w', hintText.offsetWidth + 'px');
+  }
+
+  var wrapper = document.querySelector('#wsls .slider-wrapper');
+  var dismissed = false;
+
+  var observer = new IntersectionObserver(function(entries) {
+    if (dismissed) return;
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        hint.classList.add('is-visible');
+      } else {
+        hint.classList.remove('is-visible');
+      }
+    });
+  }, { threshold: 0.3 });
+
+  observer.observe(document.querySelector('#wsls .slider-section'));
+
+  if (wrapper) {
+    var mo = new MutationObserver(function() {
+      if (wrapper.classList.contains('is-dragging') && !dismissed) {
+        dismissed = true;
+        hint.classList.remove('is-visible');
+        hint.classList.add('is-hidden');
+        mo.disconnect();
+        observer.disconnect();
+      }
+    });
+    mo.observe(wrapper, { attributes: true, attributeFilter: ['class'] });
+  }
+})();

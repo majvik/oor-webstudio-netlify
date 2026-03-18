@@ -1,0 +1,153 @@
+{
+    "key": "group_dawgs_page",
+    "title": "DAWGS \u2014 \u0421\u0442\u0440\u0430\u043d\u0438\u0446\u0430",
+    "fields": [
+        {
+            "key": "field_dawgs_hero_subtitle",
+            "label": "\u0413\u0435\u0440\u043e\u0439 \u2014 \u041f\u043e\u0434\u0437\u0430\u0433\u043e\u043b\u043e\u0432\u043e\u043a",
+            "name": "dawgs_hero_subtitle",
+            "type": "text",
+            "default_value": "\u0418\u0413\u0420\u0410\u0422\u042c \u0418 \u041f\u041e\u041c\u041e\u0413\u0410\u0422\u042c",
+            "placeholder": "\u0418\u0413\u0420\u0410\u0422\u042c \u0418 \u041f\u041e\u041c\u041e\u0413\u0410\u0422\u042c"
+        },
+        {
+            "key": "field_dawgs_hero_text",
+            "label": "\u0413\u0435\u0440\u043e\u0439 \u2014 \u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435",
+            "name": "dawgs_hero_text",
+            "type": "textarea",
+            "default_value": "",
+            "placeholder": "\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435 \u043a\u043e\u043c\u0430\u043d\u0434\u044b",
+            "rows": 4,
+            "new_lines": "br"
+        },
+        {
+            "key": "field_dawgs_team_photo",
+            "label": "\u041a\u043e\u043c\u0430\u043d\u0434\u043d\u043e\u0435 \u0444\u043e\u0442\u043e",
+            "name": "dawgs_team_photo",
+            "type": "image",
+            "return_format": "array",
+            "preview_size": "medium",
+            "library": "all"
+        },
+        {
+            "key": "field_dawgs_coaches",
+            "label": "\u0422\u0440\u0435\u043d\u0435\u0440\u044b",
+            "name": "dawgs_coaches",
+            "type": "repeater",
+            "min": 0,
+            "max": 10,
+            "layout": "block",
+            "button_label": "\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c \u0442\u0440\u0435\u043d\u0435\u0440\u0430",
+            "sub_fields": [
+                {
+                    "key": "field_dawgs_coach_photo",
+                    "label": "\u0424\u043e\u0442\u043e",
+                    "name": "photo",
+                    "type": "image",
+                    "return_format": "array",
+                    "preview_size": "medium",
+                    "library": "all"
+                },
+                {
+                    "key": "field_dawgs_coach_name",
+                    "label": "\u0418\u043c\u044f",
+                    "name": "name",
+                    "type": "text"
+                },
+                {
+                    "key": "field_dawgs_coach_role",
+                    "label": "\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435",
+                    "name": "role",
+                    "type": "textarea",
+                    "rows": 3,
+                    "new_lines": "br"
+                },
+                {
+                    "key": "field_dawgs_coach_layout",
+                    "label": "\u0422\u0438\u043f \u043a\u0430\u0440\u0442\u043e\u0447\u043a\u0438",
+                    "name": "layout",
+                    "type": "select",
+                    "choices": {
+                        "horizontal": "\u0413\u043e\u0440\u0438\u0437\u043e\u043d\u0442\u0430\u043b\u044c\u043d\u0430\u044f (\u0444\u043e\u0442\u043e + \u0442\u0435\u043a\u0441\u0442 \u0441\u043f\u0440\u0430\u0432\u0430)",
+                        "vertical": "\u0412\u0435\u0440\u0442\u0438\u043a\u0430\u043b\u044c\u043d\u0430\u044f (\u0444\u043e\u0442\u043e + \u0442\u0435\u043a\u0441\u0442 \u0441\u043d\u0438\u0437\u0443)"
+                    },
+                    "default_value": "horizontal"
+                }
+            ]
+        },
+        {
+            "key": "field_dawgs_quote_text",
+            "label": "\u0426\u0438\u0442\u0430\u0442\u0430 \u2014 \u0422\u0435\u043a\u0441\u0442",
+            "name": "dawgs_quote_text",
+            "type": "textarea",
+            "rows": 3,
+            "new_lines": ""
+        },
+        {
+            "key": "field_dawgs_quote_author",
+            "label": "\u0426\u0438\u0442\u0430\u0442\u0430 \u2014 \u0410\u0432\u0442\u043e\u0440",
+            "name": "dawgs_quote_author",
+            "type": "text"
+        },
+        {
+            "key": "field_dawgs_players",
+            "label": "\u0411\u0430\u0441\u043a\u0435\u0442\u0431\u043e\u043b\u0438\u0441\u0442\u044b",
+            "name": "dawgs_players",
+            "type": "repeater",
+            "min": 0,
+            "max": 100,
+            "layout": "block",
+            "button_label": "\u0414\u043e\u0431\u0430\u0432\u0438\u0442\u044c \u0431\u0430\u0441\u043a\u0435\u0442\u0431\u043e\u043b\u0438\u0441\u0442\u0430",
+            "sub_fields": [
+                {
+                    "key": "field_dawgs_player_order",
+                    "label": "\u041f\u043e\u0440\u044f\u0434\u043a\u043e\u0432\u044b\u0439 \u043d\u043e\u043c\u0435\u0440",
+                    "name": "order",
+                    "type": "number",
+                    "default_value": 0,
+                    "min": 0,
+                    "max": 999,
+                    "instructions": "\u041e\u043f\u0440\u0435\u0434\u0435\u043b\u044f\u0435\u0442 \u043f\u043e\u0437\u0438\u0446\u0438\u044e \u0432 \u0441\u0435\u0442\u043a\u0435. \u041c\u0435\u043d\u044c\u0448\u0435\u0435 \u0447\u0438\u0441\u043b\u043e = \u0432\u044b\u0448\u0435 \u043d\u0430 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u0435."
+                },
+                {
+                    "key": "field_dawgs_player_photo",
+                    "label": "\u0424\u043e\u0442\u043e",
+                    "name": "photo",
+                    "type": "image",
+                    "return_format": "array",
+                    "preview_size": "medium",
+                    "library": "all"
+                },
+                {
+                    "key": "field_dawgs_player_name",
+                    "label": "\u0418\u043c\u044f",
+                    "name": "name",
+                    "type": "text"
+                },
+                {
+                    "key": "field_dawgs_player_role",
+                    "label": "\u041e\u043f\u0438\u0441\u0430\u043d\u0438\u0435",
+                    "name": "role",
+                    "type": "textarea",
+                    "rows": 3,
+                    "new_lines": "br"
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "page-dawgs.php"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "active": true
+}

@@ -543,6 +543,20 @@ add_filter('template_include', function($template) {
 // Чекаут: при пустой корзине всё равно показываем форму (поля в DOM), редирект отключён
 add_filter('woocommerce_checkout_redirect_empty_cart', '__return_false', 1);
 
+// Чекаут: скрываем блок «Доставка по другому адресу» — billing = shipping
+add_filter('woocommerce_cart_needs_shipping_address', '__return_false');
+
+// Чекаут: убираем поле «Примечание к заказу»
+add_filter('woocommerce_enable_order_notes_field', '__return_false');
+
+// Чекаут: «Детали оплаты» → «Детали заказа»
+add_filter('gettext', function($translated, $text, $domain) {
+    if ($domain === 'woocommerce' && $text === 'Billing details') {
+        return 'Детали заказа';
+    }
+    return $translated;
+}, 20, 3);
+
 /**
  * Рендерит поле чекаута без вызова woocommerce_form_field (кроме country/state).
  * Поля text/email/tel/textarea выводятся напрямую — так их не может «съесть» ни фильтр, ни баг WC.

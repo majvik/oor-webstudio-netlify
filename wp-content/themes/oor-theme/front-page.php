@@ -190,13 +190,10 @@ get_header();
           <div class="slider-overlay">
             <div class="overlay-inner">
               <div class="overlay-top">Артисты</div>
-              <div class="overlay-center" aria-hidden="true">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="2" viewBox="0 0 18 2" fill="none">
-                  <g style="mix-blend-mode:difference">
-                    <path d="M0 1L18 1" stroke="black"/>
-            </g>
-          </svg>
-        </div>
+              <div class="overlay-center oor-drag-hint" aria-hidden="true">
+                <span class="oor-drag-hint-track"><span class="oor-drag-hint-square"></span></span>
+                <span class="oor-drag-hint-text">Больше артистов доступно<br>перетягиванием</span>
+              </div>
               <a class="overlay-bottom rolling-button" href="<?php echo esc_url(home_url('/artists')); ?>"><span class="tn-atom">Все артисты</span></a>
       </div>
     </div>
@@ -396,13 +393,13 @@ get_header();
             <!-- Challenge To The Usual 2 — Left - 7 колонок -->
             <div class="oor-col-7 oor-challenge-2-left">
                 <!-- Challenge Studio Image - 4 колонки минус 8px (слева) -->
-                <div class="oor-challenge-studio-image img-cuberto-cursor-1" data-cursor-img="<?php echo get_template_directory_uri(); ?>/public/assets/challenge-studio.png">
+                <a href="<?php echo esc_url( home_url( '/studio' ) ); ?>" class="oor-challenge-studio-image img-cuberto-cursor-1" data-cursor-img="<?php echo get_template_directory_uri(); ?>/public/assets/challenge-studio.png">
                     <picture>
                         <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/challenge-studio.avif 1x, <?php echo get_template_directory_uri(); ?>/public/assets/challenge-studio@2x.avif 2x" type="image/avif">
                         <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/challenge-studio.webp 1x, <?php echo get_template_directory_uri(); ?>/public/assets/challenge-studio@2x.webp 2x" type="image/webp">
                         <img src="<?php echo get_template_directory_uri(); ?>/public/assets/challenge-studio.png" srcset="<?php echo get_template_directory_uri(); ?>/public/assets/challenge-studio.png 1x, <?php echo get_template_directory_uri(); ?>/public/assets/challenge-studio@2x.png 2x" alt="Challenge Studio">
                     </picture>
-        </div>
+                </a>
                 
                 <!-- Challenge To The Usual 2 — Text (заголовок, описание и ссылка — как в рабочей статичной версии, два дочерних элемента в grid) -->
                 <div class="oor-challenge-2-text">
@@ -430,29 +427,31 @@ get_header();
             
             <!-- Challenge To The Usual 2 — Good Works - 3 колонки -->
             <div class="oor-col-3 oor-challenge-2-good-works">
-                <!-- Good Works Image -->
-                <div class="oor-challenge-2-good-works-image img-cuberto-cursor-2" data-cursor-img="<?php echo get_template_directory_uri(); ?>/public/assets/good-works.png">
-                    <picture>
-                        <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/good-works.avif 1x, <?php echo get_template_directory_uri(); ?>/public/assets/good-works@2x.avif 2x" type="image/avif">
-                        <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/good-works.webp 1x, <?php echo get_template_directory_uri(); ?>/public/assets/good-works@2x.webp 2x" type="image/webp">
-                        <img src="<?php echo get_template_directory_uri(); ?>/public/assets/good-works.png" srcset="<?php echo get_template_directory_uri(); ?>/public/assets/good-works.png 1x, <?php echo get_template_directory_uri(); ?>/public/assets/good-works@2x.png 2x" alt="Good Works">
-                    </picture>
-      </div>
-                
-                <!-- Good Works Text -->
-                <div class="oor-challenge-2-good-works-text">
-                    <div class="oor-challenge-2-good-works-header">
-                        <h3 class="oor-challenge-2-good-works-title">
-                            МЕДИАСПОРТ
-          </h3>
-                        <div class="oor-challenge-2-good-works-icon">
-                            <img src="<?php echo get_template_directory_uri(); ?>/public/assets/icons-linking.svg" alt="Good Works Icon" width="32" height="32">
-            </div>
-          </div>
-                    <p class="oor-challenge-2-good-works-description">
-                        Медийная баскетбольная команда DAWGS играет матчи в составе Лиги Ставок Media Basket. В команде — мастера спорта, многократные чемпионы, артисты и блогеры, резиденты лейбла и Андрей Кириленко
-          </p>
-        </div>
+                <a class="oor-challenge-2-good-works-link" href="<?php echo esc_url(home_url('/dawgs')); ?>">
+                    <!-- Good Works Image -->
+                    <div class="oor-challenge-2-good-works-image img-cuberto-cursor-2" data-cursor-img="<?php echo get_template_directory_uri(); ?>/public/assets/good-works.png">
+                        <picture>
+                            <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/good-works.avif 1x, <?php echo get_template_directory_uri(); ?>/public/assets/good-works@2x.avif 2x" type="image/avif">
+                            <source srcset="<?php echo get_template_directory_uri(); ?>/public/assets/good-works.webp 1x, <?php echo get_template_directory_uri(); ?>/public/assets/good-works@2x.webp 2x" type="image/webp">
+                            <img src="<?php echo get_template_directory_uri(); ?>/public/assets/good-works.png" srcset="<?php echo get_template_directory_uri(); ?>/public/assets/good-works.png 1x, <?php echo get_template_directory_uri(); ?>/public/assets/good-works@2x.png 2x" alt="Good Works">
+                        </picture>
+                    </div>
+
+                    <!-- Good Works Text -->
+                    <div class="oor-challenge-2-good-works-text">
+                        <div class="oor-challenge-2-good-works-header">
+                            <h3 class="oor-challenge-2-good-works-title">
+                                МЕДИАСПОРТ
+                            </h3>
+                            <div class="oor-challenge-2-good-works-icon">
+                                <img src="<?php echo get_template_directory_uri(); ?>/public/assets/icons-linking.svg" alt="Good Works Icon" width="32" height="32">
+                            </div>
+                        </div>
+                        <p class="oor-challenge-2-good-works-description">
+                            Медийная баскетбольная команда DAWGS играет матчи в составе Лиги Ставок Media Basket. В команде — мастера спорта, многократные чемпионы, артисты и блогеры, резиденты лейбла и Андрей Кириленко
+                        </p>
+                    </div>
+                </a>
       </div>
     </div>
     </section>
