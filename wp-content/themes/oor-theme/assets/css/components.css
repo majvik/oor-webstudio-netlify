@@ -10563,7 +10563,7 @@ body.oor-shop-header .oor-header .oor-burger-menu .oor-burger-icon * {
   grid-template-columns: 1fr 1fr;
   gap: 78px;
   width: 100%;
-  min-height: 0;
+  min-height: 80svh;
   position: relative;
 }
 .oor-product-section.oor-product-page-layout .oor-container > .product .summary.entry-summary {
@@ -10609,6 +10609,7 @@ body.oor-shop-header .oor-header .oor-burger-menu .oor-burger-icon * {
     grid-template-columns: 1fr;
     grid-template-rows: minmax(200px, min(55vh, 400px)) auto;
     gap: 40px;
+    min-height: 0;
   }
   .oor-product-section.oor-product-page-layout .oor-container > .product .woocommerce-product-gallery {
     top: 0;
@@ -10668,6 +10669,10 @@ body.oor-shop-header .oor-header .oor-burger-menu .oor-burger-icon * {
     grid-column: 1;
     max-width: 100%;
     padding: 0 var(--container-x);
+  }
+
+  body.oor-product-page .oor-product-section .oor-container > .product {
+    min-height: 0;
   }
 }
 
@@ -10816,7 +10821,7 @@ body.oor-product-page .oor-product-section .oor-container > .product {
   grid-template-columns: 1fr 1fr;
   gap: 78px;
   width: 100%;
-  min-height: 0;
+  min-height: 80svh;
   position: relative;
 }
 /* Summary задаёт высоту строки (единственный элемент в потоке сетки по высоте) */
