@@ -3068,11 +3068,11 @@ body:has(.oor-mobile-menu.active) {
   .oor-footer-links { padding-bottom: 32px !important; }
   .oor-col-3.oor-challenge-2-good-works { gap: 32px !important; }
 
-  .oor-section-hero {
+  body.home .oor-section-hero {
     position: relative;
   }
 
-  .oor-section-hero > .oor-container {
+  body.home .oor-section-hero > .oor-container {
     position: absolute;
     top: 0;
     left: 0;
@@ -3081,12 +3081,12 @@ body:has(.oor-mobile-menu.active) {
     pointer-events: none;
   }
 
-  .oor-section-hero .oor-hero-title-block {
+  body.home .oor-section-hero .oor-hero-title-block {
     padding-top: 200px;
   }
 
-  .oor-section-hero .oor-hero-title,
-  .oor-section-hero .oor-hero-title-block * {
+  body.home .oor-section-hero .oor-hero-title,
+  body.home .oor-section-hero .oor-hero-title-block * {
     color: #fff !important;
   }
 
@@ -6116,7 +6116,7 @@ body.oor-manifest-page .oor-mobile-menu-btn:hover .oor-mobile-menu-btn-text {
   }
 
   .oor-manifest-hero-top {
-    padding: 0;
+    padding: 0 0 16px 0;
     justify-content: flex-start;
     align-items: flex-start;
     position: relative;
@@ -9550,12 +9550,12 @@ body.oor-studio-page .oor-header .oor-burger-menu .oor-burger-icon img {
   /* Tracks Container - 2 колонки, без горизонтальной прокрутки */
   .oor-artist-tracks-wrapper {
     width: 100%;
+    order: 3;
   }
 
   .oor-artist-tracks-container {
     width: 100%;
     flex: none;
-    order: 3;
     height: auto;
     overflow-y: visible;
     overflow-x: hidden;
