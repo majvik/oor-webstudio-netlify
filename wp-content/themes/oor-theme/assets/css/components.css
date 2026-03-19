@@ -9457,7 +9457,7 @@ body.oor-studio-page .oor-header .oor-burger-menu .oor-burger-icon img {
   .oor-artist-main {
     display: flex;
     flex-direction: column;
-    gap: 32px;
+    gap: 0;
     height: auto;
     margin-top: 0;
     padding: 0;
@@ -9465,13 +9465,13 @@ body.oor-studio-page .oor-header .oor-burger-menu .oor-burger-icon img {
     z-index: 1 !important;
   }
 
-  /* Artist Image Container - сверху, 9:16, позиционирование bottom */
+  /* Artist Image Container - сверху, 3:4, позиционирование bottom */
   .oor-artist-image-container {
     width: 100%;
     height: auto;
     flex: none;
     order: 1;
-    aspect-ratio: 9 / 16;
+    aspect-ratio: 3 / 4;
     overflow: hidden;
     position: static;
   }
@@ -9509,8 +9509,8 @@ body.oor-studio-page .oor-header .oor-burger-menu .oor-burger-icon img {
   }
 
   .oor-artist-title {
-    font-size: 72px;
-    letter-spacing: -7.2px;
+    font-size: 48px;
+    letter-spacing: -2.4px;
     line-height: 100%;
     margin: 0;
   }
