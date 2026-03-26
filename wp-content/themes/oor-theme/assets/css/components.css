@@ -11234,6 +11234,7 @@ body.oor-merch-page .product_type_simple,
 body.oor-merch-page a.product_type_simple,
 body.oor-cart-page .checkout-button,
 body.oor-cart-page input[name="update_cart"],
+body.oor-cart-page button[name="update_cart"],
 body.oor-checkout-page #place_order {
   display: inline-flex;
   align-items: center;
@@ -11285,6 +11286,7 @@ body.oor-product-page .summary.entry-summary form.cart .single_add_to_cart_butto
 body.oor-merch-page .add_to_cart_button:hover,
 body.oor-cart-page .checkout-button:hover,
 body.oor-cart-page input[name="update_cart"]:hover,
+body.oor-cart-page button[name="update_cart"]:hover,
 body.oor-checkout-page #place_order:hover {
   opacity: 0.85;
   color: #fff !important;
@@ -12299,6 +12301,11 @@ body.oor-checkout-page .woocommerce-notices-wrapper:focus,
 .oor-cart-section .shop_table .actions button:disabled {
   opacity: 0.4;
   cursor: default;
+}
+
+body.oor-cart-page input[name="update_cart"].oor-cart-update-hidden,
+body.oor-cart-page button[name="update_cart"].oor-cart-update-hidden {
+  display: none !important;
 }
 
 /* Cart Totals (cart-collaterals) */

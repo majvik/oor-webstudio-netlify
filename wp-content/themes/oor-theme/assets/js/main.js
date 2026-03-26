@@ -113,6 +113,7 @@ function loadGSAPFallback() {
 window.addEventListener('load', function() {
   // Инициализация навигации для страниц магазина
   initMerchNavigation();
+  initCartUpdateButtonVisibility();
   // Страница товара: перечёркивание старой цены (если PHP не вывел <del>/<ins>)
   initProductPriceStrikethrough();
   try {
@@ -143,6 +144,85 @@ window.addEventListener('load', function() {
     document.body.style.overflow = 'auto';
   }
 });
+
+// Корзина: кнопку "Обновить корзину" показываем только после изменений
+function initCartUpdateButtonVisibility() {
+  if (!document.body.classList.contains('oor-cart-page')) return;
+
+  const HIDDEN_CLASS = 'oor-cart-update-hidden';
+  const pendingStates = new Set(['qty', 'remove', 'add', 'any']);
+  let pendingReason = null;
+
+  const updateButtonSelector = 'input[name="update_cart"], button[name="update_cart"]';
+  const getButton = () => document.querySelector(updateButtonSelector);
+  const isPending = () => pendingReason !== null;
+  const hideButton = () => {
+    const button = getButton();
+    if (!button) return;
+    button.classList.add(HIDDEN_CLASS);
+  };
+  const showButton = () => {
+    const button = getButton();
+    if (!button) return;
+    button.classList.remove(HIDDEN_CLASS);
+  };
+  const setPending = (reason) => {
+    pendingReason = pendingStates.has(reason) ? reason : 'any';
+    showButton();
+  };
+  const clearPending = () => {
+    pendingReason = null;
+    hideButton();
+  };
+
+  // На первом рендере кнопка скрыта
+  clearPending();
+
+  // Изменение количества = показать кнопку
+  document.addEventListener('input', function(event) {
+    if (!event.target || !event.target.matches('.shop_table input.qty')) return;
+    setPending('qty');
+  });
+  document.addEventListener('change', function(event) {
+    if (!event.target || !event.target.matches('.shop_table input.qty')) return;
+    setPending('qty');
+  });
+
+  // После нажатия "Обновить корзину" считаем изменения сохранёнными
+  document.addEventListener('click', function(event) {
+    const button = event.target && event.target.closest ? event.target.closest(updateButtonSelector) : null;
+    if (!button) return;
+    clearPending();
+  });
+
+  // Если корзину меняют в другой вкладке, WooCommerce меняет cart hash в localStorage.
+  // По событию storage показываем кнопку, чтобы пользователь явно обновил корзину на текущей вкладке.
+  window.addEventListener('storage', function(event) {
+    const key = event && typeof event.key === 'string' ? event.key : '';
+    if (!key) return;
+    if (key.indexOf('wc_cart_hash') === -1 && key.indexOf('woocommerce_cart_hash') === -1) return;
+    setPending('any');
+  });
+
+  // WooCommerce шлёт jQuery-события, подписываемся если jQuery доступен
+  if (window.jQuery) {
+    const $body = window.jQuery(document.body);
+
+    // Удаление/добавление товаров: после обновления корзины кнопку показываем
+    $body.on('removed_from_cart added_to_cart wc_cart_button_updated', function() {
+      setPending('any');
+    });
+
+    // После перерендера корзины синхронизируем видимость
+    $body.on('updated_wc_div', function() {
+      if (isPending()) {
+        showButton();
+      } else {
+        hideButton();
+      }
+    });
+  }
+}
 
 // Retina поддержка для изображений и фоновых слоев
 function initRetinaSupport() {
