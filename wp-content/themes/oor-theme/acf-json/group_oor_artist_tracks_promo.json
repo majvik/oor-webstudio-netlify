@@ -1,0 +1,285 @@
+{
+    "key": "group_oor_artist_tracks_promo",
+    "title": "Artist — треки и промо",
+    "fields": [
+        {
+            "key": "field_oor_artist_tracks",
+            "label": "Треки",
+            "name": "tracks",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Промо-страница: URL вида /promo/SLUG-АРТИСТА/SLUG-ТРЕКА/ при заполненном «Slug промо». Пустой slug при сохранении заполняется из названия трека.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "field_oor_track_name",
+            "min": 0,
+            "max": 0,
+            "layout": "block",
+            "button_label": "Добавить трек",
+            "rows_per_page": 20,
+            "acfe_repeater_stylised_button": 0,
+            "sub_fields": [
+                {
+                    "key": "field_oor_track_name",
+                    "label": "Название трека",
+                    "name": "track_name",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 1,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "maxlength": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_oor_artist_tracks"
+                },
+                {
+                    "key": "field_oor_track_year",
+                    "label": "Год",
+                    "name": "track_year",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "maxlength": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_oor_artist_tracks"
+                },
+                {
+                    "key": "field_oor_track_mp3",
+                    "label": "Аудио (MP3)",
+                    "name": "track_mp3",
+                    "aria-label": "",
+                    "type": "file",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "library": "all",
+                    "mime_types": "mp3,mpeg",
+                    "min_size": 0,
+                    "max_size": 0,
+                    "uploader": "",
+                    "preview_style": "default",
+                    "placeholder": "Select",
+                    "upload_folder": "",
+                    "button_label": "Добавить файл",
+                    "stylised_button": 0,
+                    "file_count": 0,
+                    "multiple": 0,
+                    "min": "",
+                    "max": "",
+                    "parent_repeater": "field_oor_artist_tracks"
+                },
+                {
+                    "key": "field_oor_track_audio",
+                    "label": "Аудио (альтернативное поле)",
+                    "name": "track_audio",
+                    "aria-label": "",
+                    "type": "file",
+                    "instructions": "Опционально, если в старых данных использовалось поле track_audio вместо track_mp3.",
+                    "required": 0,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "library": "all",
+                    "mime_types": "mp3,mpeg",
+                    "min_size": 0,
+                    "max_size": 0,
+                    "uploader": "",
+                    "preview_style": "default",
+                    "placeholder": "Select",
+                    "upload_folder": "",
+                    "button_label": "Добавить файл",
+                    "stylised_button": 0,
+                    "file_count": 0,
+                    "multiple": 0,
+                    "min": "",
+                    "max": "",
+                    "parent_repeater": "field_oor_artist_tracks"
+                },
+                {
+                    "key": "field_oor_track_cover",
+                    "label": "Обложка трека",
+                    "name": "track_cover",
+                    "aria-label": "",
+                    "type": "image",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array",
+                    "preview_size": "medium",
+                    "library": "all",
+                    "min_width": 0,
+                    "min_height": 0,
+                    "min_size": 0,
+                    "max_width": 0,
+                    "max_height": 0,
+                    "max_size": 0,
+                    "mime_types": "",
+                    "uploader": "",
+                    "acfe_thumbnail": 0,
+                    "upload_folder": "",
+                    "parent_repeater": "field_oor_artist_tracks"
+                },
+                {
+                    "key": "field_oor_track_promo_slug",
+                    "label": "Slug промо-страницы",
+                    "name": "track_promo_slug",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Сегмент URL после имени артиста: /promo/артист/этот-slug/ — можно редактировать. Если пусто, при сохранении записи подставится из названия трека.",
+                    "required": 0,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "например my-track",
+                    "maxlength": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_oor_artist_tracks"
+                },
+                {
+                    "key": "field_oor_track_promo_social",
+                    "label": "Соцсети (промо)",
+                    "name": "track_promo_social_links",
+                    "aria-label": "",
+                    "type": "repeater",
+                    "instructions": "Строка без ссылки на фронте не показывается. Можно добавить любое количество площадок.",
+                    "required": 0,
+                    "conditional_logic": false,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "min": 0,
+                    "max": 0,
+                    "layout": "table",
+                    "button_label": "Добавить соцсеть",
+                    "rows_per_page": 20,
+                    "collapsed": "",
+                    "acfe_repeater_stylised_button": 0,
+                    "parent_repeater": "field_oor_artist_tracks",
+                    "sub_fields": [
+                        {
+                            "key": "field_oor_promo_soc_platform",
+                            "label": "Площадка",
+                            "name": "platform",
+                            "aria-label": "",
+                            "type": "select",
+                            "instructions": "",
+                            "required": 1,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "choices": {
+                                "apple_music": "Apple Music",
+                                "vk_music": "VK Музыка",
+                                "spotify": "Spotify",
+                                "yandex_music": "Yandex Music",
+                                "youtube": "YouTube",
+                                "zvuk": "Звук"
+                            },
+                            "default_value": "spotify",
+                            "allow_null": 0,
+                            "multiple": 0,
+                            "ui": 0,
+                            "return_format": "value",
+                            "ajax": 0,
+                            "placeholder": "",
+                            "create_options": 0,
+                            "save_options": 0,
+                            "allow_custom": 0,
+                            "search_placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "min": "",
+                            "max": "",
+                            "parent_repeater": "field_oor_track_promo_social"
+                        },
+                        {
+                            "key": "field_oor_promo_soc_url",
+                            "label": "Ссылка",
+                            "name": "url",
+                            "aria-label": "",
+                            "type": "url",
+                            "instructions": "Полный URL. Пустое поле — блок не отображается.",
+                            "required": 0,
+                            "conditional_logic": false,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "placeholder": "https://",
+                            "parent_repeater": "field_oor_track_promo_social"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "artist"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": [],
+    "active": true,
+    "description": "Если в админке уже есть другая группа полей для artist с полем tracks, выполните синхронизацию ACF вручную или объедините группы, чтобы не дублировать repeater tracks.",
+    "show_in_rest": 0,
+    "modified": 1774556191
+}

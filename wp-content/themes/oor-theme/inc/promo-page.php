@@ -85,6 +85,7 @@ function oor_promo_social_assets() {
         'vk_music'      => array('label' => 'VK Музыка', 'icon' => $base . 'social-vk-music.svg'),
         'spotify'       => array('label' => 'Spotify', 'icon' => $base . 'social-spotify.svg'),
         'yandex_music'  => array('label' => 'Yandex Music', 'icon' => $base . 'social-yandex-music.svg'),
+        'zvuk'          => array('label' => 'Звук', 'icon' => $base . 'social-zvuk.svg'),
         'youtube'       => array('label' => 'YouTube', 'icon' => $base . 'social-youtube.svg'),
     );
 }

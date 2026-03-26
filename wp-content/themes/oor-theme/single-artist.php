@@ -80,7 +80,14 @@ if (empty(get_the_title())) {
                         $platform = isset($social['platform']) ? $social['platform'] : (isset($social['name']) ? $social['name'] : '');
                         $url = isset($social['url']) ? $social['url'] : (isset($social['link']) ? $social['link'] : '#');
                         if ($platform && $url && $url !== '#') {
-                            $label = (strtolower($platform) === 'other') ? 'tiktok' : $platform;
+                            $pl = strtolower((string) $platform);
+                            if ($pl === 'other') {
+                                $label = 'tiktok';
+                            } elseif ($pl === 'zvuk') {
+                                $label = 'Звук';
+                            } else {
+                                $label = $platform;
+                            }
                             echo '<a href="' . esc_url($url) . '" class="oor-artist-social-link rolling-button" target="_blank" rel="noopener noreferrer"><span class="tn-atom">' . esc_html($label) . '</span></a>';
                         }
                     }

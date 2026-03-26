@@ -249,7 +249,7 @@ if (PHP_VERSION_ID >= 80200) {
 }
 
 // Промо-страница трека: inc/promo-page.php, шаблон template-promo-track.php, стили assets/css/promo-track.css.
-// ACF: acf-json/group_oor_artist_tracks_promo.json — при уже существующей группе полей «artist» в БД синхронизируйте вручную, чтобы не дублировать repeater tracks.
+// ACF JSON (artist): acf-json/group_oor_artist_tracks_promo.json, acf-json/group_artist_page.json — список площадок (в т.ч. промо) задаётся в choices в JSON; после правок синхронизируйте группы в ACF.
 
 // Настройка ACF для автоматической загрузки и синхронизации JSON из acf-json/
 add_filter('acf/settings/save_json', function($path) {
