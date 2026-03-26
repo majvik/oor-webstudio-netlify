@@ -557,6 +557,11 @@ add_filter('gettext', function($translated, $text, $domain) {
     return $translated;
 }, 20, 3);
 
+// Чекаут: текст кнопки оформления заказа
+add_filter('woocommerce_order_button_text', function() {
+    return 'Отправить заявку';
+});
+
 /**
  * Рендерит поле чекаута без вызова woocommerce_form_field (кроме country/state).
  * Поля text/email/tel/textarea выводятся напрямую — так их не может «съесть» ни фильтр, ни баг WC.
