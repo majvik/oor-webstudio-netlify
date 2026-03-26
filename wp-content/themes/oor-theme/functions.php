@@ -562,6 +562,34 @@ add_filter('woocommerce_order_button_text', function() {
     return 'Отправить заявку';
 });
 
+// Чекаут: вместо списка технических/детальных ошибок показываем одно нейтральное сообщение.
+add_action('woocommerce_after_checkout_validation', function($data, $errors) {
+    if (!function_exists('is_checkout') || !is_checkout()) {
+        return;
+    }
+    if (!($errors instanceof WP_Error) || !$errors->has_errors()) {
+        return;
+    }
+
+    $errors->remove('required-field');
+    $errors->remove('terms');
+    $errors->remove('payment');
+    $errors->remove('shipping');
+    $errors->remove('state');
+    $errors->remove('postcode');
+    $errors->remove('email');
+    $errors->remove('phone');
+    $errors->remove('validation');
+    $errors->remove('unknown');
+    $errors->remove('checkout-error');
+
+    foreach ((array) $errors->errors as $code => $messages) {
+        $errors->remove($code);
+    }
+
+    $errors->add('checkout-error', 'Проверьте заполнение обязательных полей и повторите отправку.');
+}, 9999, 2);
+
 /**
  * Рендерит поле чекаута без вызова woocommerce_form_field (кроме country/state).
  * Поля text/email/tel/textarea выводятся напрямую — так их не может «съесть» ни фильтр, ни баг WC.
