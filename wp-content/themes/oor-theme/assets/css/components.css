@@ -1073,12 +1073,12 @@ body.preloader-active{
   align-items: center;
   flex-shrink: 0;
   z-index: 1;
-  mix-blend-mode: difference;
 }
 
-.oor-musical-association-icon svg {
+.oor-musical-association-icon img {
   width: 156px;
   height: 567px;
+  display: block;
 }
 
 .oor-musical-association-plus {
@@ -1093,7 +1093,6 @@ body.preloader-active{
 .oor-musical-association-plus img {
   width: 17px;
   height: 17px;
-  mix-blend-mode: difference;
 }
 
 /* ===== CURSOR LINKS STYLES ===== */
