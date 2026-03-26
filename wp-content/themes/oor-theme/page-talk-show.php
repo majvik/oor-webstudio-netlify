@@ -24,9 +24,12 @@ $video_2_type = !empty($acf_video_2['mime_type']) ? $acf_video_2['mime_type'] : 
                 </div>
                 <div class="oor-talk-show-hero-right">
                     <div class="oor-talk-show-hero-video-small">
-                        <video class="oor-talk-show-hero-video" autoplay muted loop playsinline preload="metadata" poster="<?php echo $theme_uri; ?>/public/assets/talk-show-episode-4.png">
-                            <source src="<?php echo esc_url($video_1_url); ?>" type="<?php echo esc_attr($video_1_type); ?>">
-                        </video>
+                        <div class="oor-talk-show-hero-video-slot">
+                            <?php echo oor_video_cover_picture('talk-show-hero-video-1-cover', 'oor-talk-show-hero-video-fallback'); ?>
+                            <video class="oor-talk-show-hero-video" autoplay muted loop playsinline preload="metadata" poster="<?php echo esc_url($theme_uri . '/public/assets/talk-show-hero-video-1-cover.png'); ?>">
+                                <source src="<?php echo esc_url($video_1_url); ?>" type="<?php echo esc_attr($video_1_type); ?>">
+                            </video>
+                        </div>
                     </div>
                     <p class="oor-talk-show-hero-description">Обсуждаем музыкальную индустрию во всех ракурсах</p>
                 </div>
@@ -34,9 +37,12 @@ $video_2_type = !empty($acf_video_2['mime_type']) ? $acf_video_2['mime_type'] : 
             
             <div class="oor-talk-show-hero-bottom">
                 <div class="oor-talk-show-hero-video-large">
-                    <video class="oor-talk-show-hero-video" autoplay muted loop playsinline preload="metadata" poster="<?php echo $theme_uri; ?>/public/assets/talk-show-hero-large.png">
-                        <source src="<?php echo esc_url($video_2_url); ?>" type="<?php echo esc_attr($video_2_type); ?>">
-                    </video>
+                    <div class="oor-talk-show-hero-video-slot">
+                        <?php echo oor_video_cover_picture('talk-show-hero-video-2-cover', 'oor-talk-show-hero-video-fallback'); ?>
+                        <video class="oor-talk-show-hero-video" autoplay muted loop playsinline preload="metadata" poster="<?php echo esc_url($theme_uri . '/public/assets/talk-show-hero-video-2-cover.png'); ?>">
+                            <source src="<?php echo esc_url($video_2_url); ?>" type="<?php echo esc_attr($video_2_type); ?>">
+                        </video>
+                    </div>
                 </div>
             </div>
         </div>

@@ -60,12 +60,13 @@ get_header();
             $modal_video = $modal_video_url ? $modal_video_url : get_template_directory_uri() . '/public/assets/OUTOFREC_reel_v4_nologo.mp4';
             ?>
             <!-- Hero Video фон -->
-            <video class="oor-hero-video" autoplay muted loop playsinline preload="metadata" poster="<?php echo get_template_directory_uri(); ?>/public/assets/video-cover.avif">
-                <source src="<?php echo esc_url($bg_video_webm); ?>" type="video/webm">
-                <source src="<?php echo esc_url($bg_video_mp4); ?>" type="video/mp4">
-                <!-- Fallback для браузеров без поддержки видео -->
-                <div class="oor-hero-video-fallback"></div>
-            </video>
+            <div class="oor-hero-video-slot">
+                <?php echo oor_video_cover_picture('hero-video-cover', 'oor-hero-video-fallback'); ?>
+                <video class="oor-hero-video" autoplay muted loop playsinline preload="metadata" poster="<?php echo esc_url(get_template_directory_uri() . '/public/assets/hero-video-cover.png'); ?>">
+                    <source src="<?php echo esc_url($bg_video_webm); ?>" type="video/webm">
+                    <source src="<?php echo esc_url($bg_video_mp4); ?>" type="video/mp4">
+                </video>
+            </div>
             
             <!-- Кликабельный оверлей для открытия полноэкранного видео -->
             <div class="oor-hero-video-overlay video-cuberto-cursor-1" id="hero-video-overlay" data-cursor-video="<?php echo esc_url($modal_video); ?>"></div>

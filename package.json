@@ -5,6 +5,7 @@
   "scripts": {
     "build": "node scripts/update-cache-version.js",
     "generate-image-variants": "node scripts/generate-image-variants.js",
+    "generate-video-covers": "node scripts/generate-video-covers.js",
     "setup": "bash scripts/setup-dev.sh",
     "serve": "python3 -m http.server 8040",
     "serve:alt": "npx serve . -p 8040"

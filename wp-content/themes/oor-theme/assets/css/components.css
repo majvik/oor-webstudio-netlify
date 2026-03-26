@@ -436,12 +436,40 @@ body.oor-studio-page .oor-header .oor-burger-menu .oor-burger-icon img {
   z-index:1;
 }
 
-/* Hero Video элемент */
-/* Fallback для видео (когда браузер не поддерживает video) */
+/* Hero Video: слот + <picture> fallback */
+.oor-hero-video-slot {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+/* Fallback для видео (ошибка загрузки / нет поддержки) */
 .oor-hero-video-fallback {
   position: absolute;
   inset: 0;
-  background: url('../../public/assets/video-cover.webp') center/cover no-repeat;
+  z-index: 2;
+  display: none;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* picture не тянется по % высоте без явного заполнения — как у video + object-fit: cover */
+.oor-hero-video-fallback picture {
+  position: absolute;
+  inset: 0;
+  display: block;
+  margin: 0;
+}
+
+.oor-hero-video-fallback .oor-video-cover-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: center;
+  display: block;
 }
 
 .oor-hero-video{
@@ -450,15 +478,16 @@ body.oor-studio-page .oor-header .oor-burger-menu .oor-burger-icon img {
   width:100%;
   height:100%;
   object-fit:cover;
+  object-position: center;
   z-index:1;
 }
 
-/* Стили для заглушки видео */
-.oor-hero-video[poster] {
-  background-image: url('../../public/assets/video-cover.avif');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+.oor-video-cover-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
 }
 
 /* Черный оверлей поверх видео, но под текстом */
@@ -524,13 +553,7 @@ body.oor-studio-page .oor-header .oor-burger-menu .oor-burger-icon img {
   object-fit:contain;
 }
 
-/* Стили для заглушки полноэкранного видео */
-.oor-fullscreen-video-element[poster] {
-  background-image: url('../../public/assets/video-cover.avif');
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-}
+/* Постер задаётся атрибутом poster (hero-video-cover.png) */
 
 .oor-fullscreen-close{
   position:absolute;
@@ -5802,6 +5825,47 @@ body.oor-manifest-page .oor-mobile-menu-btn:hover .oor-mobile-menu-btn-text {
 }
 
 /* Чуть крупнее контейнера + overflow:hidden у wrapper — срезаем краевые полосы/субпиксели */
+.oor-manifest-hero-video-fallback {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 100%;
+  height: 100%;
+  min-width: 100%;
+  min-height: 100%;
+  max-width: none;
+  transform: translate(-50%, -50%) scale(1.005);
+  z-index: 2;
+  display: none;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.oor-manifest-hero-video-fallback picture {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  min-width: 100%;
+  min-height: 100%;
+  display: block;
+  margin: 0;
+}
+
+.oor-manifest-hero-video-fallback .oor-video-cover-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  min-width: 100%;
+  min-height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: center center;
+  display: block;
+}
+
+/* Подложка = тот же кадр, что poster: заполняет блок, пока WebKit рисует постер с полосами */
 .oor-manifest-hero-video {
   position: absolute;
   left: 50%;
@@ -5818,6 +5882,11 @@ body.oor-manifest-page .oor-mobile-menu-btn:hover .oor-mobile-menu-btn-text {
   outline: none;
   box-shadow: none;
   background-color: transparent;
+  background-image: url('../../public/assets/manifest-video-cover.png');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  z-index: 1;
 }
 
 .oor-manifest-hero-overlay {
@@ -5826,6 +5895,7 @@ body.oor-manifest-page .oor-mobile-menu-btn:hover .oor-mobile-menu-btn-text {
   left: 0;
   right: 0;
   bottom: 0;
+  z-index: 3;
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
@@ -6184,6 +6254,27 @@ body.oor-manifest-page .oor-mobile-menu-btn:hover .oor-mobile-menu-btn-text {
   }
 
   /* Центрирование + min размеры: надёжнее cover на мобильных Safari */
+  .oor-manifest-hero-video-fallback picture {
+    min-width: 100%;
+    min-height: 100%;
+  }
+
+  .oor-manifest-hero-video-fallback .oor-video-cover-img {
+    min-width: 100%;
+    min-height: 100%;
+  }
+
+  .oor-manifest-hero-video-fallback {
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    min-width: 100%;
+    min-height: 100%;
+    max-width: none;
+    transform: translate(-50%, -50%) scale(1.02);
+  }
+
   .oor-manifest-hero-video {
     top: 50%;
     left: 50%;
@@ -6197,6 +6288,10 @@ body.oor-manifest-page .oor-mobile-menu-btn:hover .oor-mobile-menu-btn-text {
     object-position: center center;
     /* Подложка только на мобилке (борьба с чёрными полосами WebKit) */
     background-color: #fff;
+    background-image: url('../../public/assets/manifest-video-cover.png');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
   }
 
   .oor-manifest-hero-col-left {
@@ -7931,6 +8026,55 @@ body.oor-talk-show-page .oor-btn-small-icon img {
   position: relative;
 }
 
+.oor-talk-show-hero-video-slot {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.oor-talk-show-hero-video-fallback {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: none;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.oor-talk-show-hero-video-fallback picture {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  min-width: 100%;
+  min-height: 100%;
+  display: block;
+  margin: 0;
+}
+
+.oor-talk-show-hero-video-fallback .oor-video-cover-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  min-width: 100%;
+  min-height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.oor-talk-show-hero-video-small .oor-talk-show-hero-video-slot .oor-talk-show-hero-video {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background-image: url('../../public/assets/talk-show-hero-video-1-cover.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 .oor-talk-show-hero-video-small video,
 .oor-talk-show-hero-video-small img {
   width: 100%;
@@ -7962,6 +8106,16 @@ body.oor-talk-show-page .oor-btn-small-icon img {
   position: relative;
 }
 
+.oor-talk-show-hero-video-large .oor-talk-show-hero-video-slot .oor-talk-show-hero-video {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background-image: url('../../public/assets/talk-show-hero-video-2-cover.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 .oor-talk-show-hero-video-large video,
 .oor-talk-show-hero-video-large img {
   width: 100%;
@@ -7973,6 +8127,7 @@ body.oor-talk-show-page .oor-btn-small-icon img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
   display: block;
 }
 

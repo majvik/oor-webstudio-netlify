@@ -129,6 +129,7 @@ window.addEventListener('load', function() {
   try {
     initNavigation();
     initHeroVideo();
+    initCoverVideosWithPictureFallback();
     initFullscreenVideo();
     initMagneticElements();
     initOrphanControl();
@@ -272,7 +273,7 @@ function initRetinaSupport() {
     for (const img of imgs) {
       const src = img.getAttribute('src');
       if (!src) continue;
-      if (/video-cover/i.test(src)) continue;
+      if (/(hero-video-cover|manifest-video-cover|talk-show-hero-video-[12]-cover)/i.test(src)) continue;
       if (/splash\.gif/i.test(src)) continue;
       if (/splash-last-frame/i.test(src)) continue; // нет @2x версии, не запрашивать
       if (/events-gallery/i.test(src)) continue;
@@ -317,7 +318,7 @@ function initRetinaSupport() {
       if (/image-set\(/i.test(bg)) continue;
       if (/,/.test(bg)) continue;
       if (/gradient\(/i.test(bg)) continue;
-      if (/video-cover/i.test(bg)) continue;
+      if (/(hero-video-cover|manifest-video-cover|talk-show-hero-video-[12]-cover)/i.test(bg)) continue;
       const match = /url\(("|')?(.*?)("|')?\)/.exec(bg);
       if (!match || !match[2]) continue;
       const url = match[2];
@@ -968,18 +969,41 @@ function detectLowPowerMode() {
   return duration > 50; // Если вычисления занимают больше 50ms, возможно низкая производительность
 }
 
+/** Слой <picture> перед <video> с классом *-video-fallback */
+function getVideoCoverFallbackEl(video) {
+  const prev = video.previousElementSibling;
+  if (!prev || !prev.classList) return null;
+  return [...prev.classList].some((c) => c.endsWith('-video-fallback')) ? prev : null;
+}
+
+/** Манифест и Talk-show: постер/fallback при ошибке видео */
+function initCoverVideosWithPictureFallback() {
+  const videos = document.querySelectorAll('.oor-manifest-hero-video, .oor-talk-show-hero-video');
+  videos.forEach((video) => {
+    const fallback = getVideoCoverFallbackEl(video);
+    if (!fallback) return;
+    video.addEventListener('canplay', function () {
+      fallback.style.display = 'none';
+    });
+    video.addEventListener('error', function () {
+      console.warn('Cover video: ошибка загрузки, показываем fallback');
+      fallback.style.display = 'block';
+    });
+  });
+}
+
 // Hero Video оптимизация с улучшенным автоплеем
 function initHeroVideo() {
   const video = document.querySelector('.oor-hero-video');
   if (!video) return;
+
+  const fallback = getVideoCoverFallbackEl(video);
 
   // Оптимизация загрузки
   video.addEventListener('loadstart', function() {
   });
 
   video.addEventListener('canplay', function() {
-    // Убираем fallback изображение когда видео готово
-    const fallback = video.querySelector('div');
     if (fallback) {
       fallback.style.display = 'none';
     }
@@ -987,8 +1011,6 @@ function initHeroVideo() {
 
   video.addEventListener('error', function(e) {
     console.warn('Hero video: Ошибка загрузки, используем fallback');
-    // Показываем fallback изображение при ошибке
-    const fallback = video.querySelector('div');
     if (fallback) {
       fallback.style.display = 'block';
     }

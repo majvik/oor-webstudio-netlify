@@ -208,6 +208,41 @@ function oor_artist_fallback_picture($artist_slug, $base_name = 'main', $img_cla
 }
 
 /**
+ * Fallback-слой для фонового видео: <picture> avif → webp → png (только существующие файлы).
+ *
+ * @param string $basename      Имя без расширения в public/assets/ (например hero-video-cover).
+ * @param string $wrapper_class Класс обёртки (позиционирование в CSS).
+ * @param string $alt           Alt для img (часто пусто для декоративного фона).
+ * @param string $img_class     Класс img (object-fit: cover в CSS).
+ */
+function oor_video_cover_picture($basename, $wrapper_class, $alt = '', $img_class = 'oor-video-cover-img') {
+    $theme_dir = get_template_directory();
+    $base_path = $theme_dir . '/public/assets/' . $basename;
+    $base_url = get_template_directory_uri() . '/public/assets/' . $basename;
+
+    $has_avif = file_exists($base_path . '.avif');
+    $has_webp = file_exists($base_path . '.webp');
+    $has_png = file_exists($base_path . '.png');
+    if (!$has_png && !$has_webp && !$has_avif) {
+        return '';
+    }
+
+    $img_src = $has_png ? $base_url . '.png' : ($has_webp ? $base_url . '.webp' : $base_url . '.avif');
+
+    $html = '<div class="' . esc_attr($wrapper_class) . '" aria-hidden="true">';
+    $html .= '<picture>';
+    if ($has_avif) {
+        $html .= '<source srcset="' . esc_url($base_url . '.avif') . '" type="image/avif">';
+    }
+    if ($has_webp) {
+        $html .= '<source srcset="' . esc_url($base_url . '.webp') . '" type="image/webp">';
+    }
+    $html .= '<img src="' . esc_url($img_src) . '" alt="' . esc_attr($alt) . '" class="' . esc_attr($img_class) . '" decoding="async">';
+    $html .= '</picture></div>';
+    return $html;
+}
+
+/**
  * Базовый URL темы для ресурсов (картинки, скрипты). На сервере с nip.io возвращает канонический URL.
  * Использовать вместо get_template_directory_uri() там, где критично правильный хост (артисты, медиа).
  * Учитывает OOR_FORCE_CANONICAL_HOST и текущий HTTP_HOST (если зашли по 45.141.102.187.nip.io — подставляем его).

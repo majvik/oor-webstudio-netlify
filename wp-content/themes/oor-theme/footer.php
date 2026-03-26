@@ -149,7 +149,7 @@
     ?>
     <div class="oor-fullscreen-video" id="fullscreen-video">
         <video class="oor-fullscreen-video-element" controls 
-               poster="<?php echo get_template_directory_uri(); ?>/public/assets/video-cover.avif">
+               poster="<?php echo esc_url(get_template_directory_uri() . '/public/assets/hero-video-cover.png'); ?>">
             <?php if ($modal_video_webm) : ?>
                 <source src="<?php echo esc_url($modal_video_webm); ?>" type="video/webm">
             <?php endif; ?>

@@ -20,7 +20,8 @@ get_header();
         <div class="oor-container">
             <div class="oor-manifest-hero-video-wrapper">
                 <!-- Video background -->
-                <video class="oor-manifest-hero-video" autoplay muted loop playsinline preload="metadata" poster="<?php echo get_template_directory_uri(); ?>/public/assets/video-cover.avif">
+                <?php echo oor_video_cover_picture('manifest-video-cover', 'oor-manifest-hero-video-fallback'); ?>
+                <video class="oor-manifest-hero-video" autoplay muted loop playsinline preload="metadata" poster="<?php echo esc_url(get_template_directory_uri() . '/public/assets/manifest-video-cover.png'); ?>">
                     <source src="<?php echo get_template_directory_uri(); ?>/public/assets/manifest-hero.webm" type="video/webm">
                     <source src="<?php echo get_template_directory_uri(); ?>/public/assets/manifest-hero.mp4" type="video/mp4">
                 </video>
