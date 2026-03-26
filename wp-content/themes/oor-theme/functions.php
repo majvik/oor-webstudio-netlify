@@ -562,33 +562,135 @@ add_filter('woocommerce_order_button_text', function() {
     return 'Отправить заявку';
 });
 
-// Чекаут: вместо списка технических/детальных ошибок показываем одно нейтральное сообщение.
-add_action('woocommerce_after_checkout_validation', function($data, $errors) {
-    if (!function_exists('is_checkout') || !is_checkout()) {
+// Thank you page: "Платёжный адрес" -> "Ваши данные".
+add_filter('gettext', function($translated, $text, $domain) {
+    if ($domain !== 'woocommerce') {
+        return $translated;
+    }
+    if (!function_exists('is_wc_endpoint_url') || !is_wc_endpoint_url('order-received')) {
+        return $translated;
+    }
+    if ($text === 'Billing address') {
+        return 'Ваши данные';
+    }
+    return $translated;
+}, 30, 3);
+
+// Thank you page: расширяем текст успешного сообщения.
+add_filter('woocommerce_thankyou_order_received_text', function($text, $order) {
+    if (!function_exists('is_wc_endpoint_url') || !is_wc_endpoint_url('order-received')) {
+        return $text;
+    }
+    return 'Ваш заказ принят. Благодарим вас. Менеджер скоро свяжется с вами по telegram.';
+}, 20, 2);
+
+// Thank you page: формат адреса с подзаголовками, как у полей ввода.
+add_filter('woocommerce_order_get_formatted_billing_address', function($address, $raw_address, $order) {
+    if (!function_exists('is_wc_endpoint_url') || !is_wc_endpoint_url('order-received')) {
+        return $address;
+    }
+
+    $rows = array();
+    $full_name = trim($order->get_billing_first_name() . ' ' . $order->get_billing_last_name());
+    if ($full_name !== '') {
+        $rows[] = array('ФИО', $full_name);
+    }
+
+    $street = trim($order->get_billing_address_1() . ' ' . $order->get_billing_address_2());
+    if ($street !== '') {
+        $rows[] = array('Адрес', $street);
+    }
+
+    $city_region = trim(implode(', ', array_filter(array(
+        $order->get_billing_city(),
+        $order->get_billing_state(),
+        $order->get_billing_postcode(),
+    ))));
+    if ($city_region !== '') {
+        $rows[] = array('Город / регион', $city_region);
+    }
+
+    if ($order->get_billing_phone()) {
+        $rows[] = array('Телефон', $order->get_billing_phone());
+    }
+    if ($order->get_billing_email()) {
+        $rows[] = array('Email', $order->get_billing_email());
+    }
+
+    if (empty($rows)) {
+        return $address;
+    }
+
+    $html = '';
+    foreach ($rows as $row) {
+        $html .= '<span class="oor-thankyou-data-row">';
+        $html .= '<span class="oor-thankyou-data-label">' . esc_html($row[0]) . '</span>';
+        $html .= '<span class="oor-thankyou-data-value">' . esc_html($row[1]) . '</span>';
+        $html .= '</span>';
+    }
+    return $html;
+}, 20, 3);
+
+// Thank you page: в строке доставки показываем нейтральный текст вместо "Free shipping".
+add_filter('woocommerce_get_order_item_totals', function($totals, $order, $tax_display) {
+    if (!function_exists('is_wc_endpoint_url') || !is_wc_endpoint_url('order-received')) {
+        return $totals;
+    }
+    if (!is_array($totals)) {
+        return $totals;
+    }
+    if (!empty($totals['shipping'])) {
+        $totals['shipping']['value'] = 'Будет уточнено менеджером';
+    }
+    // Не показываем строку "Способ оплаты" в таблице итогов на thank you.
+    if (isset($totals['payment_method'])) {
+        unset($totals['payment_method']);
+    }
+    return $totals;
+}, 20, 3);
+
+// Thank you page: добавляем кнопку "Вернуться в магазин".
+add_action('woocommerce_thankyou', function($order_id) {
+    if (!function_exists('wc_get_page_permalink')) {
         return;
     }
-    if (!($errors instanceof WP_Error) || !$errors->has_errors()) {
+    $shop_url = wc_get_page_permalink('shop');
+    if (!$shop_url) {
         return;
     }
+    echo '<a class="button oor-thankyou-back-to-shop" href="' . esc_url($shop_url) . '">Вернуться в магазин</a>';
+}, 30);
 
-    $errors->remove('required-field');
-    $errors->remove('terms');
-    $errors->remove('payment');
-    $errors->remove('shipping');
-    $errors->remove('state');
-    $errors->remove('postcode');
-    $errors->remove('email');
-    $errors->remove('phone');
-    $errors->remove('validation');
-    $errors->remove('unknown');
-    $errors->remove('checkout-error');
+// Чекаут: агрегатор ошибок временно отключен для отладки валидации полей.
+// Чтобы включить обратно, поменяйте false на true.
+if (false) {
+    add_action('woocommerce_after_checkout_validation', function($data, $errors) {
+        if (!function_exists('is_checkout') || !is_checkout()) {
+            return;
+        }
+        if (!($errors instanceof WP_Error) || !$errors->has_errors()) {
+            return;
+        }
 
-    foreach ((array) $errors->errors as $code => $messages) {
-        $errors->remove($code);
-    }
+        $errors->remove('required-field');
+        $errors->remove('terms');
+        $errors->remove('payment');
+        $errors->remove('shipping');
+        $errors->remove('state');
+        $errors->remove('postcode');
+        $errors->remove('email');
+        $errors->remove('phone');
+        $errors->remove('validation');
+        $errors->remove('unknown');
+        $errors->remove('checkout-error');
 
-    $errors->add('checkout-error', 'Проверьте заполнение обязательных полей и повторите отправку.');
-}, 9999, 2);
+        foreach ((array) $errors->errors as $code => $messages) {
+            $errors->remove($code);
+        }
+
+        $errors->add('checkout-error', 'Проверьте заполнение обязательных полей и повторите отправку.');
+    }, 9999, 2);
+}
 
 /**
  * Рендерит поле чекаута без вызова woocommerce_form_field (кроме country/state).
@@ -688,6 +790,24 @@ add_filter('woocommerce_form_field_args', function($args, $key, $value) {
 // если billing пустой, восстанавливаем стандартные поля. Приоритет 99999 чтобы сработать последним.
 add_filter('woocommerce_checkout_fields', function($fields) {
     if (!empty($fields['billing']) || !function_exists('WC') || !WC()->countries) {
+        // Даже если billing не пустой, страхуем страну выставления счёта:
+        // в кастомной вёрстке поле может не попасть в DOM, но Woo может требовать его в валидации.
+        if (function_exists('WC') && WC()->countries) {
+            $base_country = WC()->countries->get_base_country();
+            $allowed = WC()->countries->get_allowed_countries();
+            if (!empty($allowed) && !array_key_exists($base_country, $allowed)) {
+                $base_country = key($allowed);
+            }
+            if (empty($fields['billing']['billing_country']) || !is_array($fields['billing']['billing_country'])) {
+                $fields['billing']['billing_country'] = array();
+            }
+            $fields['billing']['billing_country'] = array_merge($fields['billing']['billing_country'], array(
+                'type' => 'hidden',
+                'required' => false,
+                'default' => $base_country,
+                'priority' => 41,
+            ));
+        }
         return $fields;
     }
     $country = WC()->countries->get_base_country();
@@ -697,7 +817,34 @@ add_filter('woocommerce_checkout_fields', function($fields) {
     }
     $country = array_key_exists($country, $allowed) ? $country : key($allowed);
     $fields['billing'] = WC()->countries->get_address_fields($country, 'billing_');
+    if (empty($fields['billing']['billing_country']) || !is_array($fields['billing']['billing_country'])) {
+        $fields['billing']['billing_country'] = array();
+    }
+    $fields['billing']['billing_country'] = array_merge($fields['billing']['billing_country'], array(
+        'type' => 'hidden',
+        'required' => false,
+        'default' => $country,
+        'priority' => 41,
+    ));
     return $fields;
+}, 99999);
+
+// Подстраховка: если billing_country отсутствует в POST (скрытое поле не отрисовалось),
+// подставляем страну магазина, чтобы checkout не падал на "Страна/регион — обязательное поле".
+add_filter('woocommerce_checkout_posted_data', function($data) {
+    if (!function_exists('WC') || !WC()->countries) {
+        return $data;
+    }
+    if (!empty($data['billing_country'])) {
+        return $data;
+    }
+    $country = WC()->countries->get_base_country();
+    $allowed = WC()->countries->get_allowed_countries();
+    if (!empty($allowed) && !array_key_exists($country, $allowed)) {
+        $country = key($allowed);
+    }
+    $data['billing_country'] = $country;
+    return $data;
 }, 99999);
 
 // Вставка инпутов в строки чекаута, если их нет в DOM (после рендера или после address-i18n/update_checkout).

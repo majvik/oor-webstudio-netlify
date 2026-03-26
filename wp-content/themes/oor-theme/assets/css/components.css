@@ -13183,6 +13183,151 @@ body.oor-checkout-page .woocommerce .form-row.validate-required textarea {
   }
 }
 
+/* Thank you (order received): читаемая вёрстка и акцент на статусе заявки */
+body.woocommerce-order-received .oor-checkout-section .woocommerce-order {
+  display: grid;
+  gap: 28px;
+}
+
+body.woocommerce-order-received .woocommerce-notice.woocommerce-notice--success.woocommerce-thankyou-order-received {
+  margin: 0;
+  padding: 22px 24px;
+  background: #22c55e;
+  color: #fff;
+  font-size: 19px;
+  line-height: 1.1;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+body.woocommerce-order-received .woocommerce-order-overview {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  align-items: stretch;
+  gap: 0;
+}
+
+body.woocommerce-order-received .woocommerce-order-overview li {
+  margin: 0 !important;
+  padding: 0 16px;
+  flex: 0 0 auto;
+  white-space: nowrap;
+  width: auto !important;
+  float: none !important;
+  clear: none !important;
+  border-right: 1px solid rgba(0, 0, 0, 0.14);
+}
+
+body.woocommerce-order-received .woocommerce-order-overview li:first-child {
+  padding-left: 0;
+}
+
+body.woocommerce-order-received .woocommerce-order-overview li:last-child {
+  border-right: 0;
+  padding-right: 0;
+}
+
+body.woocommerce-order-received .woocommerce-order-overview .woocommerce-order-overview__order,
+body.woocommerce-order-received .woocommerce-order-overview .woocommerce-order-overview__date {
+  display: block !important;
+}
+
+body.woocommerce-order-received .woocommerce-order-overview li strong {
+  display: inline !important;
+}
+
+/* В overview оставляем только номер заказа и дату */
+body.woocommerce-order-received .woocommerce-order-overview .woocommerce-order-overview__email,
+body.woocommerce-order-received .woocommerce-order-overview .woocommerce-order-overview__total,
+body.woocommerce-order-received .woocommerce-order-overview .woocommerce-order-overview__payment-method {
+  display: none !important;
+}
+
+/* Не показываем "Адрес доставки: Н/Д" */
+body.woocommerce-order-received .woocommerce-customer-details .woocommerce-column--shipping-address {
+  display: none;
+}
+
+body.woocommerce-order-received .woocommerce-customer-details .woocommerce-columns {
+  display: block;
+}
+
+body.woocommerce-order-received .woocommerce-customer-details .woocommerce-column--billing-address {
+  width: 100%;
+  float: none;
+}
+
+body.woocommerce-order-received .woocommerce-order-details__title,
+body.woocommerce-order-received .woocommerce-column__title {
+  margin: 0 0 16px !important;
+}
+
+body.woocommerce-order-received .woocommerce-customer-details address {
+  margin: 0;
+  padding: 14px 12px;
+  line-height: 1.4;
+}
+
+body.woocommerce-order-received .woocommerce-customer-details address p,
+body.woocommerce-order-received .woocommerce-customer-details address .woocommerce-customer-details--phone,
+body.woocommerce-order-received .woocommerce-customer-details address .woocommerce-customer-details--email {
+  font-size: inherit !important;
+  line-height: inherit !important;
+  margin: 0 !important;
+}
+
+/* Подзаголовки и значения в блоке "Ваши данные" */
+body.woocommerce-order-received .woocommerce-customer-details address .oor-thankyou-data-row {
+  display: block;
+  margin-bottom: 12px;
+}
+
+body.woocommerce-order-received .woocommerce-customer-details address .oor-thankyou-data-row:last-child {
+  margin-bottom: 0;
+}
+
+body.woocommerce-order-received .woocommerce-customer-details address .oor-thankyou-data-label {
+  display: block;
+  font-size: 11px;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  opacity: 0.75;
+  margin-bottom: 4px;
+}
+
+body.woocommerce-order-received .woocommerce-customer-details address .oor-thankyou-data-value {
+  display: block;
+}
+
+/* Кнопка возврата в магазин */
+body.woocommerce-order-received .oor-thankyou-back-to-shop {
+  min-height: 52px;
+  padding: 12px 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 4px;
+  background: #000 !important;
+  color: #fff !important;
+  border: 1px solid #000 !important;
+  border-radius: 0 !important;
+  text-decoration: none !important;
+}
+
+body.woocommerce-order-received .oor-thankyou-back-to-shop:hover {
+  opacity: 0.85;
+}
+
+/* Телефон/почту из стандартных p-строк скрываем (теперь они в адресе с подзаголовками) */
+body.woocommerce-order-received .woocommerce-customer-details .woocommerce-customer-details--phone,
+body.woocommerce-order-received .woocommerce-customer-details .woocommerce-customer-details--email {
+  display: none !important;
+}
+
 /* ===== CONTACTS PAGE STYLES ===== */
 
 /* Contacts page - white background like artists page */
