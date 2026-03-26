@@ -5801,13 +5801,23 @@ body.oor-manifest-page .oor-mobile-menu-btn:hover .oor-mobile-menu-btn-text {
   overflow: hidden;
 }
 
+/* Чуть крупнее контейнера + overflow:hidden у wrapper — срезаем краевые полосы/субпиксели */
 .oor-manifest-hero-video {
   position: absolute;
-  top: 0;
-  left: 0;
+  left: 50%;
+  top: 50%;
   width: 100%;
   height: 100%;
+  min-width: 100%;
+  min-height: 100%;
+  max-width: none;
+  transform: translate(-50%, -50%) scale(1.005);
   object-fit: cover;
+  object-position: center center;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  background-color: transparent;
 }
 
 .oor-manifest-hero-overlay {
@@ -6143,15 +6153,18 @@ body.oor-manifest-page .oor-mobile-menu-btn:hover .oor-mobile-menu-btn-text {
   .oor-manifest-hero-video-wrapper {
     margin-top: 0;
     height: 668px;
-    padding: 64px 32px;
+    /* Без padding: иначе на iOS/WebKit видео часто даёт чёрные полосы внутри рамки */
+    padding: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 64px;
     position: relative;
+    overflow: hidden;
   }
 
+  /* Отступы контента — только на оверлее; видео на весь блок */
   .oor-manifest-hero-overlay {
     position: absolute;
     top: 0;
@@ -6166,6 +6179,24 @@ body.oor-manifest-page .oor-mobile-menu-btn:hover .oor-mobile-menu-btn-text {
     width: 100%;
     height: 100%;
     z-index: 2;
+    padding: 64px 32px;
+    box-sizing: border-box;
+  }
+
+  /* Центрирование + min размеры: надёжнее cover на мобильных Safari */
+  .oor-manifest-hero-video {
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    min-width: 100%;
+    min-height: 100%;
+    max-width: none;
+    transform: translate(-50%, -50%) scale(1.02);
+    object-fit: cover;
+    object-position: center center;
+    /* Подложка только на мобилке (борьба с чёрными полосами WebKit) */
+    background-color: #fff;
   }
 
   .oor-manifest-hero-col-left {
@@ -6356,7 +6387,7 @@ body.oor-manifest-page .oor-mobile-menu-btn:hover .oor-mobile-menu-btn-text {
     padding: 0 16px;
   }
 
-  .oor-manifest-hero-video-wrapper {
+  .oor-manifest-hero-overlay {
     padding: 64px 16px;
   }
 
