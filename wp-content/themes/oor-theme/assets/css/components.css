@@ -12130,6 +12130,13 @@ body.oor-checkout-page .woocommerce-error::before,
   display: none !important;
 }
 
+/* Чекаут: верхний блок со списком ul.woocommerce-error (детальные тексты) — скрыт.
+   Ошибки у полей (checkout-inline-error-message и др.) остаются в #customer_details. */
+body.oor-checkout-page .woocommerce-NoticeGroup-checkout,
+.oor-checkout-section .woocommerce-NoticeGroup-checkout {
+  display: none !important;
+}
+
 /* Чекаут: убираем браузерный фокус с сообщений */
 body.oor-checkout-page .woocommerce-message:focus,
 body.oor-checkout-page .woocommerce-notices-wrapper:focus,
@@ -12877,6 +12884,30 @@ body.oor-checkout-page .woocommerce .form-row.validate-required textarea {
   opacity: 1 !important;
   position: relative !important;
   clip: auto !important;
+}
+
+.oor-checkout-section .woocommerce .form-row .oor-checkout-help-text {
+  display: block;
+  margin-top: 6px;
+  font-family: var(--font-pragmatica);
+  font-size: 11px;
+  line-height: 1.25;
+  letter-spacing: -0.22px;
+  color: #000;
+  opacity: 0.7;
+}
+
+/* Checkout billing: label всегда на отдельной строке */
+.oor-checkout-section .woocommerce-billing-fields__field-wrapper .form-row label,
+.oor-checkout-section .woocommerce .form-row label {
+  display: block !important;
+  margin-bottom: 6px;
+}
+
+/* Helper-текст под полем — всегда на отдельной строке */
+.oor-checkout-section .woocommerce .form-row .oor-checkout-help-text {
+  display: block !important;
+  margin-top: 6px;
 }
 .oor-checkout-section .woocommerce .form-row-first,
 .oor-checkout-section .woocommerce .form-row-last {

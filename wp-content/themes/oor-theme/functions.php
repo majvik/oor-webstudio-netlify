@@ -661,36 +661,9 @@ add_action('woocommerce_thankyou', function($order_id) {
     echo '<a class="button oor-thankyou-back-to-shop" href="' . esc_url($shop_url) . '">Вернуться в магазин</a>';
 }, 30);
 
-// Чекаут: агрегатор ошибок временно отключен для отладки валидации полей.
-// Чтобы включить обратно, поменяйте false на true.
-if (false) {
-    add_action('woocommerce_after_checkout_validation', function($data, $errors) {
-        if (!function_exists('is_checkout') || !is_checkout()) {
-            return;
-        }
-        if (!($errors instanceof WP_Error) || !$errors->has_errors()) {
-            return;
-        }
-
-        $errors->remove('required-field');
-        $errors->remove('terms');
-        $errors->remove('payment');
-        $errors->remove('shipping');
-        $errors->remove('state');
-        $errors->remove('postcode');
-        $errors->remove('email');
-        $errors->remove('phone');
-        $errors->remove('validation');
-        $errors->remove('unknown');
-        $errors->remove('checkout-error');
-
-        foreach ((array) $errors->errors as $code => $messages) {
-            $errors->remove($code);
-        }
-
-        $errors->add('checkout-error', 'Проверьте заполнение обязательных полей и повторите отправку.');
-    }, 9999, 2);
-}
+// Чекаут: детальный список ошибок вверху формы скрыт в components.css
+// (.woocommerce-NoticeGroup-checkout), чтобы не дублировать «консоль».
+// WP_Error и wc_add_notice не трогаем — inline-ошибки у полей остаются.
 
 /**
  * Рендерит поле чекаута без вызова woocommerce_form_field (кроме country/state).
@@ -730,6 +703,7 @@ function oor_render_checkout_field( $key, $field, $value ) {
 	$label_cls   = is_array( $field_label_class ) ? implode( ' ', $field_label_class ) : $field_label_class;
 	$sort        = isset( $field['priority'] ) ? $field['priority'] : '';
 	$autocomplete = isset( $field['autocomplete'] ) ? $field['autocomplete'] : '';
+	$description = isset( $field['description'] ) ? $field['description'] : '';
 
 	// Тип инпута: email, tel, textarea или text.
 	if ( ! in_array( $type, array( 'email', 'tel', 'textarea' ), true ) ) {
@@ -762,7 +736,11 @@ function oor_render_checkout_field( $key, $field, $value ) {
 		echo '<input type="' . esc_attr( $type ) . '" name="' . $name_esc . '" id="' . $id_esc . '" class="input-text ' . esc_attr( $input_cls ) . '" value="' . $value_esc . '" placeholder="' . $ph_esc . '"' . $req_attr . $ac_attr . ' />';
 	}
 
-	echo '</span></p>';
+	echo '</span>';
+	echo '</p>';
+	if ( is_string( $description ) && $description !== '' ) {
+		echo '<div class="oor-checkout-help-text" style="display:block;margin-top:6px;font-size:11px;line-height:1.4;opacity:0.7;">' . esc_html( $description ) . '</div>';
+	}
 }
 
 // Чекаут: у полей адреса всегда должен быть тип, по которому woocommerce_form_field выведет инпут (text, email, tel и т.д.).
@@ -829,6 +807,45 @@ add_filter('woocommerce_checkout_fields', function($fields) {
     return $fields;
 }, 99999);
 
+// Чекаут: обязательное поле Telegram с пояснением для связи менеджера.
+add_filter('woocommerce_checkout_fields', function($fields) {
+    if (empty($fields['billing']) || !is_array($fields['billing'])) {
+        $fields['billing'] = array();
+    }
+
+    $fields['billing']['billing_telegram'] = array(
+        'type' => 'text',
+        'label' => 'Telegram',
+        'required' => true,
+        'class' => array('form-row-wide'),
+        'input_class' => array('input-text'),
+        'priority' => 126,
+        'placeholder' => '@username',
+        'description' => 'Менеджер свяжется с вами для согласования оплаты и доставки',
+    );
+
+    return $fields;
+}, 100000);
+
+// Сохраняем Telegram в мета заказа.
+add_action('woocommerce_checkout_create_order', function($order, $data) {
+    if (!empty($data['billing_telegram'])) {
+        $order->update_meta_data('_billing_telegram', sanitize_text_field($data['billing_telegram']));
+    }
+}, 20, 2);
+
+// Показываем Telegram в карточке заказа в админке.
+add_action('woocommerce_admin_order_data_after_billing_address', function($order) {
+    if (!is_object($order) || !method_exists($order, 'get_meta')) {
+        return;
+    }
+    $telegram = $order->get_meta('_billing_telegram');
+    if (!$telegram) {
+        return;
+    }
+    echo '<p><strong>Telegram:</strong> ' . esc_html($telegram) . '</p>';
+});
+
 // Подстраховка: если billing_country отсутствует в POST (скрытое поле не отрисовалось),
 // подставляем страну магазина, чтобы checkout не падал на "Страна/регион — обязательное поле".
 add_filter('woocommerce_checkout_posted_data', function($data) {
@@ -861,6 +878,7 @@ add_action('wp_footer', function() {
         'billing_state'      => array( 'type' => 'text', 'required' => true ),
         'billing_postcode'   => array( 'type' => 'text', 'required' => true ),
         'billing_email'      => array( 'type' => 'email', 'required' => true ),
+        'billing_telegram'   => array( 'type' => 'text', 'required' => true ),
         'billing_phone'      => array( 'type' => 'tel', 'required' => false ),
         'shipping_first_name'  => array( 'type' => 'text', 'required' => true ),
         'shipping_last_name'   => array( 'type' => 'text', 'required' => true ),
@@ -907,7 +925,12 @@ add_action('wp_footer', function() {
                         input.setAttribute('required', 'required');
                         input.setAttribute('aria-required', 'true');
                     }
-                    wrapper.appendChild(input);
+                    // Вставляем инпут первым, чтобы helper-текст (если есть) всегда оставался под полем.
+                    if (wrapper.firstChild) {
+                        wrapper.insertBefore(input, wrapper.firstChild);
+                    } else {
+                        wrapper.appendChild(input);
+                    }
                     row.classList.add('oor-injected-field');
                 });
             }
