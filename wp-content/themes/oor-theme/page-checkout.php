@@ -15,7 +15,7 @@ get_header();
     <section class="oor-checkout-section">
         <div class="oor-container">
             <div class="oor-checkout-header">
-                <h1 class="oor-checkout-title"><?php esc_html_e('ОПЛАТА', 'oor-theme'); ?></h1>
+                <h1 class="oor-checkout-title"><?php esc_html_e('ЗАЯВКА', 'oor-theme'); ?></h1>
             </div>
 
             <div class="oor-checkout-divider"></div>
