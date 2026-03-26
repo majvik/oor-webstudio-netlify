@@ -65,6 +65,13 @@ function initMaskedHeadingsReveal() {
 }
 // Главный файл JavaScript для проекта OOR
 document.addEventListener('DOMContentLoaded', function() {
+  if (document.body.classList.contains('oor-promo-page')) {
+    document.documentElement.classList.remove('preloader-active');
+    document.body.classList.remove('preloader-active');
+    document.documentElement.style.overflow = 'auto';
+    document.body.style.overflow = 'auto';
+    return;
+  }
   if (typeof gsap === 'undefined') {
     console.error('[OOR] GSAP not loaded - some animations may not work');
     loadGSAPFallback();
@@ -111,6 +118,9 @@ function loadGSAPFallback() {
 }
 
 window.addEventListener('load', function() {
+  if (document.body.classList.contains('oor-promo-page')) {
+    return;
+  }
   // Инициализация навигации для страниц магазина
   initMerchNavigation();
   initCartUpdateButtonVisibility();
@@ -328,7 +338,7 @@ function initParallaxImages() {
   if (window.innerWidth <= 460) return;
 
   // Отключаем параллакс на страницах магазина
-  if (document.body.classList.contains('oor-merch-page') || document.body.classList.contains('oor-product-page') || document.body.classList.contains('oor-cart-page') || document.body.classList.contains('oor-checkout-page')) {
+  if (document.body.classList.contains('oor-merch-page') || document.body.classList.contains('oor-product-page') || document.body.classList.contains('oor-cart-page') || document.body.classList.contains('oor-checkout-page') || document.body.classList.contains('oor-promo-page')) {
     return;
   }
 

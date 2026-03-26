@@ -77,6 +77,29 @@ add_filter('acf/load_value/name=platform', function($value, $post_id, $field) {
 }, 10, 3);
 
 /**
+ * ACF: если в БД временно есть две группы с полем tracks для artist,
+ * показываем только первое поле, чтобы в админке не было дубля repeater.
+ */
+add_filter('acf/prepare_field/name=tracks', function($field) {
+    if (!is_admin()) {
+        return $field;
+    }
+    if (!function_exists('get_current_screen')) {
+        return $field;
+    }
+    $screen = get_current_screen();
+    if (!$screen || $screen->base !== 'post' || $screen->post_type !== 'artist') {
+        return $field;
+    }
+    static $tracks_rendered = false;
+    if ($tracks_rendered) {
+        return false;
+    }
+    $tracks_rendered = true;
+    return $field;
+}, 20);
+
+/**
  * ACF медиа-модалка: кнопка выбора не должна показывать «Выпадающий список»
  * (исправление ошибочного перевода — принудительно «Выбрать»).
  */
@@ -225,6 +248,9 @@ if (PHP_VERSION_ID >= 80200) {
     }
 }
 
+// Промо-страница трека: inc/promo-page.php, шаблон template-promo-track.php, стили assets/css/promo-track.css.
+// ACF: acf-json/group_oor_artist_tracks_promo.json — при уже существующей группе полей «artist» в БД синхронизируйте вручную, чтобы не дублировать repeater tracks.
+
 // Настройка ACF для автоматической загрузки и синхронизации JSON из acf-json/
 add_filter('acf/settings/save_json', function($path) {
     $path = get_stylesheet_directory() . '/acf-json';
@@ -316,6 +342,7 @@ add_filter('image_size_names_choose', function($sizes) {
 
 // Подключение вспомогательных файлов
 require_once get_template_directory() . '/inc/cpt.php';
+require_once get_template_directory() . '/inc/promo-page.php';
 require_once get_template_directory() . '/inc/enqueue.php';
 require_once get_template_directory() . '/inc/body-classes.php';
 require_once get_template_directory() . '/inc/image-processing.php';

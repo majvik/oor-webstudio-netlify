@@ -475,8 +475,9 @@ function initCursor() {
   const IS_CART_PAGE = document.body.classList.contains('oor-cart-page');
   const IS_CHECKOUT_PAGE = document.body.classList.contains('oor-checkout-page');
   const IS_DAWGS_PAGE = document.body.classList.contains('oor-dawgs-page');
+  const IS_PROMO_PAGE = document.body.classList.contains('oor-promo-page');
   
-  if (IS_MERCH_PAGE || IS_PRODUCT_PAGE || IS_CART_PAGE || IS_CHECKOUT_PAGE || IS_DAWGS_PAGE) {
+  if (IS_MERCH_PAGE || IS_PRODUCT_PAGE || IS_CART_PAGE || IS_CHECKOUT_PAGE || IS_DAWGS_PAGE || IS_PROMO_PAGE) {
     if (cursorInstance) {
       cursorInstance.destroy();
       cursorInstance = null;
