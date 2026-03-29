@@ -50,6 +50,11 @@ $assets      = oor_promo_social_assets();
 <head>
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <?php
+    $oor_promo_favicon = get_template_directory_uri() . '/public/assets/logo.svg';
+    ?>
+    <link rel="icon" type="image/svg+xml" href="<?php echo esc_url($oor_promo_favicon); ?>">
+    <link rel="alternate icon" href="<?php echo esc_url($oor_promo_favicon); ?>">
     <title><?php echo esc_html($track_name ? $track_name . ' — ' . $artist_name : $artist_name); ?> | <?php bloginfo('name'); ?></title>
     <?php wp_head(); ?>
 </head>
