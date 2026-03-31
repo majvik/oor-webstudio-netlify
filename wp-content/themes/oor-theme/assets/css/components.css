@@ -13722,11 +13722,28 @@ body.oor-contacts-page .oor-header .oor-burger-menu .oor-burger-icon img {
   letter-spacing: -1.24px;
   text-transform: uppercase;
   color: #000;
-  text-decoration: underline;
-  text-decoration-style: solid;
-  text-underline-offset: 4px;
+  text-decoration: none;
   display: inline-block;
   width: fit-content;
+}
+
+.oor-contacts-email-link--with-tg {
+  display: inline-flex;
+  align-items: center;
+}
+
+.oor-contacts-email-link__tg-icon {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  margin-right: 8px;
+  color: #000;
+}
+
+.oor-contacts-email-link__tg-icon svg {
+  display: block;
+  width: 32px;
+  height: 32px;
 }
 
 .oor-contacts-email-link:hover {
@@ -13853,6 +13870,11 @@ body.oor-contacts-page .oor-header .oor-burger-menu .oor-burger-icon img {
   .oor-contacts-email-link {
     font-size: 24px;
     letter-spacing: -0.96px;
+  }
+
+  .oor-contacts-email-link__tg-icon svg {
+    width: 24px;
+    height: 24px;
   }
 
   .oor-contacts-social-title {

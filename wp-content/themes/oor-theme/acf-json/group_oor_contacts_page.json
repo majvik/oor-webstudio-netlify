@@ -1,0 +1,214 @@
+{
+    "key": "group_oor_contacts_page",
+    "title": "Страница «Контакты»",
+    "fields": [
+        {
+            "key": "field_oor_contacts_main_title",
+            "label": "Заголовок блока",
+            "name": "contacts_main_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Основной подзаголовок под героем страницы контактов.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_oor_contacts_list",
+            "label": "Контакты",
+            "name": "contacts_list",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Добавьте контакты (email адреса)",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "",
+            "min": 0,
+            "max": 0,
+            "layout": "table",
+            "button_label": "Добавить контакт",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_oor_contact_label",
+                    "label": "Заголовок контакта",
+                    "name": "contact_label",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": "",
+                    "parent_repeater": "field_oor_contacts_list"
+                },
+                {
+                    "key": "field_oor_contact_display",
+                    "label": "Отображение контакта",
+                    "name": "contact_display",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Текст, который видит пользователь (email, телефон и т.д.)",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": "",
+                    "parent_repeater": "field_oor_contacts_list"
+                },
+                {
+                    "key": "field_oor_contact_link",
+                    "label": "Ссылка",
+                    "name": "contact_link",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "mailto:, https://t.me/... и т.п.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": "",
+                    "parent_repeater": "field_oor_contacts_list"
+                },
+                {
+                    "key": "field_oor_contact_show_tg_icon",
+                    "label": "Показывать tg иконку",
+                    "name": "contact_show_tg_icon",
+                    "aria-label": "",
+                    "type": "true_false",
+                    "instructions": "Включите, если ссылка ведёт на Telegram",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "message": "",
+                    "default_value": 0,
+                    "ui": 1,
+                    "ui_on_text": "",
+                    "ui_off_text": "",
+                    "parent_repeater": "field_oor_contacts_list"
+                }
+            ]
+        },
+        {
+            "key": "field_oor_social_networks",
+            "label": "Соцсети",
+            "name": "social_networks",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Ссылки в блоке «СОЦСЕТИ»",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "",
+            "min": 0,
+            "max": 0,
+            "layout": "table",
+            "button_label": "Добавить соцсеть",
+            "rows_per_page": 20,
+            "sub_fields": [
+                {
+                    "key": "field_oor_social_name",
+                    "label": "Название",
+                    "name": "social_name",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": "",
+                    "parent_repeater": "field_oor_social_networks"
+                },
+                {
+                    "key": "field_oor_social_link",
+                    "label": "Ссылка",
+                    "name": "social_link",
+                    "aria-label": "",
+                    "type": "url",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "placeholder": "",
+                    "parent_repeater": "field_oor_social_networks"
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "page-contacts.php"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "modified": 1743417600
+}
