@@ -342,16 +342,28 @@ add_action('acf/init', function() {
 
 // Группы полей «Футер — email и соцсети» и «Главная страница» (включая hero-соцсети) хранятся в БД.
 
-// «Продолжить покупки» / «Return to shop» ведёт на мерч (каталог товаров)
-add_filter('woocommerce_return_to_shop_redirect', function() {
-    return function_exists('wc_get_page_id') && wc_get_page_id('shop') > 0
-        ? get_permalink(wc_get_page_id('shop'))
-        : home_url('/merch');
+// «Продолжить покупки» / «Return to shop»: при отсутствии страницы магазина в WC — каталог /merch
+add_filter('woocommerce_return_to_shop_redirect', function ($shop_permalink) {
+    if (!function_exists('wc_get_page_id')) {
+        return home_url('/merch');
+    }
+    $shop_id = (int) wc_get_page_id('shop');
+    if ($shop_id > 0) {
+        $permalink = get_permalink($shop_id);
+        return is_string($permalink) && $permalink !== '' ? $permalink : home_url('/merch');
+    }
+    return home_url('/merch');
 });
-add_filter('woocommerce_continue_shopping_redirect', function() {
-    return function_exists('wc_get_page_id') && wc_get_page_id('shop') > 0
-        ? get_permalink(wc_get_page_id('shop'))
-        : home_url('/merch');
+add_filter('woocommerce_continue_shopping_redirect', function ($redirect) {
+    if (!function_exists('wc_get_page_id')) {
+        return home_url('/merch');
+    }
+    $shop_id = (int) wc_get_page_id('shop');
+    if ($shop_id > 0) {
+        $permalink = get_permalink($shop_id);
+        return is_string($permalink) && $permalink !== '' ? $permalink : home_url('/merch');
+    }
+    return home_url('/merch');
 });
 
 // Включение поддержки AVIF и WebP изображений
@@ -575,32 +587,50 @@ add_action('init', function() {
     remove_action('wp_head', 'wp_generator');
 }, 1);
 
-// Чекаут: всегда используем шаблон со шорткодом [woocommerce_checkout], а не блок — чтобы поля billing были в DOM
-// Мерч: для страницы с slug merch принудительно archive-product.php (главный запрос не трогаем — иначе 404)
-// Страница товара: принудительно single-product.php темы (чтобы не подгружался блоковый/другой шаблон)
-add_filter('template_include', function($template) {
+// Корзина / чекаут / мерч / товар: один фильтр, приоритет 1001 — после ACF Extended и др. (часто 999), иначе шаблон перезаписывается.
+// Корзина: по ID страницы из настроек WC (надёжнее, чем is_cart() — в новых WC он завязан на CartCheckoutUtils и может не сработать).
+// Чекаут: шаблон со шорткодом [woocommerce_checkout], не блок.
+// Мерч: страница merch или is_shop() → archive-product.php.
+// Товар: single-product.php темы.
+add_filter('template_include', function ($template) {
+    $theme_dir = get_stylesheet_directory();
+
+    if (function_exists('wc_get_page_id')) {
+        $cart_page_id = (int) wc_get_page_id('cart');
+        $is_wc_cart_view = ($cart_page_id > 0 && function_exists('is_page') && is_page($cart_page_id))
+            || (function_exists('is_cart') && is_cart());
+        if ($is_wc_cart_view) {
+            $cart_tpl = $theme_dir . '/page-cart.php';
+            if (is_readable($cart_tpl)) {
+                return $cart_tpl;
+            }
+        }
+    }
+
     if (function_exists('is_checkout') && is_checkout()) {
         if (!(function_exists('is_wc_endpoint_url') && is_wc_endpoint_url())) {
-            $our = get_stylesheet_directory() . '/page-checkout.php';
+            $our = $theme_dir . '/page-checkout.php';
             if (file_exists($our)) {
                 return $our;
             }
         }
         return $template;
     }
-    $theme_dir = get_stylesheet_directory();
+
     if (function_exists('is_product') && is_product()) {
         $single = $theme_dir . '/woocommerce/single-product.php';
         if (file_exists($single)) {
             return $single;
         }
     }
+
     $merch_template = $theme_dir . '/woocommerce/archive-product.php';
     if ((function_exists('is_shop') && is_shop() || is_page('merch')) && file_exists($merch_template)) {
         return $merch_template;
     }
+
     return $template;
-}, 99);
+}, 1001);
 
 // Чекаут: при пустой корзине всё равно показываем форму (поля в DOM), редирект отключён
 add_filter('woocommerce_checkout_redirect_empty_cart', '__return_false', 1);

@@ -12575,6 +12575,47 @@ body.oor-cart-page button[name="update_cart"].oor-cart-update-hidden {
   opacity: 0.8;
 }
 
+/* Пустая корзина: обёртка .return-to-shop (div) + ссылка-кнопка — не наследует 12px от body.oor-cart-page p */
+body.oor-cart-page .return-to-shop {
+  margin-top: 20px;
+  margin-bottom: 0;
+}
+
+body.oor-cart-page .return-to-shop a.button,
+body.oor-cart-page .return-to-shop a.wc-backward,
+body.oor-cart-page .return-to-shop a.oor-cart-return-to-shop,
+body.oor-cart-page .return-to-shop > a,
+body.oor-cart-page p.return-to-shop > a {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 12px 24px !important;
+  background: #000 !important;
+  border: 1px solid #000 !important;
+  border-radius: 0 !important;
+  color: #fff !important;
+  font-family: var(--font-ui) !important;
+  font-size: var(--font-size-root) !important;
+  line-height: var(--line-height-root) !important;
+  font-weight: 300 !important;
+  letter-spacing: -0.040rem !important;
+  text-decoration: none !important;
+  cursor: pointer;
+  box-sizing: border-box !important;
+  transition: opacity 0.2s ease;
+}
+
+body.oor-cart-page .return-to-shop a.button:hover,
+body.oor-cart-page .return-to-shop a.wc-backward:hover,
+body.oor-cart-page .return-to-shop a.oor-cart-return-to-shop:hover,
+body.oor-cart-page .return-to-shop > a:hover,
+body.oor-cart-page p.return-to-shop > a:hover {
+  opacity: 0.85;
+  color: #fff !important;
+  background: #000 !important;
+}
+
 /* Cart Items */
 .oor-cart-items {
   display: flex;

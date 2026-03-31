@@ -11,7 +11,6 @@ if (!defined('ABSPATH')) {
 get_header();
 ?>
 
-<main id="main-content">
     <section class="oor-cart-section">
         <div class="oor-container">
             <div class="oor-cart-header">
@@ -21,11 +20,10 @@ get_header();
             <div class="oor-cart-divider"></div>
 
             <div class="oor-cart-items">
-                <?php echo do_shortcode('[woocommerce_cart]'); ?>
+                <?php echo do_shortcode('[woocommerce_cart]'); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
             </div>
         </div>
     </section>
-</main>
 
 <?php
 get_footer();
