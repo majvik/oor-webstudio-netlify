@@ -508,6 +508,133 @@ body.oor-studio-page .oor-header .oor-burger-menu .oor-burger-icon img {
   background:transparent;
 }
 
+/* Главная (front-page): хедер поверх hero, заголовок поверх видео. Класс .oor-home-hero — без привязки к body.home (статическая главная и т.д.). */
+body:has(.oor-home-hero) .oor-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: transparent !important;
+  mix-blend-mode: normal !important;
+  z-index: 100;
+}
+
+body:has(.oor-home-hero) .oor-logo img {
+  filter: brightness(0) invert(1) !important;
+  mix-blend-mode: normal !important;
+}
+
+body:has(.oor-home-hero) .oor-header .oor-nav-link,
+body:has(.oor-home-hero) .oor-header .oor-nav-link--active,
+body:has(.oor-home-hero) .oor-header .oor-nav-item > span {
+  color: #fff !important;
+  mix-blend-mode: normal !important;
+}
+
+body:has(.oor-home-hero) .oor-header .oor-btn-small {
+  mix-blend-mode: normal !important;
+}
+
+body:has(.oor-home-hero) .oor-header .oor-btn-small-text {
+  color: #fff !important;
+  mix-blend-mode: normal !important;
+}
+
+body:has(.oor-home-hero) .oor-header .oor-btn-small-icon img {
+  filter: brightness(0) invert(1) !important;
+  mix-blend-mode: normal !important;
+}
+
+body:has(.oor-home-hero) .oor-header .oor-burger-menu .oor-burger-icon,
+body:has(.oor-home-hero) .oor-header .oor-burger-menu .oor-burger-icon *,
+body:has(.oor-home-hero) .oor-header .oor-burger-menu .oor-burger-icon img {
+  filter: brightness(0) invert(1) !important;
+  mix-blend-mode: normal !important;
+  opacity: 1 !important;
+}
+
+.oor-home-hero {
+  position: relative;
+}
+
+/* Главная: h1 первым; до FEELING THE MUSIC — 72px на мобиле, 120px на десктопе */
+.oor-home-hero .oor-hero-text {
+  gap: 72px;
+}
+
+.oor-home-hero .oor-home-hero-text-body {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  align-self: stretch;
+  width: 100%;
+  gap: 48px;
+}
+
+/* Главный заголовок в нижнем блоке hero (front-page) */
+.oor-home-hero .oor-hero-title-block--home-bottom {
+  position: relative;
+  z-index: 6;
+  width: 100%;
+  align-items: flex-start;
+  padding-top: 0 !important;
+  margin-top: 0;
+}
+
+@media (min-width: 1025px) {
+  .oor-home-hero .oor-hero-text {
+    gap: 120px;
+  }
+
+  .oor-home-hero .oor-hero-title-block--home-bottom {
+    margin-top: 120px;
+  }
+
+  .oor-home-hero .oor-home-hero-text-body {
+    gap: 120px;
+  }
+}
+
+.oor-home-hero .oor-hero-title {
+  pointer-events: auto;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.oor-home-hero .oor-hero-title,
+.oor-home-hero .oor-hero-title-block,
+.oor-home-hero .oor-hero-title-block * {
+  color: #fff !important;
+  mix-blend-mode: normal !important;
+}
+
+.oor-home-hero .oor-hero-main {
+  padding: 0;
+  min-height: 100vh;
+  min-height: 100svh;
+}
+
+.oor-home-hero .oor-hero-main .oor-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 4;
+  padding-bottom: 48px;
+}
+
+/* После базового padding-bottom — иначе 48px перезапишет 80px (одинаковая специфичность, порядок в файле). */
+@media (min-width: 1025px) {
+  .oor-home-hero .oor-hero-main .oor-container {
+    padding-bottom: 80px;
+  }
+
+  .oor-home-hero .oor-hero-plus-bottom-left,
+  .oor-home-hero .oor-hero-plus-bottom-right {
+    bottom: 80px;
+  }
+}
+
 /* Hero Content */
 .oor-hero-content{
   position:relative;
@@ -709,12 +836,14 @@ body.oor-studio-page .oor-header .oor-burger-menu .oor-burger-icon img {
   opacity:1;
 }
 
-/* Benefits */
+/* Benefits — компактный ряд, без растягивания на всю ширину колонки */
 .oor-hero-benefits{
   display:flex;
-  justify-content:space-between;
+  flex-wrap:wrap;
+  justify-content:flex-start;
   align-items:center;
-  align-self:stretch;
+  align-self:flex-start;
+  gap:16px;
 }
 
 .oor-benefit-item{
@@ -3090,66 +3219,6 @@ body:has(.oor-mobile-menu.active) {
   .oor-footer-links { padding-bottom: 32px !important; }
   .oor-col-3.oor-challenge-2-good-works { gap: 32px !important; }
 
-  body.home .oor-section-hero {
-    position: relative;
-  }
-
-  body.home .oor-section-hero > .oor-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 5;
-    pointer-events: none;
-  }
-
-  body.home .oor-section-hero .oor-hero-title-block {
-    padding-top: 200px;
-  }
-
-  body.home .oor-section-hero .oor-hero-title,
-  body.home .oor-section-hero .oor-hero-title-block * {
-    color: #fff !important;
-  }
-
-  .oor-hero-main {
-    padding: 0;
-    height: 100vh;
-    /* Use small viewport height to prevent jumps when browser UI hides/shows */
-    height: 100svh;
-  }
-
-  .oor-hero-main .oor-container {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 4;
-    padding-bottom: 48px;
-  }
-
-  body.home .oor-header {
-    position: absolute !important;
-    top: 0;
-    left: 0;
-    right: 0;
-    background: transparent !important;
-    mix-blend-mode: normal !important;
-    z-index: 100;
-  }
-
-  body.home .oor-logo img {
-    filter: brightness(0) invert(1) !important;
-    mix-blend-mode: normal !important;
-  }
-
-  body.home .oor-header .oor-burger-menu .oor-burger-icon,
-  body.home .oor-header .oor-burger-menu .oor-burger-icon *,
-  body.home .oor-header .oor-burger-menu .oor-burger-icon img {
-    filter: brightness(0) invert(1) !important;
-    mix-blend-mode: normal !important;
-    opacity: 1 !important;
-  }
   .oor-mobile-menu {
     width: 100%;
     right: -100%;

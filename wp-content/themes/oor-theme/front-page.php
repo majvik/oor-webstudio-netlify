@@ -8,18 +8,7 @@ get_header();
 ?>
 
 <!-- HERO Section -->
-    <section class="oor-section-hero">
-        <div class="oor-container">
-            <div class="oor-grid oor-hero-title-block">
-                <div class="oor-col-10">
-                    <h1 class="oor-hero-title">Out of records</h1>
-        </div>
-                <div class="oor-col-1"></div>
-                <div class="oor-col-1">
-      </div>
-    </div>
-    </div>
-        
+    <section class="oor-section-hero oor-home-hero">
         <div class="oor-hero-main">
             <?php
             // Получаем Hero видео из ACF
@@ -89,6 +78,14 @@ get_header();
                 <div class="oor-grid oor-hero-content">
                     <!-- Hero Text -->
                     <div class="oor-col-12 oor-hero-text">
+                        <div class="oor-grid oor-hero-title-block oor-hero-title-block--home-bottom">
+                            <div class="oor-col-10">
+                                <h1 class="oor-hero-title">Out of records</h1>
+                            </div>
+                            <div class="oor-col-1"></div>
+                            <div class="oor-col-1"></div>
+                        </div>
+                        <div class="oor-home-hero-text-body">
                         <!-- Description -->
                         <div class="oor-hero-description">
                             <div class="oor-grid oor-hero-description-grid">
@@ -126,6 +123,7 @@ get_header();
                             <img src="<?php echo get_template_directory_uri(); ?>/public/assets/line-small.svg" alt="" width="1" height="16" class="oor-media-cover">
                             <span class="oor-benefit-item">Дистрибьютор</span>
       </div>
+                        </div>
     </div>
       </div>
           </div>
