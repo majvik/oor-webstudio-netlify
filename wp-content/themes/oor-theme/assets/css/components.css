@@ -557,41 +557,89 @@ body:has(.oor-home-hero) .oor-header .oor-burger-menu .oor-burger-icon img {
   position: relative;
 }
 
-/* Главная: h1 первым; до FEELING THE MUSIC — 72px на мобиле, 120px на десктопе */
-.oor-home-hero .oor-hero-text {
-  gap: 72px;
-}
-
 .oor-home-hero .oor-home-hero-text-body {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: stretch;
   align-self: stretch;
   width: 100%;
-  gap: 48px;
-}
-
-/* Главный заголовок в нижнем блоке hero (front-page) */
-.oor-home-hero .oor-hero-title-block--home-bottom {
-  position: relative;
-  z-index: 6;
-  width: 100%;
-  align-items: flex-start;
-  padding-top: 0 !important;
+  gap: 40px;
   margin-top: 0;
 }
 
+/* Главная: h1 и социконки в одной flex-строке */
+.oor-home-hero .oor-home-hero-description-head {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  width: 100%;
+  min-width: 0;
+  position: relative;
+  z-index: 6;
+}
+
+.oor-home-hero .oor-home-hero-description-head .oor-hero-description-title-wrapper {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.oor-home-hero .oor-home-hero-description-head .oor-social-icons {
+  flex: 0 0 auto;
+  align-self: flex-end;
+}
+
+.oor-home-hero .oor-hero-description-grid {
+  align-items: stretch;
+}
+
+.oor-home-hero .oor-hero-description-title-wrapper .oor-hero-title {
+  width: 100%;
+  max-width: none;
+}
+
+.oor-home-hero .oor-hero-description-title-wrapper .oor-hero-title .oor-heading-mask {
+  width: 100%;
+}
+
+@media (max-width: 1024px) {
+  .oor-home-hero .oor-home-hero-description-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 32px;
+  }
+
+  .oor-home-hero .oor-home-hero-description-head .oor-social-icons {
+    width: 100%;
+    justify-content: flex-start;
+    align-self: stretch;
+  }
+}
+
+/* Ряд преимуществ на всю ширину, сразу под блоком с h1 (порядок в DOM) */
+.oor-home-hero .oor-hero-description {
+  width: 100%;
+}
+
+.oor-home-hero .oor-hero-benefits {
+  align-self: stretch;
+  width: 100%;
+  max-width: none;
+  box-sizing: border-box;
+}
+
 @media (min-width: 1025px) {
-  .oor-home-hero .oor-hero-text {
-    gap: 120px;
+  .oor-home-hero .oor-hero-benefits {
+    justify-content: space-between;
   }
+}
 
-  .oor-home-hero .oor-hero-title-block--home-bottom {
-    margin-top: 120px;
-  }
-
+@media (min-width: 1025px) {
   .oor-home-hero .oor-home-hero-text-body {
-    gap: 120px;
+    gap: 40px;
+    margin-top: 120px;
   }
 }
 
@@ -623,10 +671,13 @@ body:has(.oor-home-hero) .oor-header .oor-burger-menu .oor-burger-icon img {
   padding-bottom: 48px;
 }
 
-/* После базового padding-bottom — иначе 48px перезапишет 80px (одинаковая специфичность, порядок в файле). */
+/*
+ * Десктоп: плюсы — bottom: 80px; высота блока с иконкой ~18px.
+ * 120px — зазор от низа контента до верхнего края плюса ⇒ padding = 80 + 18px + 120.
+ */
 @media (min-width: 1025px) {
   .oor-home-hero .oor-hero-main .oor-container {
-    padding-bottom: 80px;
+    padding-bottom: calc(80px + 18px + 120px);
   }
 
   .oor-home-hero .oor-hero-plus-bottom-left,

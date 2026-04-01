@@ -78,21 +78,15 @@ get_header();
                 <div class="oor-grid oor-hero-content">
                     <!-- Hero Text -->
                     <div class="oor-col-12 oor-hero-text">
-                        <div class="oor-grid oor-hero-title-block oor-hero-title-block--home-bottom">
-                            <div class="oor-col-10">
-                                <h1 class="oor-hero-title">Out of records</h1>
-                            </div>
-                            <div class="oor-col-1"></div>
-                            <div class="oor-col-1"></div>
-                        </div>
                         <div class="oor-home-hero-text-body">
-                        <!-- Description -->
+                        <!-- Description: h1 и социконки в одной flex-строке (десктоп) -->
                         <div class="oor-hero-description">
                             <div class="oor-grid oor-hero-description-grid">
-                                <div class="oor-col-6 oor-hero-description-title-wrapper">
-                                    <h2 class="oor-hero-description-title">FEELING THE MUSIC</h2>
-    </div>
-                                <div class="oor-col-6 oor-social-icons">
+                                <div class="oor-col-12 oor-home-hero-description-head">
+                                <div class="oor-hero-description-title-wrapper">
+                                    <h1 class="oor-hero-title">Out of records</h1>
+                                </div>
+                                <div class="oor-social-icons">
                                     <?php
                                     $hero_telegram = function_exists('get_field') ? get_field('hero_telegram_url') : '';
                                     $hero_instagram = function_exists('get_field') ? get_field('hero_instagram_url') : '';
@@ -102,16 +96,17 @@ get_header();
                                     $hero_instagram_url = $hero_instagram !== '' ? $hero_instagram : '#';
                                     ?>
                                     <a href="<?php echo esc_url($hero_telegram_url); ?>" class="oor-social-icon" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none">
                                             <path d="M12 2C17.523 2 22 6.47696 22 12C22 17.523 17.523 22 12 22C6.47696 22 2 17.523 2 12C2 6.47696 6.47696 2 12 2ZM15.4496 16.0761C15.6335 15.5117 16.4952 9.88739 16.6017 8.77913C16.6339 8.44348 16.5278 8.22043 16.32 8.12087C16.0687 8 15.6965 8.06043 15.2648 8.21609C14.6726 8.42957 7.10217 11.6439 6.66478 11.83C6.25 12.0061 5.85783 12.1983 5.85783 12.4765C5.85783 12.6722 5.97391 12.7822 6.29391 12.8965C6.62696 13.0152 7.46565 13.2696 7.96087 13.4061C8.43783 13.5378 8.98087 13.4235 9.28522 13.2343C9.60783 13.0339 13.3309 10.5426 13.5983 10.3243C13.8652 10.1061 14.0783 10.3857 13.86 10.6043C13.6417 10.8226 11.0861 13.303 10.7491 13.6465C10.34 14.0635 10.6304 14.4957 10.9048 14.6687C11.2183 14.8661 13.4726 16.3783 13.8122 16.6209C14.1517 16.8635 14.4961 16.9735 14.8113 16.9735C15.1265 16.9735 15.2926 16.5583 15.4496 16.0761Z" fill="white"/>
                                         </svg>
                                     </a>
                                     <a href="<?php echo esc_url($hero_instagram_url); ?>" class="oor-social-icon" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none">
                                             <path d="M7.99834 2.40002C4.91114 2.40002 2.3999 4.91359 2.3999 8.00159V16.0016C2.3999 19.0888 4.91347 21.6 8.00146 21.6H16.0015C19.0887 21.6 21.5999 19.0865 21.5999 15.9985V7.99846C21.5999 4.91126 19.0863 2.40002 15.9983 2.40002H7.99834ZM17.5999 5.60002C18.0415 5.60002 18.3999 5.95842 18.3999 6.40002C18.3999 6.84162 18.0415 7.20002 17.5999 7.20002C17.1583 7.20002 16.7999 6.84162 16.7999 6.40002C16.7999 5.95842 17.1583 5.60002 17.5999 5.60002ZM11.9999 7.20002C14.6471 7.20002 16.7999 9.35282 16.7999 12C16.7999 14.6472 14.6471 16.8 11.9999 16.8C9.3527 16.8 7.1999 14.6472 7.1999 12C7.1999 9.35282 9.3527 7.20002 11.9999 7.20002ZM11.9999 8.80002C11.1512 8.80002 10.3373 9.13717 9.73716 9.73728C9.13704 10.3374 8.7999 11.1513 8.7999 12C8.7999 12.8487 9.13704 13.6626 9.73716 14.2628C10.3373 14.8629 11.1512 15.2 11.9999 15.2C12.8486 15.2 13.6625 14.8629 14.2626 14.2628C14.8628 13.6626 15.1999 12.8487 15.1999 12C15.1999 11.1513 14.8628 10.3374 14.2626 9.73728C13.6625 9.13717 12.8486 8.80002 11.9999 8.80002Z" fill="white"/>
                                         </svg>
                                     </a>
-          </div>
+                                </div>
+                                </div>
         </div>
       </div>
                         
